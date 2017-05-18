@@ -22,14 +22,17 @@ Vivado design
 
 An overlay consists of two main parts; the Programmable Logic (PL) design, and the Python API. 
 
-Xilinx® Vivado software is used to create the PL design. This will generate a *bitstream* or *binary* file (.bit file) that is used to program the Zynq PL.  
+Xilinx® Vivado software is used to create a Zynq design. A *bitstream* or *binary* file (.bit file) will be generated that can be used to program the Zynq PL.
 
-The free WebPack version of Vivado can be used with the PYNQ-Z1 board to create overlays.
+The free WebPack version of Vivado can be used with mid-range Zynq devices (XC7Z007S – XC7Z7030), which includes the PYNQ-Z1 board (XC7Z020).
 https://www.xilinx.com/products/design-tools/vivado/vivado-webpack.html
 
 There are some differences between the standard Zynq design process, and designing overlays for PYNQ. A Vivado project for a Zynq design consists of two parts; the PL design, and the PS configuration settings. The PS configuration includes settings for system clocks, including the clocks used in the PL. 
 
 The PYNQ image which is used to boot the board configures the Zynq PS at boot time. Overlays are downloaded as required by the programmer, and will not reconfigure the Zynq PS. This means that overlay designers should ensure the PS settings in their Vivado project match the PYNQ image settings. 
+
+PYNQ-Z1 settings
+------------------- 
 
 The following settings should be used for a new Vivado overlay project: 
 
@@ -39,17 +42,17 @@ Vivado Project settings:
 
 PL clock configuration:
 
-* FCLK_CLK0: 100.00MHz
-* FCLK_CLK1: 142.86MHz
-* FCLK_CLK2: 200.00MHz
-* FCLK_CLK3: 166.67MHz
+* FCLK_CLK0: 100.00 MHz
+* FCLK_CLK1: 142.86 MHz
+* FCLK_CLK2: 200.00 MHz
+* FCLK_CLK3: 100 MHz
 
 The PYNQ-Z1 Master XDC (I/O constraints) are available at the Digilent PYNQ-Z1 resource site:
-https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/start
+https://reference.digilentinc.com/reference/programmable-logic/boards/<board name>/start
 
 It is recommended to start with an existing overlay design to ensure the PS settings are correct. The source files for the *base* overlay can be found in the pynq GitHub, and the project can be rebuilt using the makefile available here:
    
-   ``<GitHub repository>/Pynq-Z1/vivado/base``
+   ``<GitHub repository>/boards/<board name>/vivado/base``
 
 Block Diagram Tcl
 ------------------
@@ -120,13 +123,13 @@ Similarly, the PL package can be used to find the addressable IPs currently in t
 Existing Overlays
 =========================
 
-The *base* overlay is included in the Pynq repository and can be found here:
+The *base* overlay can be found in the boards directory in the Pynq repository. For example:
 
-   ``<GitHub repository>/Pynq-Z1/vivado/base``
+   ``<GitHub repository>/boards/<board name>/vivado/base``
   
 A makefile exists in each folder that can be used to rebuild the Vivado project and generate the bitstream for the overlay. The bitstream and tcl for the overlay are available on the board (base.bit is loaded by default when the board boots), and in the project repository: 
 
-   ``<GitHub Repository>/Pynq-Z1/bitstream/``
+   ``<GitHub Repository>/boards/<board name>/bitstream/``
 
 Vivado must be installed to design and build overlays. Building an existing overlay design allows the project to be opened in Vivado and examined, or modified to create a new overlay. 
 
@@ -247,7 +250,7 @@ An overlay, tcl, and Python can be placed anywhere in the filesystem, but this i
 
 The default location for the base PYNQ overlay and tcl is : 
    
-   ``<GitHub Repository>/Pynq-Z1/bitstream``
+   ``<GitHub Repository>/boards/<board name>/bitstream``
 
 The PYNQ Python can be found here:
 

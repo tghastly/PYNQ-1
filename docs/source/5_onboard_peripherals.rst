@@ -1,6 +1,3 @@
-**************************
-Peripherals and Interfaces
-**************************
 
 .. contents:: Table of Contents
    :depth: 2
@@ -8,13 +5,14 @@ Peripherals and Interfaces
 Introduction
 ====================
 
-The Zynq PL can support many types of protocols and interfaces for external peripherals. The Pynq-Z1 has two Pmod ports and one Arduino interface for connecting external peripherals directly to the Zynq PL. This allows peripherals to be controlled in hardware. Other peripherals can be connected to these ports via adapters, or with a breadboard. 
+The Zynq PL can support many types of protocols and interfaces for external peripherals. The Pmod and Arduino interfaces are commonly used on Zynq development boards to connect peripherals to the PL, allowing them to be controlled in hardware. 
+Other peripherals can be connected to these ports via adapters, or with a breadboard. 
 
-The USB port can also be used to connect standard USB peripherals to the Zynq PS. Linux drivers are required for connecting USB peripherals. The PYNQ image currently includes drivers for some webcams, and USB wifi peripherals.
+The USB port and other standard interfaces can also be used to connect off-the-shelf USB and other peripherals to the Zynq PS. Linux drivers are required for connecting USB peripherals. The PYNQ image currently includes drivers for the most commonly used USB webcams, wifi peripherals, and other standard USB devices.
 
-Note that the Zynq PS has dedicated peripherals including Ethernet, USB, UART, IIC, SPI, CAN controllers and GPIO. Only the Ethernet, USB, and UART are connected externally on the board. It is possible to connect the other controllers internally to the Zynq PL. The peripherals could then be used internally inside the PL, or routed to PL pins. E.g. to Pmod, or Arduino pins. This would require an overlay design.
+Note that the Zynq PS has dedicated peripherals including Ethernet, USB, UART, IIC, SPI, CAN controllers and GPIO. Only a limited number of these dedicated peripherals are connected externally on most Zynq development board; typically SD card, Ethernet, USB, and UART. It is possible to connect some of the other dedicated peripherals internally to the Zynq PL. The peripherals could then be used internally inside the PL, or routed to PL pins. E.g. to Pmod, or Arduino pins. 
 
-In the base overlay, each IOP has its only set of controllers, implemented in programmable logic, and does not need to use the Zynq PS peripherals. 
+The base overlay attempts to provide a reference design, connecting to the onboard peripherals. In the case of the Pmod and Arduino, each interface is controlled by an IOP and has its own set of peripheral controllers, implemented in programmable logic, and does not need to use the Zynq PS peripherals. 
 
 Pmod port
 ===================

@@ -8,6 +8,26 @@ Data Transfer
 Introduction
 ==================
 
+AXI interfaces are the main connections for transferring data between the PS and the PL. The Zynq has 2 AXI general purpose masters (master from PS to PL) and 2 AXI general purpose slaves (slave from PS to PL). There are also 4 AXI High performance ports, and one ACP port. 
+For details on AXI interfaces, see:
+
+There are also GPIO, which are simple wires between PS and PL and can be used for conntrol. E.g. reset or interrupts. 
+
+There are 3 main classes of PL peripheral used in Zynq designs. 
+
+* AXI Slave - reacts to transactions from a (PS) master. 
+* AXI Stream - stream interface to process data. The PS will usually transfer data to the AXI stream slave, and receive data from the AXI stream master. 
+* AXI Master - a master device in the PL. A master can read/write DDR memory directly without interaction of the PS CPU. 
+
+There are 3 classes to carry out, and also to facilitate data transfer between PS and PL
+
+* MMIO - register read/write transactions to an AXI slave interface.
+* DMA - transfer data to/from AXI stream interfaces. 
+* Xlnk - allocates memory, and provides the physical address for an AXI master peripheral to use. 
+
+
+The main interfaces between the ZynqPS and the PL. 
+
 Data can be transferred from pynq to an overlay in two main ways. The python ``MMIO`` *Memory Mapped Input/Output*, and ``xlnk`` classes in the pynq package can be used for simple and streamed data transfer. 
 
 MMIO
@@ -66,26 +86,14 @@ xlnk basic example
 
 Data can be written to the buffer, and the physical address can be sent to a block in the accelerator (for example and IOP) which could then access the buffer from DDR memory. 
 
+DMA
+======
 
-xlnx DMA example
+
+DMA example
 -----------------
 
 This example assumes the overlay contains the `AXI Direct Memory Access (7.1) <https://www.xilinx.com/support/documentation/ip_documentation/axi_dma/v7_1/pg021_axi_dma.pdf>`_ IP. This IP can be used to connect to AXI streams in an overlay. 
 
 .. code-block:: Python
-
-   MEMORY_SIZE = 0x1000
-   OVERLAY_MEMORY_LOCATION = 0x40000000
-   
-   from pynq import Xlnk
-   mmu = Xlnk()   
-   
-   ps_bufptr = mmu.cma_alloc(MEMORY_SIZE)
-   overlay_bufptr = mmu.cma_alloc(MEMORY_SIZE)
-   
-   for i in range(MEMORY_SIZE):
-      ps_bufptr[i] = i
-      
-   mmu.cma_memcopy(overlay_bufptr,ps_bufptr,MEMORY_SIZE)
-   
 

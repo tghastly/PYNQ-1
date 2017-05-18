@@ -58,11 +58,11 @@ To use the trace buffer, instantiate the trace buffer class, specifying the inte
       tr_buf = Trace_Buffer(PMODA,pins=[2,3],probes=['SCL','SDA'],
                       protocol="i2c",rate=1000000)
                       
-The tracebuffer runs at 166MHz. The sample rate is the number of samples stored out of every sample captured. E.g. rate = 1 will store samples at 166 Msps. rate = 2 will store samples at 83 Msps etc.  
+The tracebuffer runs at 100 MHz. The sample rate is the number of samples stored out of every sample captured. E.g. rate = 1 will store samples at 100 Msps. rate = 2 will store samples at 83 Msps etc.  
 
 .. code-block :: console
     
-    Samples captured = 166 MHz/rate
+    Samples captured = 100 MHz/rate
 
 
 Once you are ready to start collecting data, start the trace buffer.

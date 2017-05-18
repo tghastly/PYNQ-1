@@ -21,9 +21,9 @@ The only IP that is specific to each IOP is the configurable switch. There is a 
 
 :: 
    
-   <GitHub Repository>/Pynq-Z1/vivado/ip/pmod_io_switch_1.0/  \
+   <GitHub Repository>/boards/<board name>/vivado/ip/pmod_io_switch_1.0/  \
    drivers/pmod_io_switch_v1_0/src/pmod.h
-      <GitHub Repository>/Pynq-Z1/vivado/ip/arduino_io_switch_1.0/  \
+      <GitHub Repository>/boards/<board name>/vivado/ip/arduino_io_switch_1.0/  \
    drivers/arduino_io_switch_v1_0/src/arduino.h
 
 The corresponding C code, ``pmod.c`` and ``arduino.c`` can also be found in this directory. 
@@ -40,7 +40,7 @@ You can find the header file for the Pmod IOP switch here:
 
 :: 
    
-   <GitHub Repository>/Pynq-Z1/vivado/ip/pmod_io_switch_1.0/  \
+   <GitHub Repository>/boards/<board name>/vivado/ip/pmod_io_switch_1.0/  \
    drivers/pmod_io_switch_v1_0/src/pmod_io_switch.h
 
 This code is automatically compiled into the Board Support Package (BSP). 
@@ -53,7 +53,7 @@ The corresponding files for the Arduino IOP switch can be found here:
 
 :: 
    
-   <GitHub Repository>/Pynq-Z1/vivado/ip/arduino_io_switch_1.0/  \
+   <GitHub Repository>/boards/<board name>/vivado/ip/arduino_io_switch_1.0/  \
    drivers/arduino_io_switch_1.0/src/arduino_io_switch.h
 
 
@@ -198,7 +198,7 @@ IOP Application Example
 
 Taking Pmod ALS as an example IOP driver (used to control the PMOD light sensor):
 
-``<GitHub Repository>/Pynq-Z1/sdk/pmod_als/src/pmod_als.c``
+``<GitHub Repository>/boards/<board name>/sdk/pmod_als/src/pmod_als.c``
 
 
 First note that the ``pmod.h`` header file is included.

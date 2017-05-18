@@ -30,7 +30,7 @@ Compiling projects
 
 Software executables run on the MicroBlaze inside an IOP. Code for the MicroBlaze can be written in C or C++ and compiled using Xilinx SDK . 
 
-You can pull or clone the Pynq GitHub repository, and all the driver source and project files can be found in ``<GitHub Repository>\Pynq-Z1\sdk``,  (Where ``<GitHub Repository>`` is the location of the PYNQ repository).  
+You can pull or clone the Pynq GitHub repository, and all the driver source and project files can be found in ``<GitHub Repository>\boards\<board name>\sdk``,  (Where ``<GitHub Repository>`` is the location of the PYNQ repository).  
 
 SDK Application, Board Support Package, Hardware Platform
 ----------------------------------------------------------------------
@@ -50,7 +50,7 @@ A Hardware Description File (.hdf), created by Vivado, is used to create the *Ha
 
 A precompiled .hdf file is provided, so it is not necessary to run Vivado to generate a .hdf file:
 
-   ``<GitHub Repository>/Pynq-Z1/sdk/``
+   ``<GitHub Repository>/boards/<board name>/sdk/``
    
 There will be one hardware platform for each overlay. 
 
@@ -68,7 +68,7 @@ Building the projects
 
 A Makefile to automatically create and build the Hardware Platform and the BSP can be found in the same location as the .hdf file. 
 
-    ``<GitHub Repository>/Pynq-Z1/sdk/makefile``
+    ``<GitHub Repository>/boards/<board name>/sdk/makefile``
 
 Application projects for peripherals that ship with Pynq (e.g. Pmods and Grove peripherals) can also be found in the same location. Each project is contained in a separate folder. 
    
@@ -86,7 +86,7 @@ In Linux, open a terminal, and source the SDK tools.
 
 From either the Windows Shell, or the Linux terminal, navigate to the sdk folder in your local copy of the GitHub repository: 
 
-   cd to ``<GitHub Repository>/Pynq-Z1/sdk`` and run ``make``
+   cd to ``<GitHub Repository>/boards/<board name>/sdk`` and run ``make``
 
 .. image:: ./images/sdk_make.JPG
    :scale: 75%
@@ -111,7 +111,7 @@ A .bin file can be generated from a .elf by running the following command from t
 
     ``mb-objcopy -O binary <inputfile>.elf <outputfile>.bin``
 
-This is done automatically by the makefile for the existing application projects. The makefile will also copy all .bin files into the ``<GitHub Repository>/Pynq-Z1/sdk/bin`` folder.
+This is done automatically by the makefile for the existing application projects. The makefile will also copy all .bin files into the ``<GitHub Repository>/boards/<board name>/sdk/bin`` folder.
 
 Creating your own Application project
 --------------------------------------
@@ -202,9 +202,9 @@ These MAILBOX values for an IOP application are defined here:
 
 .. code-block:: console
 
-   <GitHub Repository>/Pynq-Z1/vivado/ip/arduino_io_switch_1.0/  \
+   <GitHub Repository>/boards/<board name>/vivado/ip/arduino_io_switch_1.0/  \
    drivers/arduino_io_switch_1.0/src/arduino.h
-   <GitHub Repository>/Pynq-Z1/vivado/ip/pmod_io_switch_1.0/  \
+   <GitHub Repository>/boards/<board name>/vivado/ip/pmod_io_switch_1.0/  \
    drivers/pmod_io_switch_1.0/src/pmod.h
 
 The corresponding Python constants are defined here:

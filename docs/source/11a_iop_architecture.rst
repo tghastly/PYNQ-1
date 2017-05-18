@@ -160,7 +160,7 @@ Timer        D3 - D6 and D8 - D11
 
 For example, a shield with a UART and 5 Digital IO can connect the UART to pins D0, D1, and the Digital IO can be connected to pins D2 - D6.
 
-While there is support for analog inputs via the internal XADC, this only allows inputs of 0-1V. The Arduino interface supports 0-5V analog inputs which is not supported on the PYNQ-Z1.
+While there is support for analog inputs via the internal XADC, this only allows inputs of 0-1V. The Arduino interface supports 0-5V analog inputs which is not supported by Zynq.
 
 
 Arduino IOP configurable Switch
