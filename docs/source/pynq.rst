@@ -22,7 +22,7 @@ pynq.mmio module
     :show-inheritance:
     
 pynq.interrupt module
-----------------
+-----------------------
 
 .. automodule:: pynq.interrupt
     :members:

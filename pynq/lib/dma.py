@@ -133,10 +133,21 @@ void cma_free(void *buf);
 uint32_t cma_pages_available();
 """)
 
-LIB_SEARCH_PATH = os.path.dirname(os.path.realpath(__file__))
-libdma = ffi.dlopen(LIB_SEARCH_PATH + "/libdma.so")
-libxlnk = memapi.dlopen("/usr/lib/libsds_lib.so")
-
+try: 
+    LIB_SEARCH_PATH = os.path.dirname(os.path.realpath(__file__))
+    libdma = ffi.dlopen(LIB_SEARCH_PATH + "/libdma.so")
+    libxlnk = memapi.dlopen("/usr/lib/libsds_lib.so")
+except:
+    arch = os.uname()[-1]
+    if arch in ('x86_64'):
+        print("xlnk: x86_64 detected, /usr/lib/libsds_lib.so ignored")
+    else:
+        if os.getuid() != 0:
+            raise RuntimeError("Xlnk: root permission needed by the library.")
+        else:
+            raise RuntimeError("Xlnk: can't open /usr/lib/libsds_lib.so")
+            
+            
 DefaultConfig = {
     'DeviceId': 0,
     'BaseAddr': ffi.cast("uint32_t *", 0x00000000),
