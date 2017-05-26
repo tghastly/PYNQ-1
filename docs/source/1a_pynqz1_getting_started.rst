@@ -7,7 +7,7 @@ Any issues can be posted to `the PYNQ support forum <https://groups.google.com/f
 
      
 PYNQ-Z1 Getting Started video 
-=================
+=================================
 
 You can watch the getting started video guide, or follow the instructions below.
 
@@ -22,7 +22,7 @@ You can watch the getting started video guide, or follow the instructions below.
 
 
 PYNQ-Z1 Prerequisites
-=============
+===========================
 
 * PYNQ-Z1 board
 * Computer with compatible browser (`Supported Browsers <http://jupyter-notebook.readthedocs.org/en/latest/notebook.html#browser-compatibility>`_)

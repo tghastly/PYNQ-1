@@ -52,4 +52,3 @@ pynq.xlnk module
     :members:
     :undoc-members:
     :show-inheritance:
-    

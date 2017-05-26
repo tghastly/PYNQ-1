@@ -37,17 +37,18 @@ import sys
 import cffi
 import resource
 
-arch = os.uname()[-1]
-if arch in ('x86_64'):
-    pass
-else
-    try: 
+
+try: 
+    arch = os.uname()[-1]
+    if arch in ('x86_64'):
+        pass
+    else:
         libxlnk = ffi.dlopen("/usr/lib/libsds_lib.so")
-    except:
-        if os.getuid() != 0:
-            raise RuntimeError("Root permission needed by the library.")
-        else:
-            raise RuntimeError("Can't open /usr/lib/libsds_lib.so")
+except:
+    if os.getuid() != 0:
+        raise RuntimeError("Root permission needed by the library.")
+    else:
+        raise RuntimeError("Can't open /usr/lib/libsds_lib.so")
         
 def sig_handler(signum, frame):
     print("Invalid Memory Access!")
