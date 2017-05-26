@@ -77,9 +77,13 @@ class MMIO:
         if base_addr < 0 or length < 0:
             raise ValueError("Negative offset or negative length.")
 
-        euid = os.geteuid()
-        if euid != 0:
-            raise EnvironmentError('Root permissions required.')
+        arch = os.uname()[-1]
+        if arch in ('x86_64'):
+            pass
+        else:
+            euid = os.geteuid()
+            if euid != 0:
+                raise EnvironmentError('Root permissions required.')
 
         # Align the base address with the pages
         self.virt_base = base_addr & ~(mmap.PAGESIZE - 1)
@@ -95,18 +99,21 @@ class MMIO:
         self._debug('MMIO(address, size) = ({0:x}, {1:x} bytes).',
                     self.base_addr, self.length)
 
-        # Open file and mmap
-        self.mmap_file = os.open('/dev/mem',
-                                 os.O_RDWR | os.O_SYNC)
+        if arch in ('x86_64'):
+            pass
+        else:
+            # Open file and mmap
+            self.mmap_file = os.open('/dev/mem',
+                                     os.O_RDWR | os.O_SYNC)
 
-        self.mem = mmap.mmap(self.mmap_file, (self.length + self.virt_offset),
-                             mmap.MAP_SHARED,
-                             mmap.PROT_READ | mmap.PROT_WRITE,
-                             offset=self.virt_base)
+            self.mem = mmap.mmap(self.mmap_file, (self.length + self.virt_offset),
+                                 mmap.MAP_SHARED,
+                                 mmap.PROT_READ | mmap.PROT_WRITE,
+                                 offset=self.virt_base)
 
-        self.array = np.frombuffer(self.mem, np.uint32,
-                                   length >> 2, self.virt_offset)
-
+            self.array = np.frombuffer(self.mem, np.uint32,
+                                       length >> 2, self.virt_offset)
+        
     def __del__(self):
         """Destructor to ensure mmap file is closed
         """
