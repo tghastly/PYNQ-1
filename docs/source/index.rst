@@ -14,7 +14,7 @@ Python productivity for Zynq (Pynq) Documentation
    2_pynq
    3_jupyter_notebook
    4_programming_python
-   5_programming_onboard_index
+   5_programming_onboard_peripherals_index
    6_overlays
    7_peripherals_index
    8_base_overlay_iop
@@ -24,7 +24,7 @@ Python productivity for Zynq (Pynq) Documentation
    11b_iop_applications
    11c_iop_using_peripherals
    13a_interrupts
-   13b_base_overlay_interrupts
+   #13b_base_overlay_interrupts
    14_tracebuffer
    15_data_transfer
    16_creating_overlays

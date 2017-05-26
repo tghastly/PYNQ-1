@@ -2,8 +2,8 @@
 Peripherals and Interfaces
 **************************
 
-.. contents:: Table of Contents
-   :depth: 2
+.. toctree::
+   :maxdepth: 2
    
-   7a_peripherals
-   7b_peripherals_pynqz1
+   5_onboard_peripherals.rst
+   5_programming_pynqz1_onboard

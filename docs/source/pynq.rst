@@ -1,24 +1,9 @@
 
-Subpackages
-=============
-
 .. toctree::
 
-    pynq.board
-    pynq.iop
-    pynq.drivers
-    
+    pynq.lib
+    pynq.tests
 
-Submodules
-===============
-
-pynq.general_const module
--------------------------
-
-.. automodule:: pynq.general_const
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 pynq.gpio module
 ----------------
@@ -35,11 +20,27 @@ pynq.mmio module
     :members:
     :undoc-members:
     :show-inheritance:
+    
+pynq.interrupt module
+----------------
+
+.. automodule:: pynq.interrupt
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 pynq.pl module
 --------------
 
 .. automodule:: pynq.pl
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pynq.ps module
+--------------
+
+.. automodule:: pynq.ps
     :members:
     :undoc-members:
     :show-inheritance:
