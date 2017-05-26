@@ -37,8 +37,8 @@ import struct
 from pynq import MMIO
 from pynq.lib.iop import request_iop
 from pynq.lib.iop import iop_const
-from pynq.lib.iop import PMODA
-from pynq.lib.iop import PMODB
+from pynq.lib.iop.iop_const import PMODA
+from pynq.lib.iop.iop_const import PMODB
 
 PMOD_TIMER_PROGRAM = "pmod_timer.bin"
 

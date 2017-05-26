@@ -44,8 +44,8 @@ from .dma import DMA
 from .led import LED
 from .rgbled import RGBLED
 from .switch import Switch
-from .trace_buffer import Switch
-from .usb_wifi import Switch
+from .trace_buffer import Trace_Buffer
+from .usb_wifi import Usb_Wifi
 from .video import HDMI
 from .video import Frame
 

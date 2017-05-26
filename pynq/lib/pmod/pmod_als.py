@@ -36,8 +36,8 @@ import time
 from pynq import MMIO
 from pynq.lib.iop import request_iop
 from pynq.lib.iop import iop_const
-from pynq.lib.iop import PMODA
-from pynq.lib.iop import PMODB
+from pynq.lib.iop.iop_const import PMODA
+from pynq.lib.iop.iop_const import PMODB
 
 PMOD_ALS_PROGRAM = "pmod_als.bin"
 PMOD_ALS_LOG_START = iop_const.MAILBOX_OFFSET+16

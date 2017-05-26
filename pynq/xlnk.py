@@ -37,6 +37,18 @@ import sys
 import cffi
 import resource
 
+ffi = cffi.FFI()
+
+ffi.cdef("""
+static uint32_t xlnkBufCnt = 0;
+uint32_t cma_mmap(uint32_t phyAddr, uint32_t len);
+uint32_t cma_munmap(void *buf, uint32_t len);
+void *cma_alloc(uint32_t len, uint32_t cacheable);
+uint32_t cma_get_phy_addr(void *buf);
+void cma_free(void *buf);
+uint32_t cma_pages_available();
+void _xlnk_reset();
+""")
 
 try: 
     libxlnk = ffi.dlopen("/usr/lib/libsds_lib.so")
@@ -55,19 +67,6 @@ def sig_handler(signum, frame):
     Xlnk().xlnk_reset()
     sys.exit(127)
 signal.signal(signal.SIGSEGV, sig_handler)
-
-ffi = cffi.FFI()
-
-ffi.cdef("""
-static uint32_t xlnkBufCnt = 0;
-uint32_t cma_mmap(uint32_t phyAddr, uint32_t len);
-uint32_t cma_munmap(void *buf, uint32_t len);
-void *cma_alloc(uint32_t len, uint32_t cacheable);
-uint32_t cma_get_phy_addr(void *buf);
-void cma_free(void *buf);
-uint32_t cma_pages_available();
-void _xlnk_reset();
-""")
 
 
 class Xlnk:

@@ -225,10 +225,10 @@ def request_iop(iop_id, mb_program):
     gpio_dict = PL.gpio_dict
     intr_dict = PL.interrupt_pins
 
-    iop = "SEG_mb_bram_ctrl_" + str(iop_id) + "_Mem0"
-    rst_pin = "mb_" + str(iop_id) + "_reset"
+    iop = "iop" + str(iop_id) + "/mb_bram_ctrl"
+    rst_pin = "mb_iop" + str(iop_id) + "_reset"
     intr_pin = "iop{0}/dff_en_reset_0/q".format(iop_id)
-    intr_ack_pin = "mb_{0}_intr_ack".format(iop_id)
+    intr_ack_pin = "mb_iop{0}_intr_ack".format(iop_id)
 
     ip = [k for k, _ in ip_dict.items()]
     gpio = [k for k, _ in gpio_dict.items()]
@@ -242,9 +242,12 @@ def request_iop(iop_id, mb_program):
     if intr_pin not in intr_dict:
         intr_pin = None
 
-    addr_base, addr_range, ip_state = ip_dict[iop]
-    gpio_uix, _ = gpio_dict[rst_pin]
-    intr_ack_gpio, _ = gpio_dict[intr_ack_pin]
+    addr_range = ip_dict[iop]['addr_range']
+    addr_base = ip_dict[iop]['phys_addr']
+    ip_state = ip_dict[iop]['state']
+    
+    gpio_uix = gpio_dict[rst_pin]['index']
+    intr_ack_gpio = gpio_dict[intr_ack_pin]['index']
 
     mb_path = mb_program
     if not os.path.isabs(mb_path):
@@ -253,6 +256,14 @@ def request_iop(iop_id, mb_program):
     if (ip_state is None) or \
             (ip_state == mb_path):
         # case 1
+        print('iop', str(iop))
+        print('addr_base', str(addr_base))
+        print('addr_range', str(addr_range))
+        print('gpio_uix', str(gpio_uix))
+        print('mb_path', str(mb_path))
+        print('intr_pin', str(intr_pin))
+        print('intr_ack_gpio', str(intr_ack_gpio))
+        
         return _IOP(iop, addr_base, addr_range, gpio_uix,
                     mb_path, intr_pin, intr_ack_gpio)
     else:

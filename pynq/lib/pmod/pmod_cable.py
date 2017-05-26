@@ -33,9 +33,9 @@ __email__       = "pynq_support@xilinx.com"
 
 
 from pynq.lib.iop import iop_const
-from pynq.lib.iop import Pmod_IO
-from pynq.lib.iop import PMODA
-from pynq.lib.iop import PMODB
+from pynq.lib.pmod import Pmod_IO
+from pynq.lib.iop.iop_const import PMODA
+from pynq.lib.iop.iop_const import PMODB
 
 class Pmod_Cable(Pmod_IO):
     """This class can be used for a cable connecting Pmod interfaces.

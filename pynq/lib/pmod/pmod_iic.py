@@ -34,8 +34,8 @@ __email__       = "pynq_support@xilinx.com"
 from time import sleep
 from pynq.lib.iop import iop_const
 from pynq.lib.iop import DevMode
-from pynq.lib.iop import PMODA
-from pynq.lib.iop import PMODB
+from pynq.lib.iop.iop_const import PMODA
+from pynq.lib.iop.iop_const import PMODB
 
 I2C_DELAY = .001
 

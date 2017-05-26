@@ -36,9 +36,9 @@ from time import sleep
 from math import log
 from pynq.lib.grove import Grove_ADC
 from pynq.lib.iop import iop_const
-from pynq.lib.iop import PMODA
-from pynq.lib.iop import PMODB
-from pynq.lib.arduino import ARDUINO
+from pynq.lib.iop.iop_const import PMODA
+from pynq.lib.iop.iop_const import PMODB
+from pynq.lib.iop.iop_const import ARDUINO
 
 class Grove_Light(Grove_ADC):
     """This class controls the grove light sensor.

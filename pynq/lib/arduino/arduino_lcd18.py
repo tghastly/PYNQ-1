@@ -38,9 +38,9 @@ from PIL import Image
 from numpy import array
 from pynq import MMIO
 from pynq import Xlnk
-from pynq.iop import request_iop
-from pynq.iop import iop_const
-from pynq.iop import ARDUINO
+from pynq.lib.iop import request_iop
+from pynq.lib.iop import iop_const
+from pynq.lib.iop.iop_const import ARDUINO
 
 ARDUINO_LCD18_PROGRAM = "arduino_lcd18.bin"
 

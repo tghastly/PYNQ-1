@@ -34,11 +34,11 @@ __email__       = "pynq_support@xilinx.com"
 
 import time
 from pynq import MMIO
-from pynq.iop import request_iop
-from pynq.iop import iop_const
-from pynq.iop import PMODA
-from pynq.iop import PMODB
-from pynq.iop import ARDUINO
+from pynq.lib.iop import request_iop
+from pynq.lib.iop import iop_const
+from pynq.lib.iop.iop_const import PMODA
+from pynq.lib.iop.iop_const import PMODB
+from pynq.lib.iop.iop_const import ARDUINO
 
 class DevMode(object):
     """Control an IO processor running the developer mode program. 

@@ -32,9 +32,9 @@ __copyright__   = "Copyright 2016, Xilinx"
 __email__       = "pynq_support@xilinx.com"
 
 
-from pynq.iop import iop_const
-from pynq.iop import DevMode
-from pynq.iop import ARDUINO
+from pynq.lib.iop import iop_const
+from pynq.lib.iop import DevMode
+from pynq.lib.iop.iop_const import ARDUINO
 
 class Arduino_IO(object):
     """This class controls the Arduino IO pins as inputs or outputs.

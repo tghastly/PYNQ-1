@@ -35,18 +35,18 @@ __email__       = "pynq_support@xilinx.com"
 from pynq.lib.iop import iop_const
 from pynq.lib.pmod import Pmod_IO
 from pynq.lib.arduino import Arduino_IO
-from pynq.lib.iop import PMODA
-from pynq.lib.iop import PMODB
-from pynq.lib.iop import ARDUINO
-from pynq.lib.iop import PMOD_GROVE_G1
-from pynq.lib.iop import PMOD_GROVE_G2
-from pynq.lib.iop import ARDUINO_GROVE_G1
-from pynq.lib.iop import ARDUINO_GROVE_G2
-from pynq.lib.iop import ARDUINO_GROVE_G3
-from pynq.lib.iop import ARDUINO_GROVE_G4
-from pynq.lib.iop import ARDUINO_GROVE_G5
-from pynq.lib.iop import ARDUINO_GROVE_G6
-from pynq.lib.iop import ARDUINO_GROVE_G7
+from pynq.lib.iop.iop_const import PMODA
+from pynq.lib.iop.iop_const import PMODB
+from pynq.lib.iop.iop_const import ARDUINO
+from pynq.lib.iop.iop_const import PMOD_GROVE_G1
+from pynq.lib.iop.iop_const import PMOD_GROVE_G2
+from pynq.lib.iop.iop_const import ARDUINO_GROVE_G1
+from pynq.lib.iop.iop_const import ARDUINO_GROVE_G2
+from pynq.lib.iop.iop_const import ARDUINO_GROVE_G3
+from pynq.lib.iop.iop_const import ARDUINO_GROVE_G4
+from pynq.lib.iop.iop_const import ARDUINO_GROVE_G5
+from pynq.lib.iop.iop_const import ARDUINO_GROVE_G6
+from pynq.lib.iop.iop_const import ARDUINO_GROVE_G7
 
 class Grove_PIR(object):
     """This class controls the PIR motion sensor.

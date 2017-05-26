@@ -44,10 +44,10 @@ import numpy as np
 import IPython.core.display
 from pynq import PL
 from pynq import MMIO
-from pynq.drivers import DMA
-from pynq.iop import PMODA
-from pynq.iop import PMODB
-from pynq.iop import ARDUINO
+from pynq.lib import DMA
+from pynq.lib.iop.iop_const import PMODA
+from pynq.lib.iop.iop_const import PMODB
+from pynq.lib.iop.iop_const import ARDUINO
 
 MAX_SAMPLE_RATE             = 166666667
 MAX_NUM_SAMPLES             = 524288
