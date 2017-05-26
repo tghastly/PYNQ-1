@@ -187,12 +187,32 @@ def run_make(src_path, dst_path, output_lib):
 
 
 if len(sys.argv) > 1 and sys.argv[1] == 'install':
-    run_make("pynq/lib/_pynq/_apf/", "pynq/lib/", "libdma.so")
-    run_make("pynq/lib/_pynq/_audio/", "pynq/lib/", "libaudio.so")
+    try:
+        run_make("pynq/lib/_pynq/_apf/", "pynq/lib/", "libdma.so")
+    except:
+        print('Unable to build DMA library')
 
-    backup_notebooks()
-    fill_notebooks_dir()
+    try:
+        run_make("pynq/lib/_pynq/_audio/", "pynq/lib/", "libaudio.so")
+    except:
+        print('Unable to build Audio library')
 
+        backup_notebooks()
+        fill_notebooks_dir()
+
+arch = os.uname()[-1]
+if arch in ('x86_64'):
+    external_modules = []
+else:
+    external_modules=[
+        Extension('pynq.lib._video', video,
+                 include_dirs=['pynq/lib/_pynq/inc',
+                               'pynq/lib/_pynq/bsp/ps7_cortexa9_0/include'],
+                 libraries=['sds_lib'],
+                 library_dirs=['/usr/lib'],
+                 ),
+      ]
+ 
 setup(name='pynq',
       version='1.5',
       description='Python for Xilinx package',
@@ -204,13 +224,7 @@ setup(name='pynq',
       package_data={
           '': ['tests/*', 'js/*', '*.bin', '*.so', 'bitstream/*', '*.pdm'],
       },
-      ext_modules=[
-          Extension('pynq.lib._video', video,
-                    include_dirs=['pynq/lib/_pynq/inc',
-                                  'pynq/lib/_pynq/bsp/ps7_cortexa9_0/include'],
-                    libraries=['sds_lib'],
-                    library_dirs=['/usr/lib'],
-                    ),
-      ],
+      ext_modules = external_modules
+      ,
       data_files=pynq_data_files
       )
