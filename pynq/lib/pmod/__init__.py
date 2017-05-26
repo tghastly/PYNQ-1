@@ -31,9 +31,16 @@ __author__ = "Graham Schelle"
 __copyright__ = "Copyright 2016, Xilinx"
 __email__ = "pynq_support@xilinx.com"
 
-from .audio import Audio
-from .video import HDMI
-from .video import Frame
-from .dma import DMA
-from .trace_buffer import Trace_Buffer
-from .usb_wifi import Usb_Wifi
+from .pmod_adc import Pmod_ADC 
+from .pmod_dac import Pmod_DAC 
+from .pmod_oled import Pmod_OLED
+from .pmod_led8 import Pmod_LED8
+from .pmod_io import Pmod_IO
+from .pmod_iic import Pmod_IIC
+from .pmod_dpot import Pmod_DPOT
+from .pmod_tc1 import Pmod_TC1
+from .pmod_tmp2 import Pmod_TMP2
+from .pmod_als import Pmod_ALS
+from .pmod_cable import Pmod_Cable
+from .pmod_timer import Pmod_Timer
+from .pmod_pwm import Pmod_PWM

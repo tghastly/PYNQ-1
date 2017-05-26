@@ -38,7 +38,14 @@ __email__ = "pynq_support@xilinx.com"
 # from .trace_buffer import Trace_Buffer
 # from .usb_wifi import Usb_Wifi
 
+from .audio import Audio
+from .button import Button
+from .dma import DMA
 from .led import LED
 from .rgbled import RGBLED
 from .switch import Switch
-from .button import Button
+from .trace_buffer import Switch
+from .usb_wifi import Switch
+from .video import HDMI
+from .video import Frame
+

@@ -58,33 +58,3 @@ from .iop_const import ARDUINO_GROVE_A4
 # IOP
 from .iop import request_iop
 from .devmode import DevMode
-
-# Pmod devices
-from .pmod_adc import Pmod_ADC 
-from .pmod_dac import Pmod_DAC 
-from .pmod_oled import Pmod_OLED
-from .pmod_led8 import Pmod_LED8
-from .pmod_io import Pmod_IO
-from .pmod_iic import Pmod_IIC
-from .pmod_dpot import Pmod_DPOT
-from .pmod_tc1 import Pmod_TC1
-from .pmod_tmp2 import Pmod_TMP2
-from .pmod_als import Pmod_ALS
-from .pmod_cable import Pmod_Cable
-from .pmod_timer import Pmod_Timer
-from .pmod_pwm import Pmod_PWM
-
-# Arduino devices
-from .arduino_io import Arduino_IO
-from .arduino_analog import Arduino_Analog
-from .arduino_lcd18 import Arduino_LCD18
-
-# Grove devices
-from .grove_pir import Grove_PIR
-from .grove_adc import Grove_ADC
-from .grove_oled import Grove_OLED
-from .grove_imu import Grove_IMU
-from .grove_ledbar import Grove_LEDbar
-from .grove_tmp import Grove_TMP
-from .grove_light import Grove_Light
-from .grove_buzzer import Grove_Buzzer

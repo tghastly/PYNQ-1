@@ -31,9 +31,11 @@ __author__ = "Graham Schelle"
 __copyright__ = "Copyright 2016, Xilinx"
 __email__ = "pynq_support@xilinx.com"
 
-from .audio import Audio
-from .video import HDMI
-from .video import Frame
-from .dma import DMA
-from .trace_buffer import Trace_Buffer
-from .usb_wifi import Usb_Wifi
+from .grove_pir import Grove_PIR
+from .grove_adc import Grove_ADC
+from .grove_oled import Grove_OLED
+from .grove_imu import Grove_IMU
+from .grove_ledbar import Grove_LEDbar
+from .grove_tmp import Grove_TMP
+from .grove_light import Grove_Light
+from .grove_buzzer import Grove_Buzzer
