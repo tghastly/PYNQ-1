@@ -35,7 +35,7 @@ from pynq import MMIO
 from pynq import GPIO
 from pynq import PL
 from pynq import Interrupt
-from pynq.iop import iop_const
+from pynq.lib.iop import iop_const
 
 
 __author__ = "Yun Rock Qu"

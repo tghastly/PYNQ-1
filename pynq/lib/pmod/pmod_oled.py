@@ -33,10 +33,10 @@ __email__       = "pynq_support@xilinx.com"
 
 
 from pynq import MMIO
-from pynq.iop import request_iop
-from pynq.iop import iop_const
-from pynq.iop import PMODA
-from pynq.iop import PMODB
+from pynq.lib.iop import request_iop
+from pynq.lib.iop import iop_const
+from pynq.lib.iop import PMODA
+from pynq.lib.iop import PMODB
 
 PMOD_OLED_PROGRAM = "pmod_oled.bin"
 

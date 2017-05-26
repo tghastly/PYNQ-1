@@ -32,10 +32,10 @@ __copyright__   = "Copyright 2016, Xilinx"
 __email__       = "pynq_support@xilinx.com"
 
 
-from pynq.iop import iop_const
-from pynq.iop import DevMode
-from pynq.iop import PMODA
-from pynq.iop import PMODB
+from pynq.lib.iop import iop_const
+from pynq.lib.iop import DevMode
+from pynq.lib.iop import PMODA
+from pynq.lib.iop import PMODB
 
 class Pmod_LED8(object):
     """This class controls a single LED on the LED8 Pmod.

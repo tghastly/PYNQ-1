@@ -33,24 +33,24 @@ __copyright__   = "Copyright 2016, NECST Laboratory, Politecnico di Milano"
 import time
 import struct
 from pynq import MMIO
-from pynq.iop import request_iop
-from pynq.iop import iop_const
-from pynq.iop import Pmod_IO
-from pynq.iop import Arduino_IO
-from pynq.iop import PMODA
-from pynq.iop import PMODB
-from pynq.iop import ARDUINO
-from pynq.iop import PMOD_GROVE_G1
-from pynq.iop import PMOD_GROVE_G2
-from pynq.iop import PMOD_GROVE_G3
-from pynq.iop import PMOD_GROVE_G4
-from pynq.iop import ARDUINO_GROVE_G1
-from pynq.iop import ARDUINO_GROVE_G2
-from pynq.iop import ARDUINO_GROVE_G3
-from pynq.iop import ARDUINO_GROVE_G4
-from pynq.iop import ARDUINO_GROVE_G5
-from pynq.iop import ARDUINO_GROVE_G6
-from pynq.iop import ARDUINO_GROVE_G7
+from pynq.lib.iop import request_iop
+from pynq.lib.iop import iop_const
+from pynq.lib.pmod import Pmod_IO
+from pynq.lib.arduino import ARDUINO_IO
+from pynq.lib.iop import PMODA
+from pynq.lib.iop import PMODB
+from pynq.lib.arduino import ARDUINO
+from pynq.lib.iop import PMOD_GROVE_G1
+from pynq.lib.iop import PMOD_GROVE_G2
+from pynq.lib.iop import PMOD_GROVE_G3
+from pynq.lib.iop import PMOD_GROVE_G4
+from pynq.lib.iop import ARDUINO_GROVE_G1
+from pynq.lib.iop import ARDUINO_GROVE_G2
+from pynq.lib.iop import ARDUINO_GROVE_G3
+from pynq.lib.iop import ARDUINO_GROVE_G4
+from pynq.lib.iop import ARDUINO_GROVE_G5
+from pynq.lib.iop import ARDUINO_GROVE_G6
+from pynq.lib.iop import ARDUINO_GROVE_G7
 
 PMOD_GROVE_EAR_HR_PROGRAM = "pmod_grove_ear_hr.bin"
 ARDUINO_GROVE_EAR_HR_PROGRAM = "arduino_grove_ear_hr.bin"

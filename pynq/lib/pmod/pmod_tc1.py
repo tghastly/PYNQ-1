@@ -35,10 +35,10 @@ __email__       = "pynq_support@xilinx.com"
 from struct import pack, unpack
 import time
 from pynq import MMIO
-from pynq.iop import request_iop
-from pynq.iop import iop_const
-from pynq.iop import PMODA
-from pynq.iop import PMODB
+from pynq.lib.iop import request_iop
+from pynq.lib.iop import iop_const
+from pynq.lib.iop import PMODA
+from pynq.lib.iop import PMODB
 
 PMOD_TC1_PROGRAM = "pmod_tc1.bin"
 PMOD_TC1_LOG_START = iop_const.MAILBOX_OFFSET+16

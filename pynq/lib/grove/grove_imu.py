@@ -36,14 +36,14 @@ import struct
 import math
 from time import sleep
 from pynq import MMIO
-from pynq.iop import request_iop
-from pynq.iop import iop_const
-from pynq.iop import PMODA
-from pynq.iop import PMODB
-from pynq.iop import ARDUINO
-from pynq.iop import PMOD_GROVE_G3
-from pynq.iop import PMOD_GROVE_G4
-from pynq.iop import ARDUINO_GROVE_I2C
+from pynq.lib.iop import request_iop
+from pynq.lib.iop import iop_const
+from pynq.lib.iop import PMODA
+from pynq.lib.iop import PMODB
+from pynq.lib.arduino import ARDUINO
+from pynq.lib.iop import PMOD_GROVE_G3
+from pynq.lib.iop import PMOD_GROVE_G4
+from pynq.lib.arduino import ARDUINO_GROVE_I2C
 
 PMOD_GROVE_IMU_PROGRAM = "pmod_grove_imu.bin"
 ARDUINO_GROVE_IMU_PROGRAM = "arduino_grove_imu.bin"

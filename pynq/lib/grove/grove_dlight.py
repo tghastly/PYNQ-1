@@ -33,16 +33,16 @@ __copyright__   = "Copyright 2016, NECST Laboratory, Politecnico di Milano"
 import time
 import struct
 from pynq import MMIO
-from pynq.iop import request_iop
-from pynq.iop import iop_const
-from pynq.iop import Pmod_IO
-from pynq.iop import Arduino_IO
-from pynq.iop import PMODA
-from pynq.iop import PMODB
-from pynq.iop import ARDUINO
-from pynq.iop import PMOD_GROVE_G3
-from pynq.iop import PMOD_GROVE_G4
-from pynq.iop import ARDUINO_GROVE_I2C
+from pynq.lib.iop import request_iop
+from pynq.lib.iop import iop_const
+from pynq.lib.pmod import Pmod_IO
+from pynq.lib.arduino import ARDUINO_IO
+from pynq.lib.iop import PMODA
+from pynq.lib.iop import PMODB
+from pynq.lib.arduino import ARDUINO
+from pynq.lib.iop import PMOD_GROVE_G3
+from pynq.lib.iop import PMOD_GROVE_G4
+from pynq.lib.arduino import ARDUINO_GROVE_I2C
 
 
 PMOD_GROVE_DLIGHT_PROGRAM = "pmod_grove_dlight.bin"

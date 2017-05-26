@@ -34,10 +34,10 @@ __email__       = "pynq_support@xilinx.com"
 
 from time import sleep
 from math import log
-from pynq.iop import Grove_ADC
-from pynq.iop import PMODA
-from pynq.iop import PMODB
-from pynq.iop import ARDUINO
+from pynq.lib.iop import Grove_ADC
+from pynq.lib.iop import PMODA
+from pynq.lib.iop import PMODB
+from pynq.lib.iop import ARDUINO
 
 class Grove_TMP(Grove_ADC):
     """This class controls the grove temperature sensor.
