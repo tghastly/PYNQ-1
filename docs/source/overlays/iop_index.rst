@@ -1,5 +1,5 @@
 **************************
-Peripherals and Interfaces
+IOPs
 **************************
 
 .. toctree::

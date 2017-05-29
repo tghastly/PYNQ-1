@@ -1,19 +1,19 @@
-*******************************************************
+
 IO Processors: Writing applications
-*******************************************************
+=======================================
 
 .. contents:: Table of Contents
    :depth: 2
 
 Introduction
-===============
+--------------------
 
 The previous section described the software architecture and the software build process. This section will cover how to write the IOP application and also the corresponding Python interface. 
 
 The section assumes that the hardware platform and the BSPs have already been generated as detailed in the previous section. 
 
 IOP header files and libraries
-================================
+---------------------------------
 
 A library is provided for the IOPs which includes an API for local peripherals (IIC, SPI, Timer, Uart, GPIO), the configurable switch, links to the peripheral addresses, and mappings for the mailbox used in the existing IOP peripheral applications provided with Pynq. This library can be used to write custom IOP applications. 
 
@@ -29,12 +29,12 @@ The only IP that is specific to each IOP is the configurable switch. There is a 
 The corresponding C code, ``pmod.c`` and ``arduino.c`` can also be found in this directory. 
  
 Configurable switch header files
-==================================
+-----------------------------------
 
 There is a separate header file that corresponds to each configurable switch. These files include the API for the configuration switch and predefined constants that can be used to connect to the physical interface on the board. 
 
 Pmod Configurable Switch header
----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can find the header file for the Pmod IOP switch here:
 
@@ -47,7 +47,7 @@ This code is automatically compiled into the Board Support Package (BSP).
 
 
 Arduino
----------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 The corresponding files for the Arduino IOP switch can be found here:
 
@@ -58,7 +58,7 @@ The corresponding files for the Arduino IOP switch can be found here:
 
 
 Files to include
-------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 To use these files in an IOP application, include the header file(s):
 
@@ -81,7 +81,7 @@ Pmod applications should call ``pmod_init()`` at the beginning of the applicatio
 
    
 Controlling the Pmod IOP Switch
-=================================
+-----------------------------------
 
 The IOP switch needs to be configured by the IOP application before any peripherals can be used. This can be done statically from within the application, or the application can allow Python to write a switch configuration to shared memory, which can be used to configure the switch. This functionality must be implemented by the user, but existing IOP applications can be used as a guide. For example, the ``arduino_lcd18`` IOP project shows and example of reading the switch configuration from the mailbox, and using this to configure the switch. 
 
@@ -122,7 +122,7 @@ Switch mappings used for IOP Switch configuration:
 ========  =======
 
 Example
----------
+^^^^^^^^
 
 .. code-block:: c
 
@@ -149,8 +149,7 @@ Note that if two or more pins are connected to the same signal, the pins are OR'
 This is not recommended and should not be done unintentionally. 
 
 Controlling the Arduino IOP Switch
-
-=========================================
+-------------------------------------
 
 Switch mappings used for IO switch configuration:
 
@@ -186,14 +185,14 @@ For example, to connect the UART to D0 and D1, write D_UART to the configuration
 
 .. code-block:: c
 
-	config_arduino_switch(A_GPIO, A_GPIO, A_GPIO, A_GPIO, A_GPIO, A_GPIO,
-			      D_UART, D_UART, D_GPIO, D_GPIO, D_GPIO,
-			      D_GPIO, D_GPIO, D_GPIO, D_GPIO,
-			      D_GPIO, D_GPIO, D_GPIO, D_GPIO);
+    config_arduino_switch(A_GPIO, A_GPIO, A_GPIO, A_GPIO, A_GPIO, A_GPIO,
+                  D_UART, D_UART, D_GPIO, D_GPIO, D_GPIO,
+                  D_GPIO, D_GPIO, D_GPIO, D_GPIO,
+                  D_GPIO, D_GPIO, D_GPIO, D_GPIO);
 
    
 IOP Application Example
-==========================
+---------------------------
 
 
 Taking Pmod ALS as an example IOP driver (used to control the PMOD light sensor):
@@ -312,7 +311,7 @@ Remaining code:
 
 
 Examining the Python Code
---------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 With the IOP Driver written, the Python class can be built that will communicate with that IOP. 
  
@@ -366,7 +365,7 @@ Finally, the iop.start() call pulls the IOP out of reset. After this, the IOP wi
     self.iop.start()
 
 Example of Python Class Runtime Methods
--------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The read method in the Pmod_ALS class will simply read an ALS sample and return that value to the caller.  The following steps demonstrate a Python to MicroBlaze read transaction specific to the ALS class.
 

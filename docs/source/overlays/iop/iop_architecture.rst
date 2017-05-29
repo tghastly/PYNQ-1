@@ -1,12 +1,11 @@
-*******************************
 IO Processor Architecture
-*******************************
+==========================
 
 .. contents:: Table of Contents
    :depth: 2
    
 Introduction
-==================
+--------------
    
 For overlays to be useful, they must provide sufficient functionality, while also providing flexibility to suit a wide range of applications. Flexibility in the base overlay is demonstrated through the use of IO Processors (IOPs). 
 
@@ -26,7 +25,7 @@ When a Pmod, Arduino shield, or other peripheral is plugged in to a port, the co
 
 
 Pmod IOP
-==================
+-----------------
 
 Two Pmod IOPs are included in the base overlay to control each of the two Pmod interfaces on the board. 
 
@@ -88,7 +87,7 @@ For details on using the switch, see the next sections on *IO Processors: Writin
 
 
 Arduino IOP
-===========================
+---------------
 
 Similar to the Pmod IOP, an Arduino IOP is available to control the Arduino interface. The Arduino IOP is similar to the PMOD IOP, but has some additional internal peripherals (extra timers, an extra I2c, and SPI, a UART, and an XADC). The configurable switch is also different to the Pmod switch. 
 
