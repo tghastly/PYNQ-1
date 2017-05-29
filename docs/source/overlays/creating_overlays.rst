@@ -133,7 +133,7 @@ A makefile exists in each folder that can be used to rebuild the Vivado project 
 
 Vivado must be installed to design and build overlays. Building an existing overlay design allows the project to be opened in Vivado and examined, or modified to create a new overlay. 
 
-.. image:: ./images/vivado_base_overlay.JPG
+.. image:: ../images/vivado_base_overlay.JPG
    :scale: 75%
    :align: center
 

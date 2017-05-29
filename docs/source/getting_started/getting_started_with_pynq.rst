@@ -4,7 +4,7 @@ Connect to Jupyter
 * Open a web browser and go to `http://pynq:9090 <http://pynq:9090>`_ (network) `http://192.168.2.99:9090 <http://192.168.2.99:9090>`_ (direct connection)
 * The Jupyter username is xilinx and the password is also xilinx
    
-   .. image:: ./images/portal_homepage.jpg
+   .. image:: ../images/portal_homepage.jpg
       :height: 600px
       :scale: 75%
       :align: center
@@ -22,7 +22,7 @@ If you are on a network where other pynq boards may be connected, you should cha
 A terminal is available inside Jupyter. 
 In the Jupyter portal home area, select **New >> terminal**.
 
-   .. image:: ./images/dashboard_files_tab_new.JPG
+   .. image:: ../images/dashboard_files_tab_new.JPG
       :height: 300px
       :align: center
        
@@ -35,7 +35,7 @@ Next enter and execute the following command.  (Note that you should replace NEW
       sudo /home/xilinx/scripts/hostname.sh NEW_HOST_NAME
 
 
-   .. image:: ./images/change_hostname.jpg
+   .. image:: ../images/change_hostname.jpg
       :height: 300px
       :align: center
 	  
@@ -120,7 +120,7 @@ A Jupyter notebook can be saved as html webpages. Some of this documentation has
 
 You can view the documentation as a webpage, or if you have a board running PYNQ, you can view and run the notebook documentation interactively. The documentation available as notebooks can be found in the *Getting_Started* folder in the Jupyter home area. 
  
-.. image:: ./images/getting_started_notebooks.jpg
+.. image:: ../images/getting_started_notebooks.jpg
    :height: 600px
    :scale: 75%
    :align: center
@@ -128,7 +128,7 @@ You can view the documentation as a webpage, or if you have a board running PYNQ
 
 There are also a number of example notebooks available showing how to use various peripherals with the board. 
 
-.. image:: ./images/example_notebooks.jpg
+.. image:: ../images/example_notebooks.jpg
    :height: 600px
    :scale: 75%
    :align: center
@@ -159,7 +159,7 @@ Remember to change the hostname/IP address if necessary.
 
 The Samba username:password is ``xilinx:xilinx``
 
-.. image:: ./images/samba_share.JPG
+.. image:: ../images/samba_share.JPG
    :height: 600px
    :scale: 75%
    :align: center

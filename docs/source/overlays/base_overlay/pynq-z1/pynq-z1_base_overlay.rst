@@ -14,7 +14,7 @@ This PYNQ-Z1 overlay includes the following hardware:
 * Trace buffer
  
 
-.. image:: ./images/pynqz1_base_overlay.png
+.. image:: ../../../images/pynqz1_base_overlay.png
    :align: center
 
 

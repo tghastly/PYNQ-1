@@ -29,7 +29,7 @@ Pmod IOP
 
 Two Pmod IOPs are included in the base overlay to control each of the two Pmod interfaces on the board. 
 
-.. image:: ./images/pmod_iop.jpg
+.. image:: ../../images/pmod_iop.jpg
    :align: center
    
 As indicated in the diagram, the Pmod IOP has a MicroBlaze, a configurable switch, and the following peripherals: 
@@ -91,7 +91,7 @@ Arduino IOP
 
 Similar to the Pmod IOP, an Arduino IOP is available to control the Arduino interface. The Arduino IOP is similar to the PMOD IOP, but has some additional internal peripherals (extra timers, an extra I2c, and SPI, a UART, and an XADC). The configurable switch is also different to the Pmod switch. 
 
-.. image:: ./images/arduino_iop.jpg
+.. image:: ../../images/arduino_iop.jpg
    :align: center
    
 As indicated in the diagram, the Arduino IOP has a MicroBlaze, a configurable switch, and the following peripherals: 

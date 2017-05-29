@@ -78,7 +78,7 @@ The makefile requires SDK to be installed, and can be run from Windows, or Linux
 
 To run ``make`` from Windows, open SDK, and choose a temporary workspace (make sure this path is external to the downloaded GitHub repository). From the *Xilinx Tools* menu, select *Launch Shell*
 
-.. image:: ./images/sdk_launch_shell.jpg
+.. image:: ../../images/sdk_launch_shell.jpg
    :scale: 75%
    :align: center
 
@@ -88,11 +88,11 @@ From either the Windows Shell, or the Linux terminal, navigate to the sdk folder
 
    cd to ``<GitHub Repository>/boards/<board name>/sdk`` and run ``make``
 
-.. image:: ./images/sdk_make.JPG
+.. image:: ../../images/sdk_make.JPG
    :scale: 75%
    :align: center
 
-.. image:: ./images/sdk_make_result.JPG
+.. image:: ../../images/sdk_make_result.JPG
    :scale: 75%
    :align: center
    
@@ -130,7 +130,7 @@ If you want your project to build in the main makefile, you should also append t
 
 If you are using the SDK GUI, you can import the Hardware Platform, BSP, and any application projects into your SDK workspace.
 
-.. image:: ./images/sdk_import_bsp.JPG
+.. image:: ../../images/sdk_import_bsp.JPG
    :scale: 75%
    :align: center
 

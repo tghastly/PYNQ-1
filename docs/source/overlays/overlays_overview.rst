@@ -10,7 +10,7 @@ Overlay Concept
 
 The Xilinx® Zynq® All Programmable device is an SOC based on a dual-core ARM® Cortex®-A9 processor (referred to as the *Processing System* or **PS**), integrated with FPGA fabric (referred to as  *Programmable Logic* or **PL**). The *PS* subsystem includes a number of dedicated peripherals (memory controllers, USB, Uart, IIC, SPI etc) and can be extended with additional hardware IP in a *PL* Overlay. 
 
-.. image:: ./images/zynq_block_diagram.jpg
+.. image:: ../images/zynq_block_diagram.jpg
    :align: center
 
 Overlays, or hardware libraries, are programmable/configurable FPGA designs that extend the user application from the Processing System of the Zynq into the Programmable Logic. Overlays can be used to accelerate a software application, or to customize the hardware platform for a particular application.
@@ -59,7 +59,7 @@ A Pmod port is an open 12-pin interface that is supported by a range of Pmod per
 Typical Pmod peripherals include sensors (voltage, light, temperature), communication interfaces (Ethernet, serial, wifi, bluetooth), and input and output interfaces (buttons, switches, LEDs).
 
 
-.. image:: ./images/pynqz1_pmod_interface.jpg
+.. image:: ../images/pynqz1_pmod_interface.jpg
    :align: center
 
 
@@ -104,7 +104,7 @@ A Grove connector has four pins, VCC and GND, and two data pins.
 
 The PYNQ Grove Adapter has four connectors (G1 - G4), allowing up to four Grove devices to be connected to one Pmod port. Remember that an IOP application will be required to support the configuration of connected peripherals.
 
-.. image:: ./images/pmod_grove_adapter.jpg
+.. image:: ../images/pmod_grove_adapter.jpg
    :align: center
 
 Pmod IO standard for Grove
@@ -112,7 +112,7 @@ Pmod IO standard for Grove
 
 On the grove adapter G1 and G2 map to Pmod pins [0,4] and [1,5], which are connected to pins with pull-down resistors (supports SPI interface, and most peripherals). G3 and G4 map to pins [2,6], [3,7], which are connected to pins with pull-up resistors (IIC), as indicated in the image. 
 
-.. image:: ./images/adapter_mapping.JPG
+.. image:: ../images/adapter_mapping.JPG
    :align: center
    
 
@@ -121,7 +121,7 @@ Arduino connector
 
 There is one Arduino connector on the board and can be used to connect to Arduino compatible shields. 
 
-.. image:: ./images/pynqz1_arduino_interface.jpg
+.. image:: ../images/pynqz1_arduino_interface.jpg
    :align: center
 
 Arduino pins
