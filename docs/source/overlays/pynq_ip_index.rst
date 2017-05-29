@@ -1,5 +1,5 @@
 **************************
-Peripherals and Interfaces
+PYNQ IP 
 **************************
 
 .. toctree::

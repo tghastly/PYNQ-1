@@ -1,6 +1,6 @@
  
-Base Overlay
-===================
+PYNQ-Z1 Base Overlay
+======================
 
 This PYNQ-Z1 overlay includes the following hardware:
 

@@ -1,6 +1,6 @@
  
-Base Overlay
-===================
+Base Overlay overview
+======================
 
 The base overlay is the default PYNQ overlay loaded to the PL at boot time. The base overlay connects to all the available board peripherals, allowing them to be used from Python out-of-the box. It is also intended that the base overlay can be used as a reference design for creating new custom overlays. 
 
