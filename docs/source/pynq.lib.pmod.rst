@@ -1,5 +1,5 @@
 pynq.lib.pmod package
-==================
+=======================
 
 
 pynq.lib.pmod.pmod_adc module

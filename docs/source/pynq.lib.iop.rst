@@ -1,8 +1,8 @@
 pynq.lib.iop package
-==================
+=====================
 
 pynq.lib.iop.devmode module
--------------------------
+-----------------------------
 
 .. automodule:: pynq.lib.iop.devmode
     :members:
