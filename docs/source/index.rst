@@ -26,8 +26,8 @@ Python productivity for Zynq (Pynq) Documentation
    13a_interrupts
    #13b_base_overlay_interrupts
    14_tracebuffer
-   15_data_transfer
    16_creating_overlays
+   15_data_transfer
    17_python_package
    modules
    18_verification
