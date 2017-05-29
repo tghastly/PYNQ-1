@@ -5,7 +5,7 @@ Peripherals and Interfaces
 .. toctree::
    :maxdepth: 2
    
-   11a_iop_architecture
-   11b_iop_applications
-   11c_iop_using_peripherals
+   iop/iop_architecture
+   iop/iop_applications
+   iop/iop_using_peripherals
    

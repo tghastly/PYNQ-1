@@ -14,20 +14,10 @@ Python productivity for Zynq (Pynq) Documentation
    2_pynq
    3_jupyter_notebook
    4_programming_python
-   #5_programming_onboard_peripherals_index
    6_overlays_index
-   #7_base_overlay_index
-   #8_dio_index
-   #7_peripherals_index
-   #8_base_overlay_iop
-   #9_base_overlay_video
-   #10_base_overlay_audio
-   11_iop_index
+   12_data_transfer
    13a_interrupts
    #13b_base_overlay_interrupts
-   14_tracebuffer
-   16_creating_overlays
-   15_data_transfer
    17_python_package
    modules
    18_verification
