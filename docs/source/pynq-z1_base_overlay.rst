@@ -1,32 +1,8 @@
-**************************
-Introduction to Overlays
-**************************
-
-.. contents:: Table of Contents
-   :depth: 2
-   
-Overlay Concept
-===================
-
-The Xilinx® Zynq® All Programmable device is an SOC based on a dual-core ARM® Cortex®-A9 processor (referred to as the  *Processing System* or **PS**). A Zynq chip also includes FPGA fabric (referred to as  *Programmable Logic* or **PL**). The ARM SoC subsystem also includes a number of dedicated peripherals (memory controllers, USB, Uart, IIC, SPI etc). 
-
-.. image:: ./images/zynq_block_diagram.jpg
-   :align: center
-
-On the Pynq-Z1 board, the DDR memory controller, Ethernet, USB, SD, UART are connected on the board. 
-   
-The FPGA fabric is reconfigurable, and can be used to implement high performance functions in hardware. However, FPGA design is a specialized task which requires deep hardware engineering knowledge and expertise. 
-Overlays, or hardware libraries, are programmable/configurable FPGA designs that extend the user application from the Processing System of the Zynq into the Programmable Logic. Overlays can be used to accelerate a software application, or to customize the hardware platform for a particular application.
-
-For example, image processing is a typical application where the FPGAs can provide acceleration. A software programmer can use an overlay in a similar way to a software library to run some of the image processing functions (e.g. edge detect, thresholding etc.) on the FPGA fabric. 
-Overlays can be loaded to the FPGA dynamically, as required, just like a software library. In this example, separate image processing functions could be implemented in different overlays and loaded from Python on demand.
  
 Base Overlay
 ===================
 
-The base overlay is the default overlay included with the PYNQ-Z1 image, and is automatically loaded into the Programmable Logic when the system boots. 
-
-This overlay includes the following hardware:
+This PYNQ-Z1 overlay includes the following hardware:
 
 * HDMI In
 * HDMI Out
@@ -71,7 +47,7 @@ The HDMI out IP supports the following resolutions:
 
 Data can be stream from DDR memory to the HDMI output. The Pynq HDMI Out python instance contains framebuffers to allow for smooth display of video data. 
 
-See the `5_base_overlay_video.ipynb <https://github.com/cathalmccabe/PYNQ/blob/master/docs/source/9b_base_overlay_video.ipynb>`_ notebook in the getting started directory for examples of using the HDMI In and Out. 
+See the `pynq-z1_base_overlay_video.ipynb <https://github.com/cathalmccabe/PYNQ/blob/master/docs/source/pynq-z1_base_overlay_video.ipynb>`_ notebook in the getting started directory for examples of using the HDMI In and Out. 
 
 
 Mic in 
@@ -87,6 +63,9 @@ Audio out
 The audio out IP is connected to a standard 3.5mm audio jack on the board. The audio output is PWM driven mono. 
 
 `Digilent Audio Out reference for the PYNQ-Z1 board <https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/reference-manual#mono_audio_output>`_
+
+See the `pynq-z1_base_overlay_audio.ipynb <https://github.com/cathalmccabe/PYNQ/blob/master/docs/source/pynq-z1_base_overlay_audio.ipynb>`_ notebook in the getting started directory for examples of using the HDMI In and Out. 
+
 
 User IO
 --------------
