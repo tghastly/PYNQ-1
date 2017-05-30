@@ -1,5 +1,8 @@
-Peripherals
+Peripherals & Interfaces
 =============
+
+Peripherals
+-----------
 
 Typical embedded systems support a fixed configuration of peripherals (e.g. SPI, IIC, UART, Video, USB etc.). They may also have some GPIO available to interface to custom hardware, but typically the number of GPIO will be limited, and as the GPIO are controlled from the main CPU, performance is usually limited. 
 
@@ -16,13 +19,13 @@ A library of hardware IP for standard and specialized peripherals is included in
 Note that only a limited number of the dedicated Zynq PS peripherals (Ethernet, USB, UART, IIC, SPI, CAN controllers and GPIO) can be connected externally on a Zynq development board; typically SD card, Ethernet, USB, and UART. It is possible to connect some of the other dedicated peripherals internally to the Zynq PL. The peripherals could then be used internally inside the PL, or routed to PL pins. E.g. to Pmod, or Arduino pins. 
 
 Interfaces
-====================
+---------------
 
 Zynq platforms usually have one or more headers that allow connection of external peripherals. The Pmod and Arduino interface are commonly used on Zynq development boards to allow standard peripherals to be connected to the PL. Other peripherals can be connected to these ports via adapters, or with a breadboard. Note that while a peripheral can be physically connected to the Zynq PL pins, a controller must be built into the overlay before the peripheral can be used. 
 
 
 Pmod port
---------------
+^^^^^^^^^^^^^^^^^^
 
 A Pmod port is an open 12-pin interface that is supported by a range of Pmod peripherals from Digilent and third party manufacturers. 
 Typical Pmod peripherals include sensors (voltage, light, temperature), communication interfaces (Ethernet, serial, wifi, bluetooth), and input and output interfaces (buttons, switches, LEDs).
@@ -98,14 +101,14 @@ Arduino pins
 
 Each Arduino connector has 6 analog pins (A0 - A5), 14 multi-purpose Digital pins (D0 - D13), 2 dedicated I2C pins (SCL, SDA), and 4 dedicated SPI pins. 
 
-Supported Peripherals
------------------------------
+Supported Arduino shields
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Arduino standard supports 5V on all pins, including analog pins. Most Arduino compatible shields can be used with a PYNQ, but as Zynq analog pins only support 1V peak-to-peak, some analog shields may not work without additional interfacing circuitry. 
 
 
 Using Pmod and Arduino Peripherals
-====================================
+-----------------------------------------
 
 Pynq introduces IOPs (Input Output Processors) which are covered in the next section. An IOP consists of a MicroBlaze processor with dedicated peripherals which can be selected and routed to the physical interface at runtime. An IOP provides flexibility allowing peripherals with different protocols and interfaces to be used with the same overlay. 
 A peripheral will have an IOP driver application, and a Python wrapper. The next sections will cover the IOP architecture, and how to write driver applications and the corresponding Python wrapper for a peripheral. 

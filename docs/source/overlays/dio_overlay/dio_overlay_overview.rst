@@ -16,7 +16,7 @@ The trace buffer component can capture and stream signals to DRAM allowing the d
 
 The project files for the base overlay can be found here:
 
-    ``<GitHub Repository>/boards/Pynq-Z1/base``
+    ``<GitHub Repository>/boards/Pynq-Z1/dio``
 
 
 The makefile and .tcl file can be used to rebuild the overlay. The base overlay will include IP from the Vivado library, and custom IP. Any custom IP can be found in directory:
