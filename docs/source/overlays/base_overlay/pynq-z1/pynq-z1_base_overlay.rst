@@ -47,7 +47,7 @@ The HDMI out IP supports the following resolutions:
 
 Data can be stream from DDR memory to the HDMI output. The Pynq HDMI Out python instance contains framebuffers to allow for smooth display of video data. 
 
-See the `pynq-z1_base_overlay_video.ipynb <https://github.com/cathalmccabe/PYNQ/blob/master/docs/source/pynq-z1_base_overlay_video.ipynb>`_ notebook in the getting started directory for examples of using the HDMI In and Out. 
+See the `pynq-z1_base_overlay_video.ipynb <https://github.com/xilinx/PYNQ/blob/master/docs/source/pynq-z1_base_overlay_video.ipynb>`_ notebook in the getting started directory for examples of using the HDMI In and Out. 
 
 
 Mic in 
