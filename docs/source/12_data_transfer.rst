@@ -8,10 +8,20 @@ Data Transfer
 Introduction
 ==================
 
-AXI interfaces are the main connections for transferring data between the PS and the PL. The Zynq has 2 AXI general purpose masters (master from PS to PL) and 2 AXI general purpose slaves (slave from PS to PL). There are also 4 AXI High performance ports, and one ACP port. 
+AXI interfaces are the main connections for transferring data between the PS and the PL. The Zynq has 2 AXI general purpose masters (master from PS to PL) and 2 AXI general purpose slaves (slave from PS to PL). There are also 4 AXI High performance ports, and one ACP port. When designing IP, the ACP is an AXI4 slave interface and can be considered similar to the HP ports. The same IP can be connected to either a HP port or the ACP, and from Python will be the same. However, IP connected to the ACP can have a negitive impact on system performance depending on the data access patterns, so care should be taken when using the ACP. 
+
+There are classes of IP
+
+* AXI (lite) Slave
+* AXI (lite) Master
+* AXI Master
+* AXI Stream
+
 For details on AXI interfaces, see:
 
 There are also GPIO, which are simple wires between PS and PL and can be used for conntrol. E.g. reset or interrupts. 
+
+
 
 There are 3 main classes of PL peripheral used in Zynq designs. 
 
