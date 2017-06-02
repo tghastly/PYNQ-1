@@ -39,6 +39,7 @@ import os
 import site
 import stat
 from datetime import datetime
+from .ps import CPU_ARCH_IS_SUPPORTED
 
 ''' Board specific package delivery setup '''
 if 'BOARD' not in os.environ:
@@ -201,9 +202,7 @@ if len(sys.argv) > 1 and sys.argv[1] == 'install':
     backup_notebooks()
     fill_notebooks_dir()
 
-arch = os.uname()[-1]
-# if x86, assume ReadTheDocs and don't build external modules
-if arch in ('x86_64'):
+if not CPU_ARCH_IS_SUPPORTED:
     external_modules=[]
 else:
     external_modules=[
