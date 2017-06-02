@@ -8,56 +8,89 @@ Data Transfer
 Introduction
 ==================
 
-AXI interfaces are the main connections for transferring data between the PS and the PL. The Zynq has 2 AXI general purpose masters (master from PS to PL) and 2 AXI general purpose slaves (slave from PS to PL). There are also 4 AXI High performance ports, and one ACP port. When designing IP, the ACP is an AXI4 slave interface and can be considered similar to the HP ports. The same IP can be connected to either a HP port or the ACP, and from Python will be the same. However, IP connected to the ACP can have a negitive impact on system performance depending on the data access patterns, so care should be taken when using the ACP. 
-
-There are classes of IP
-
-* AXI (lite) Slave
-* AXI (lite) Master
-* AXI Master
-* AXI Stream
-
-For details on AXI interfaces, see:
-
-There are also GPIO, which are simple wires between PS and PL and can be used for conntrol. E.g. reset or interrupts. 
+AXI interfaces are the main connections for transferring data between the PS and the PL. The Zynq has 2 AXI GP (General Purpose) masters (master from PS to PL) and 2 AXI GP slaves (slave from PS to PL), 4 AXI HP (High Performance) slaves, and one ACP AXI slave. An AXI master can be connected to either a HP port or the ACP port. The same PYNQ code can be used to access both types of interface, so the ACP will not be considered separately in this documentation. It should be noted that the performance of the system when an IP is connected to the ACP can be affected both positively and negatively depending on the data access patterns of the connected IP, so care should be taken when using the ACP. 
 
 
+Physical Interfaces
+---------------------
 
-There are 3 main classes of PL peripheral used in Zynq designs. 
+There are four main interface types for IP blocks.
 
-* AXI Slave - reacts to transactions from a (PS) master. 
-* AXI Stream - stream interface to process data. The PS will usually transfer data to the AXI stream slave, and receive data from the AXI stream master. 
-* AXI Master - a master device in the PL. A master can read/write DDR memory directly without interaction of the PS CPU. 
-
-There are 3 classes to carry out, and also to facilitate data transfer between PS and PL
-
-* MMIO - register read/write transactions to an AXI slave interface.
-* DMA - transfer data to/from AXI stream interfaces. 
-* Xlnk - allocates memory, and provides the physical address for an AXI master peripheral to use. 
+* AXI4 Slave
+* AXI4 Master
+* AXI4 Stream
+* GPIO
 
 
-The main interfaces between the ZynqPS and the PL. 
+AXI4 Slave
+^^^^^^^^^^^
 
-Data can be transferred from pynq to an overlay in two main ways. The python ``MMIO`` *Memory Mapped Input/Output*, and ``xlnk`` classes in the pynq package can be used for simple and streamed data transfer. 
+An AXI4 slave can be connected to an AXI GP Master port. 
+ 
+.. image:: ./images/axi_lite_slave.png
+   :align: center
+
+The AXI GP port on Zynq is usually used for lower performance IP, or for control interfaces. 
+
+AXI4 Master
+^^^^^^^^^^^^^^^^^
+
+An AXI4 Master can be connected to the AXI GP Slave ports, HP ports, or ACP. 
+
+.. image:: ./images/axi4_master.png
+   :align: center
+
+HP ports are usually used for high performance peripherals that need access to DRAM. For example, a video controller can write video data to DRAM through a HP port without any interaction from the main CPU. 
+
+AXI4 Stream
+^^^^^^^^^^^^^^^
+
+AXI4 streams are data channels and have no address signals. This means they need an IP block to convert memory mapped transactions in the PS to stream transactions and vice versa. A DMA is one way to do this. A DMA can have an AXI lite control interface connected to an AXI GP Master port, and AXI4 Master port connected to a HP port to access DDR, and an AXI4 stream port to connect to the AXI stream. The AXI lite control port can be used to initiate a transaction, data can be read from the DRAM and sent to the AXI4 stream, or received from the AXI stream and sent to DRAM. 
+
+.. image:: ./images/axi4_stream_dma.png
+   :align: center
+
+
+GPIO
+^^^^^^^^^^^^^^
+
+There are also GPIO, which are simple wires between PS and PL.  
+
+.. image:: ./images/gpio_interface.png
+   :align: center
+
+GPIO wires from the PS can be used as a very simple way to communicate between PS and PL. For example, GPIO can be used as control signals for resets, or interrupts. 
+
+PYNQ classes for data transfer
+-------------------------------
+
+There are four PYNQ classes that are used for data transfer between PS and PL. 
+
+* MMIO - Memory Mapped IO
+* Xlnk - Memory allocation
+* DMA  - Direct Memory Access
+* GPIO 
+
 
 MMIO
-======
-MMIO can be used read/write a single memory mapped location in an overlay. MMIO is most appropriate for reading and small amounts of data. Each MMIO read or write command can transfer 32 bits of data. 
+^^^^^^^^^^
 
-The following examples sets up the MMIO to access memory location 0x40000000 - 0x40001000.
+MMIO can be used read/write a memory mapped location. A MMIO read or write command can transfer 32 bits of data. MMIO is most appropriate for reading and writing small amounts of data.
 
-Some *data* (0xdeadbeef) is sent to location ADDRESS_OFFSET (0x10). ADDRESS_OFFSET is offset from the start of the MMIO area (0x40000000). This means 0xdeadbeef will be written to 0x40000010. 
+The following example sets up an MMIO instance to access memory location IP_BASE_ADDRESS - IP_BASE_ADDRESS + ADDRESS RANGE (0x40000000 - 0x40001000).
+
+Some *data* (e.g. 0xdeadbeef) is sent to location ADDRESS_OFFSET (0x10). ADDRESS_OFFSET is offset from the IP base address IP_BASE_ADDRESS. This means 0xdeadbeef will be written to 0x40000010. 
 
 The same location is then read and stored in *result*. 
 
 .. code-block:: Python
 
-   ACCELERATOR_ADDRESS 0x40000000
-   MEMORY_SIZE = 0x1000
+   IP_BASE_ADDRESS 0x40000000
+   ADDRESS_RANGE = 0x1000
    ADDRESS_OFFSET = 0x10
    
    from pynq import MMIO   
-   mmio = MMIO(ACCELERATOR_ADDRESS,MEMORY_SIZE) 
+   mmio = MMIO(IP_BASE_ADDRESS, ADDRESS_RANGE) 
 
    data = 0xdeadbeef
    self.mmio.write(ADDRESS_OFFSET, data)
@@ -65,19 +98,22 @@ The same location is then read and stored in *result*.
 
 This example assumes the memory mapped area defined for the MMIO, 0x40000000 - 0x40001000, is accessible to the PS. 
 
-xlnk
-=============
 
-``xlnk`` can be used to control a DMA in the overlay. 
 
-To transfer data from a DMA to a location in an overlay, a memory buffer needs to be allocated in the main DDR memory. xlnk can be used to allocate a contiguous memory buffer. 
+Xlnk
+^^^^^^^^^^^^^
 
-Once the buffer has been allocated, any data to be sent to the overlay can be written to the buffer from Python. When the data is ready to be sent, xlnk can start the DMA memory transfer. 
+PYNQ runs on Linux, which uses virtual memory. The Zynq AXI Slave ports allow a master in an overlay to access physical memory. Memory must be allocated, before it can be accessed by the IP.
+``Xlnk`` allows memory buffers to be allocated. Xlnk provides a virtual pointer to the memory buffer. This allows Python or other code running in Linux on the PS to access the memory buffer. Xlnk also provides the physical memory pointer which can be sent to an IP in the overlay. The IP can then access the same buffer from using the physical address. 
 
-The DMA can also be used to transfer data from an overlay to the DDR memory buffer. 
+For example, a program running on a MicroBlaze processor in an overlay may need to write data to main memory so that it could be read in Python. First, the memory can be allocated in Linux using Xlnk. Then the physical pointer is sent to the MicroBlaze, and finally the MicroBlaze program and write data to the memory buffer using the pointer. 
 
-xlnk basic example
--------------------
+Xlnk is also used implicitly by the DMA class. 
+
+In the following example, an Xlnk instance, *mmu*, is created. *cma_alloc()* is used to allocate a block of memory of size MEMORY_SIZE (0x1000 in this example). A virtual pointer is returned to *bufPtr*. The buffer can be accessed in Python as seen in the for loop. Calling *cma_get_phy_addr()* on the virtual pointer gets the physical address which allows access to the buffer from an IP in the overlay. 
+
+Xlnk example
+^^^^^^^^^^^^^^^
 
 .. code-block:: Python
 
@@ -86,24 +122,55 @@ xlnk basic example
    from pynq import Xlnk
    mmu = Xlnk()   
    
-   bufptr = mmu.cma_alloc(MEMORY_SIZE)
-   phy_addr = mmu.cma_get_phy_addr(buf_ptr)
+   bufTtr = mmu.cma_alloc(MEMORY_SIZE)
+   phyAddr = mmu.cma_get_phy_addr(buf_ptr)
    
    
    for i in range(MEMORY_SIZE):
-      bufptr[i] = i
+      bufPtr[i] = i
    
 
 Data can be written to the buffer, and the physical address can be sent to a block in the accelerator (for example and IOP) which could then access the buffer from DDR memory. 
 
 DMA
-======
+^^^^^^^^^
+
+The PYNQ DMA class supports the `AXI Direct Memory Access IP <https://www.xilinx.com/support/documentation/ip_documentation/axi_dma/v7_1/pg021_axi_dma.pdf>`_. 
+This allows data to be read from DRAM, and sent to an AXI stream, or received from a stream and written to DRAM. 
 
 
 DMA example
------------------
+^^^^^^^^^^^^^^
 
-This example assumes the overlay contains the `AXI Direct Memory Access (7.1) <https://www.xilinx.com/support/documentation/ip_documentation/axi_dma/v7_1/pg021_axi_dma.pdf>`_ IP. This IP can be used to connect to AXI streams in an overlay. 
+This example assumes the overlay contains two AXI Direct Memory Access IP, one with a read channel from DRAM, and an AXI Master stream interface (for an output stream), and the other with a write channel to DRAM, and an AXI Slave stream interface (for an input stream). 
+
+Two DMA instances are created using the physical address of the DMA in the overlay. The addresses can be found in the *overlay* ``.ip_dict``. The direction of the DMA is also specified (0: DMA to device - output stream, 1: DMA from device - input stream). 
+
+A memory buffer is then allocated using *create_buf()*, and the buffer pointer is obtained with *get_buf()*. The buffer data type width can be specified as 32 bit or 64 bit. The memory buffer can then be accessed from Python. For example, some data to be transferred to the IP can be written to the buffer. 
+The DMA can then start the transfer by calling the *transfer()* function, specifying the number of bytes to transfer, and the direction (0 : DMA to device). Data can be captured from the recv buffer in a similar way. 
 
 .. code-block:: Python
 
+    dma_send = DMA(dma_send_addr, 0)  # 'DMA_TO_DEV'
+    dma_recv = DMA(dma_recv_addr, 1) # 'DMA_FROM_DEV'
+    
+    
+    dma_send.create_buf(1024)
+    send_buffer = dma_send.get_buf(32)
+    
+    transfer_size = 1024
+    
+    # Send DMA - from DRAM to stream
+    for i in range(transfer_size):
+        send_buffer[i] = i
+        
+    dma_send.transfer(transfer_size*4, 0)
+    
+    # Receive DMA - from stream to DRAM
+    dma_recv.create_buf(1024)
+    recv_buffer = dma_recv.get_buf(32)
+    
+    dma_write.transfer(transfer_size*4, 1)
+    for i in range(transfer_size):
+        print(recv_buffer[i])
+    
