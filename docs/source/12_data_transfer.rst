@@ -1,5 +1,5 @@
 *******************************
-Data Transfer
+PS/PL Data Transfer
 *******************************
 
 .. contents:: Table of Contents
@@ -8,10 +8,23 @@ Data Transfer
 Introduction
 ==================
 
-AXI interfaces are the main connections for transferring data between the PS and the PL. The Zynq has 2 AXI GP (General Purpose) masters (master from PS to PL) and 2 AXI GP slaves (slave from PS to PL), 4 AXI HP (High Performance) slaves, and one ACP AXI slave. An AXI master can be connected to either a HP port or the ACP port. The same PYNQ code can be used to access both types of interface, so the ACP will not be considered separately in this documentation. It should be noted that the performance of the system when an IP is connected to the ACP can be affected both positively and negatively depending on the data access patterns of the connected IP, so care should be taken when using the ACP. 
+
+There are four PYNQ classes that are used for data transfer between PS and PL. 
+
+* MMIO - Memory Mapped IO
+* Xlnk - Memory allocation
+* DMA  - Direct Memory Access
+* GPIO - General Purpose Input/Output
+
+The class used depends on the Zynq PS interface the IP is connnected to, and the interface of the IP. 
+
+Zynq interfaces
+---------------------
+
+AXI interfaces are the main connections for transferring data between the PS and the PL. The Zynq has 2 AXI GP (General Purpose) masters (master from PS to PL) and 2 AXI GP slaves (slave from PS to PL), 4 AXI HP (High Performance) slaves, and one ACP AXI slave. An AXI master can be connected to either a HP port or the ACP port. 
 
 
-Physical Interfaces
+IP Interfaces
 ---------------------
 
 There are four main interface types for IP blocks.
@@ -61,15 +74,8 @@ There are also GPIO, which are simple wires between PS and PL.
 
 GPIO wires from the PS can be used as a very simple way to communicate between PS and PL. For example, GPIO can be used as control signals for resets, or interrupts. 
 
-PYNQ classes for data transfer
--------------------------------
-
-There are four PYNQ classes that are used for data transfer between PS and PL. 
-
-* MMIO - Memory Mapped IO
-* Xlnk - Memory allocation
-* DMA  - Direct Memory Access
-* GPIO 
+PYNQ classes 
+-------------
 
 
 MMIO
