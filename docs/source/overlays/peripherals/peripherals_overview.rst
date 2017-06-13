@@ -1,5 +1,5 @@
 Peripherals & Interfaces
-=============
+===========================
 
 Peripherals
 -----------
@@ -31,7 +31,7 @@ A Pmod port is an open 12-pin interface that is supported by a range of Pmod per
 Typical Pmod peripherals include sensors (voltage, light, temperature), communication interfaces (Ethernet, serial, wifi, bluetooth), and input and output interfaces (buttons, switches, LEDs).
 
 
-.. image:: ../images/pynqz1_pmod_interface.jpg
+.. image:: ../../../images/pynqz1_pmod_interface.jpg
    :align: center
 
 
@@ -42,12 +42,12 @@ Each Pmod connector has 12 pins arranged in 2 rows of 6 pins. Each row has 3.3V 
 
 Pmods come in different configurations depending on the number of data pins required. e.g. Full single row: 1x6 pins; full double row: 2x6 pins; and partially populated: 2x4 pins. 
 
-.. image:: ../images/pmod_pins.png
+.. image:: ../../../images/pmod_pins.png
    :align: center
 
 Pmods that use both rows (e.g. 2x4 pins, 2x6 pins), should usually be aligned to the left of the connector (to align with VCC and GND). VCC and GND are labelled on the PYNQ-Z1 board. 
 
-.. image:: ../images/pmod_tmp2_8pin.JPG
+.. image:: ../../../images/pmod_tmp2_8pin.JPG
 
 Pmod peripherals with only a single row of pins can be connected to either the top row or the bottom row of a Pmod port (again, aligned to VCC/GND). If you are using an existing driver/overlay, you will need to check which pins/rows are supported for a given overlay, as not all options may be implemented. e.g. the Pmod ALS is currently only supported on the top row of a Pmod port, not the bottom row.  
 
@@ -76,7 +76,7 @@ A Grove connector has four pins, VCC and GND, and two data pins.
 
 The PYNQ Grove Adapter has four connectors (G1 - G4), allowing up to four Grove devices to be connected to one Pmod port. Remember that an IOP application will be required to support the configuration of connected peripherals.
 
-.. image:: ../images/pmod_grove_adapter.jpg
+.. image:: ../../../images/pmod_grove_adapter.jpg
    :align: center
 
 Pmod IO standard for Grove
@@ -84,7 +84,7 @@ Pmod IO standard for Grove
 
 On the grove adapter G1 and G2 map to Pmod pins [0,4] and [1,5], which are connected to pins with pull-down resistors (supports SPI interface, and most peripherals). G3 and G4 map to pins [2,6], [3,7], which are connected to pins with pull-up resistors (IIC), as indicated in the image. 
 
-.. image:: ../images/adapter_mapping.JPG
+.. image:: ../../../images/adapter_mapping.JPG
    :align: center
    
 
@@ -93,7 +93,7 @@ Arduino connector
 
 An Arduino connector can be used to connect to Arduino compatible shields. 
 
-.. image:: ../images/pynqz1_arduino_interface.jpg
+.. image:: ../../../images/pynqz1_arduino_interface.jpg
    :align: center
 
 Arduino pins

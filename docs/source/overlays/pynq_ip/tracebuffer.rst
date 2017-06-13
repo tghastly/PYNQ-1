@@ -25,7 +25,7 @@ The tracebuffer monitors the external PL Input/Output Blocks (IOBs) on the PMod 
 
 The trace buffer is connected to all 3 signals for each IOP (Pmod and Arduino).
 
-.. image:: ./images/trace_buffer.jpg
+.. image:: ../../imagestrace_buffer.jpg
    :align: center
 
 This allows the trace buffer to read the tri-state, determine if the IOB is in input, or output mode, and read the appropriate trace data. 

@@ -88,6 +88,7 @@ The specification for the finite state machine is a list of inputs, outputs, sta
 Input and outputs are listed as tuples, specifying a pin and label for the pin. 
 
 .. code-block:: Python
+
     ('reset','D0')
     
 Valid pins are found in the interface specification:
@@ -98,8 +99,8 @@ Transitions  are specified by defining the input bits, '01' in the following exa
 
     ['01', 'S0', 'S5', '000']
     
-    
-Wildcards for inputs '-' and for states '/*' can be used. 
+
+Wildcards for inputs '-' and for states '\*' can be used. 
 
 .. code-block:: Python
 
@@ -160,6 +161,7 @@ The following list defines four combinatorial functions on pins D8-11, which are
 Once the expressions have been defined, they can be passed to the BooleanBuilder function.
 
 .. code-block:: Python
+
     boolean_functions = [BooleanBuilder(INTERFACE) for _ in range(len(expressions))]
 
 Then ...

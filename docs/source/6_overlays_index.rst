@@ -8,7 +8,7 @@ PYNQ Overlays
    overlays/overlays_overview
    overlays/base_overlay_index
    overlays/dio_overlay_index
-   overlays/peripherals
+   overlays/peripherals_index
    overlays/iop_index
    overlays/pynq_ip_index
    overlays/creating_overlays  
