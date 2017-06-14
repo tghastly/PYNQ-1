@@ -9,9 +9,9 @@ What's New
 v1.5 PYNQ image
 ===============================
 
-The latest PYNQ image for the Pynq-Z1 is available here: 
+The latest PYNQ image for the Pynq-Z1: 
 
-* `The PYNQ v1.5 image will be available for download here <>`_
+* The PYNQ v1.5 image will be available for download here 
 
 This image corresponds to the `v1.5 tag branch on the Pynq GitHub repository <https://github.com/Xilinx/PYNQ/tree/v1.5>`_.
 
@@ -20,8 +20,14 @@ This version of the documentation refers to the new image. The previous version 
 Summary of updates
 -----------------------
 
-* A list of updates will be available here
-   
+* A full list of updates will be available here
+* Repository restructured to allow support for multiple platforms.
+* PYNQ Image build flow now available
+* Updated Video subsytem with support for color space transforms, and grayscale conversion
+* DIO
+* Attributes overlay
+
+
 For a more complete list of changes, see the `Pynq changelog <changelog.html>`_
 
 
