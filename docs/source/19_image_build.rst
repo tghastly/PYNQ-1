@@ -11,7 +11,7 @@ Overview
 
 The source files for the PYNQ image flow build can be found here:
 
-PYNQ/sdbuild
+   ``<GitHub repository>/sdbuild``
 
 Check the readme in this directory for detailed instructions about the Image flow build. 
 
@@ -29,7 +29,7 @@ Vivado and SDK 2016.1 must be installed.
 
 Run the following script to install the required packages onto the host.
 
-scripts/setup_host.sh
+   ``<GitHub repository>/sdbuild/scripts/setup_host.sh``
 
 Once the host has been set up, source the settings for Vivado and SDK, and run make. The build flow can take several hours. 
 
@@ -41,8 +41,7 @@ To build the PYNQ image for another Zynq board the board configuration must be m
 
 Board specific files can be found here:
 
-PYNQ/sdbuild/boot_configs
-
+   ``<GitHub repository>/PYNQ/sdbuild/boot_configs``
 
 In the PYNQ image flow, the script ``create_zynq_hdf.tcl`` is used to create a Vivado project and generate the HDF file which includes the board specific settings. The HDF is then used to create the Linux device tree.
 
@@ -54,9 +53,12 @@ PYNQ also expects a base.bit as the default overlay for a board, and it download
 
 The bitstream is specified here:
 
-sdbuild/boot_configs/common/Zynq7000.makefile
+   ``<GitHub repository>/sdbuild/boot_configs/common/Zynq7000.makefile``
 
 Any overlay can be used as the default for a new image, but the file must be called ``base.bit`` 
 
 This variable in the ``Zynq7000.makefile`` can be updated to point to the new location of the bitstream
-BOOT_BITSTREAM ?= ${WORKDIR}/PYNQ/boards/${BOARD}/base/base.bit
+
+.. code-block:: console
+
+   BOOT_BITSTREAM ?= ${WORKDIR}/PYNQ/boards/${BOARD}/base/base.bit
