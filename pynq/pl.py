@@ -687,6 +687,19 @@ class PL(metaclass=PLMeta):
             raise EnvironmentError('Root permissions required.')
 
 
+def _stop_server():
+    try:
+        PL.client_request()
+        PL.server_update(0)
+    except:
+        pass
+
+def _start_server():
+    if os.path.exists(PL_SERVER_FILE):
+       of.path.remove(PL_SERVER_FILE)
+    PL.setup()
+
+
 class Bitstream(PL):
     """This class instantiates a programmable logic bitstream.
 
