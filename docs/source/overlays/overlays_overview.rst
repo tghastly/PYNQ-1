@@ -16,6 +16,28 @@ Overlays can be loaded to the FPGA dynamically, as required, just like a softwar
 
 PYNQ provides a Python interface to allow overlays in the *PL* to be controller from Python running in the *PS*. FPGA design is a specialized task which requires hardware engineering knowledge and expertise. PYNQ overlays are created by hardware designers, and wrapped with this PYNQ Python API. Software developers can then use the Python interface to program and control specialized hardware overlays without needing to design an overlay themselves. This is analogous to software libraries created by expert developers which are then used by many other software developers working at the application level. 
 
+Using Overlays
+--------------------
+
+New overlays can be loaded as the system is running. The PYNQ *Overlay* class is used to load an overlay. Once the Overlay class is imported, the overlay can be instantiated by specifying the name of the bitstrem. The bitstream can then be loaded to the Zynq PL:
+
+.. code-block:: python
+
+   from pynq import Overlay
+   ol = Overlay("base.bit")
+   ol.download()
+   
+Once an overlay has been loaded, an Python API should be available for use with the overlay. The API will usually correspond to IP available in the overlay. 
+
+Once a PYNQ class for the IP has been instantiated, the API can be used to interact with the overlay/IP.
+
+For example, where the overlay includes an LED IP:
+
+.. code-block:: python
+
+   my_led = LED()
+   my_led.write(1)
+   my_led.toggle()
 
 Custom hardware
 ---------------------

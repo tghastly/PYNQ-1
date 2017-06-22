@@ -2,7 +2,7 @@
 Pynq-Z1 audio Subsystem
 ============================
 
-The Pynq-Z1 audio subsystem consists of an IP block to drive the PWM mono output,, and another block to read the PDM input from the MIC.  
+The Pynq-Z1 audio subsystem consists of an IP block to drive the PWM mono output, and another block to read the PDM input from the MIC.  
    
 .. image:: ../../images/audio_subsystem.png
    :align: center

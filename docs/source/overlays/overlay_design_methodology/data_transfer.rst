@@ -1,5 +1,5 @@
 *******************************
-PS/PL Data Transfer
+Data transfer
 *******************************
 
 .. contents:: Table of Contents
@@ -16,7 +16,7 @@ There are four PYNQ classes that are used for data transfer between PS and PL.
 * DMA  - Direct Memory Access
 * GPIO - General Purpose Input/Output
 
-The class used depends on the Zynq PS interface the IP is connnected to, and the interface of the IP. 
+The class used depends on the Zynq PS interface the IP is connected to, and the interface of the IP. 
 
 Zynq interfaces
 ---------------------

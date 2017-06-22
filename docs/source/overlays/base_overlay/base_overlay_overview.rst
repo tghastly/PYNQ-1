@@ -7,7 +7,7 @@ Board peripherals typically include GPIO devices (LEDs, Switches, Buttons), Vide
 
 Once the system boots, all board peripherals should be available to use via the base overlay. 
 
-The base overlay design can also be used as a reference design for creating new overlays. The base overlay project will include the setting for the which should be used for any new overlay design. 
+The base overlay design can also be used as a reference design for creating new overlays. The base overlay project will include the setting which should be used for any new overlay design. 
 
 Any controllers, or IP that are not required can be removed from the base overlay design, and any custom hardware blocks can be added. 
 
