@@ -538,7 +538,11 @@ class PLMeta(type):
         None
 
         """
-        cls._remote = Client(address, family='AF_UNIX', authkey=key)
+        try:
+            cls._remote = Client(address, family='AF_UNIX', authkey=key)
+        except FileNotFoundError:
+            raise ConnectionError(
+                       "Could not connect to Pynq PL server") from None
         cls._bitfile_name, cls._timestamp, \
             cls._ip_dict, cls._gpio_dict, \
             cls._interrupt_controllers, \
@@ -683,6 +687,19 @@ class PL(metaclass=PLMeta):
         euid = os.geteuid()
         if euid != 0:
             raise EnvironmentError('Root permissions required.')
+
+
+def _stop_server():
+    try:
+        PL.client_request()
+        PL.server_update(0)
+    except:
+        pass
+
+def _start_server():
+    if os.path.exists(PL_SERVER_FILE):
+       of.path.remove(PL_SERVER_FILE)
+    PL.setup()
 
 
 class Bitstream(PL):

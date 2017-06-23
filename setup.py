@@ -204,8 +204,12 @@ setup(name='pynq',
       package_data={
           '': ['tests/*', 'js/*', '*.bin', '*.so', 'bitstream/*', '*.pdm'],
       },
-      scripts=['bin/start_pl_server.py',
-               'bin/stop_pl_server.py'],
+      entry_points={
+          'console_scripts' : [
+              'start_pl_server.py = pynq.pl:_start_server',
+              'stop_pl_server.py = pynq.pl:_stop_server'
+          ]
+      },
       ext_modules=[
           Extension('pynq.lib._video', video,
                     include_dirs=['pynq/lib/_pynq/inc',
@@ -216,3 +220,7 @@ setup(name='pynq',
       ],
       data_files=pynq_data_files
       )
+
+if board:
+    print('Restarting PL server')
+    subprocess.run(['systemctl' ,'restart', 'pl_server'])
