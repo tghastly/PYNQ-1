@@ -157,7 +157,7 @@ class _TCL:
         family_gpio_dict = {"xc7z": "GPIO_O",
                             "xczu": "emio_gpio_o"}
         hier_use_pat = "create_hier_cell"
-        hier_proc_def_pat = f"proc {hier_use_pat}"
+        hier_proc_def_pat = "proc {}".format(hier_use_pat)
         hier_def_regex = "create_hier_cell_(?P<name>[^ ]*)"
         hier_proc_end_pat = "}\n"
         hier_use_regex = ("create_hier_cell_(?P<hier_name>[^ ]*) ([^ ].*) " +
