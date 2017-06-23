@@ -38,6 +38,7 @@ import sys
 import os
 import site
 import stat
+import warnings
 from datetime import datetime
 
 ''' Board specific package delivery setup '''
@@ -46,11 +47,13 @@ if 'BOARD' not in os.environ:
     board = None
     board_folder = None
     pynq_data_files = None
+    CPU_ARCH_IS_SUPPORTED = False
 else:
     board = os.environ['BOARD']
     board_folder = 'boards/{}/'.format(board)
     pynq_data_files = [(os.path.join('{}/pynq'.format(site.getsitepackages()[0]), root.replace(board_folder, '')),
                         [os.path.join(root, f) for f in files]) for root, dirs, files in os.walk(board_folder)]
+    CPU_ARCH_IS_SUPPORTED = True
 
 ''' Notebook Delivery '''
 default_nb_dir = '/home/xilinx/jupyter_notebooks'
@@ -186,12 +189,27 @@ def run_make(src_path, dst_path, output_lib):
     shutil.copyfile(src_path + output_lib, dst_path + output_lib)
 
 
-if len(sys.argv) > 1 and sys.argv[1] == 'install':
+if len(sys.argv) > 1 and sys.argv[1] == 'install' and CPU_ARCH_IS_SUPPORTED:
     run_make("pynq/lib/_pynq/_apf/", "pynq/lib/", "libdma.so")
     run_make("pynq/lib/_pynq/_audio/", "pynq/lib/", "libaudio.so")
 
     backup_notebooks()
     fill_notebooks_dir()
+elif(not CPU_ARCH_IS_SUPPORTED):
+    warnings.warn("Unsupported CPU Architecture", ResourceWarning)
+
+if CPU_ARCH_IS_SUPPORTED:
+    ext_modules = [
+        Extension('pynq.lib._video', video,
+                  include_dirs=['pynq/lib/_pynq/inc',
+                                'pynq/lib/_pynq/bsp/ps7_cortexa9_0/include'],
+                  libraries=['sds_lib'],
+                  library_dirs=['/usr/lib'],
+        ),
+    ]
+else:
+    warnings.warn("Unsupported CPU Architecture", ResourceWarning)
+    ext_modules = []
 
 setup(name='pynq',
       version='1.5',
@@ -206,13 +224,6 @@ setup(name='pynq',
       },
       scripts=['bin/start_pl_server.py',
                'bin/stop_pl_server.py'],
-      ext_modules=[
-          Extension('pynq.lib._video', video,
-                    include_dirs=['pynq/lib/_pynq/inc',
-                                  'pynq/lib/_pynq/bsp/ps7_cortexa9_0/include'],
-                    libraries=['sds_lib'],
-                    library_dirs=['/usr/lib'],
-                    ),
-      ],
+      ext_modules=ext_modules,
       data_files=pynq_data_files
       )

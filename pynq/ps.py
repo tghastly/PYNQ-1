@@ -29,6 +29,7 @@
 
 import numpy as np
 import os
+import warnings
 from .mmio import MMIO
 
 
@@ -138,7 +139,13 @@ class Register:
         width : int
             The width of the register, e.g., 32 (default) or 64.
 
+        Note
+        ----
+        If this method is called on an unsupported architecture it will warn and
+        return without initialization.
+
         """
+        
         self.address = address
         self.width = width
 
@@ -159,7 +166,13 @@ class Register:
         index : int | slice
             The integer index, or slice to access the register value.
 
+        Note
+        ----
+        If this method is called on an unsupported architecture it will warn and
+        return 0.
+
         """
+        
         curr_val = int.from_bytes(self._buffer, byteorder='little')
         if isinstance(index, int):
             mask = 1 << index
@@ -207,7 +220,13 @@ class Register:
         index : int | slice
             The integer index, or slice to access the register value.
 
+        Note
+        ----
+        If this method is called on an unsupported architecture it will warn and
+        return.
+
         """
+        
         curr_val = int.from_bytes(self._buffer, byteorder='little')
         if isinstance(index, int):
             if value != 0 and value != 1:
@@ -253,7 +272,13 @@ class Register:
         This method is overloaded to print the register value. The output 
         is a string in hex format.
 
+        Note
+        ----
+        If this method is called on an unsupported architecture it will warn and
+        return an empty string.
+
         """
+
         curr_val = int.from_bytes(self._buffer, byteorder='little')
         return hex(curr_val)
 
@@ -265,20 +290,23 @@ class ClocksMeta(type):
     are exposed to users. Users should use the class `Clocks` instead.
 
     """
-    arm_pll_reg = Register(SCLR_BASE_ADDRESS + ARM_PLL_DIV_OFFSET)
-    ddr_pll_reg = Register(SCLR_BASE_ADDRESS + DDR_PLL_DIV_OFFSET)
-    io_pll_reg = Register(SCLR_BASE_ADDRESS + IO_PLL_DIV_OFFSET)
-    arm_clk_reg = Register(SCLR_BASE_ADDRESS + ARM_CLK_REG_OFFSET)
-    fclk0_reg = Register(SCLR_BASE_ADDRESS + CLK_CTRL_REG_OFFSET[0])
-    fclk1_reg = Register(SCLR_BASE_ADDRESS + CLK_CTRL_REG_OFFSET[1])
-    fclk2_reg = Register(SCLR_BASE_ADDRESS + CLK_CTRL_REG_OFFSET[2])
-    fclk3_reg = Register(SCLR_BASE_ADDRESS + CLK_CTRL_REG_OFFSET[3])
-
-    arm_pll_fdiv = arm_pll_reg[PLL_DIV_MSB:PLL_DIV_LSB]
-    ddr_pll_fdiv = ddr_pll_reg[PLL_DIV_MSB:PLL_DIV_LSB]
-    io_pll_fdiv = io_pll_reg[PLL_DIV_MSB:PLL_DIV_LSB]
-    arm_clk_sel = arm_clk_reg[ARM_CLK_SEL_MSB:ARM_CLK_SEL_LSB]
-    arm_clk_div = arm_clk_reg[ARM_CLK_DIV_MSB:ARM_CLK_DIV_LSB]
+    if CPU_ARCH_IS_SUPPORTED:
+        arm_pll_reg = Register(SCLR_BASE_ADDRESS + ARM_PLL_DIV_OFFSET)
+        ddr_pll_reg = Register(SCLR_BASE_ADDRESS + DDR_PLL_DIV_OFFSET)
+        io_pll_reg = Register(SCLR_BASE_ADDRESS + IO_PLL_DIV_OFFSET)
+        arm_clk_reg = Register(SCLR_BASE_ADDRESS + ARM_CLK_REG_OFFSET)
+        fclk0_reg = Register(SCLR_BASE_ADDRESS + CLK_CTRL_REG_OFFSET[0])
+        fclk1_reg = Register(SCLR_BASE_ADDRESS + CLK_CTRL_REG_OFFSET[1])
+        fclk2_reg = Register(SCLR_BASE_ADDRESS + CLK_CTRL_REG_OFFSET[2])
+        fclk3_reg = Register(SCLR_BASE_ADDRESS + CLK_CTRL_REG_OFFSET[3])
+        
+        arm_pll_fdiv = arm_pll_reg[PLL_DIV_MSB:PLL_DIV_LSB]
+        ddr_pll_fdiv = ddr_pll_reg[PLL_DIV_MSB:PLL_DIV_LSB]
+        io_pll_fdiv = io_pll_reg[PLL_DIV_MSB:PLL_DIV_LSB]
+        arm_clk_sel = arm_clk_reg[ARM_CLK_SEL_MSB:ARM_CLK_SEL_LSB]
+        arm_clk_div = arm_clk_reg[ARM_CLK_DIV_MSB:ARM_CLK_DIV_LSB]
+    else:
+        warnings.warn("Unsupported CPU Architecture", ResourceWarning)
 
     @property
     def cpu_mhz(cls):

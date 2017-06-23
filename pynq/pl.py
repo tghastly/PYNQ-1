@@ -31,12 +31,13 @@ import os
 import re
 import mmap
 import math
+import warnings
 from copy import deepcopy
 from datetime import datetime
 from multiprocessing.connection import Listener
 from multiprocessing.connection import Client
 from .mmio import MMIO
-from .ps import Clocks
+from .ps import Clocks, CPU_ARCH_IS_SUPPORTED
 
 __author__ = "Yun Rock Qu"
 __copyright__ = "Copyright 2016, Xilinx"
@@ -123,10 +124,16 @@ class _TCL:
             The tcl filename to parse. This is opened directly so should be
             fully qualified
 
+        Note
+        ----
+        If this method is called on an unsupported architecture it will warn and
+        return without initialization
+
         """
+        
         if not isinstance(tcl_name, str):
             raise TypeError("tcl_name has to be a string")
-
+        
         # Initialize result variables
         self.intc_names = []
         self.interrupt_controllers = {}
@@ -383,17 +390,19 @@ class PLMeta(type):
     """
     _bitfile_name = BS_BOOT
     _timestamp = ""
-
-    _tcl = _TCL(TCL_BOOT)
-    _ip_dict = _tcl.ip_dict
-    _gpio_dict = _tcl.gpio_dict
-    _interrupt_controllers = _tcl.interrupt_controllers
-    _interrupt_pins = _tcl.interrupt_pins
-    _status = 1
-
-    _server = None
-    _host = None
-    _remote = None
+    
+    if CPU_ARCH_IS_SUPPORTED:
+        _tcl = _TCL(TCL_BOOT)
+        _ip_dict = _tcl.ip_dict
+        _gpio_dict = _tcl.gpio_dict
+        _interrupt_controllers = _tcl.interrupt_controllers
+        _interrupt_pins = _tcl.interrupt_pins
+        _status = 1
+        _server = None
+        _host = None
+        _remote = None
+    else:
+        warnings.warn("Unsupported CPU Architecture", ResourceWarning)
 
     @property
     def bitfile_name(cls):
@@ -738,13 +747,16 @@ class Bitstream(PL):
 
         Note
         ----
-        The class variables held by the singleton PL will also be updated.
+        The class variables held by the singleton PL will also be updated. In
+        addition, if this method is called on an unsupported architecture it
+        will warn and return.
 
         Returns
         -------
         None
 
         """
+
         # Compose bitfile name, open bitfile
         with open(self.bitfile_name, 'rb') as f:
             buf = f.read()
