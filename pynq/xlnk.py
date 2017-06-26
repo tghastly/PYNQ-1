@@ -48,26 +48,6 @@ def sig_handler(signum, frame):
     sys.exit(127)
 signal.signal(signal.SIGSEGV, sig_handler)
 
-ffi = cffi.FFI()
-
-ffi.cdef("""
-static uint32_t xlnkBufCnt = 0;
-uint32_t cma_mmap(uint32_t phyAddr, uint32_t len);
-uint32_t cma_munmap(void *buf, uint32_t len);
-void *cma_alloc(uint32_t len, uint32_t cacheable);
-uint32_t cma_get_phy_addr(void *buf);
-void cma_free(void *buf);
-uint32_t cma_pages_available();
-void _xlnk_reset();
-""")
-
-if not CPU_ARCH_IS_SUPPORTED:
-    warnings.warn("Unsupported CPU Architecture")
-elif os.getuid() != 0:
-    raise RuntimeError("Root permission needed by the library.")
-else:
-    libxlnk = ffi.dlopen("/usr/lib/libsds_lib.so")    
-
 class CMABuffer(np.ndarray):
     def __del__(self):
         self.freebuffer()
@@ -95,8 +75,29 @@ class Xlnk:
     ----------
     bufmap : dict
         Mapping of allocated memory to the buffer sizes in bytes.
+
+    ffi : cffi instance
+        Shared-object interface for the compiled CMA shared object
         
     """
+
+    ffi = cffi.FFI()
+
+    ffi.cdef("""
+    static uint32_t xlnkBufCnt = 0;
+    uint32_t cma_mmap(uint32_t phyAddr, uint32_t len);
+    uint32_t cma_munmap(void *buf, uint32_t len);
+    void *cma_alloc(uint32_t len, uint32_t cacheable);
+    uint32_t cma_get_phy_addr(void *buf);
+    void cma_free(void *buf);
+    uint32_t cma_pages_available();
+    void _xlnk_reset();
+    """)
+    if CPU_ARCH_IS_SUPPORTED:
+        libxlnk = ffi.dlopen("/usr/lib/libsds_lib.so")
+    else:
+        warnings.warn("Unsupported CPU Architecture", ResourceWarning)
+    
     def __init__(self):
         """Initialize new Xlnk object.
 
@@ -105,6 +106,9 @@ class Xlnk:
         None
 
         """
+        if os.getuid() != 0:
+            raise RuntimeError("Root permission needed by the library.")
+
         self.bufmap = {}
 
     def __del__(self):
@@ -118,7 +122,7 @@ class Xlnk:
 
         """
         for key in self.bufmap.keys():
-            libxlnk.cma_free(key)
+            self.libxlnk.cma_free(key)
     
     def __check_buftype(self, buf):
         """Internal method to check for a valid buffer.
@@ -187,12 +191,12 @@ class Xlnk:
             
         """
         if data_type != "void":
-            length = ffi.sizeof(data_type) * length
-        buf = libxlnk.cma_alloc(length, cacheable)
-        if buf == ffi.NULL:
+            length = self.ffi.sizeof(data_type) * length
+        buf = self.libxlnk.cma_alloc(length, cacheable)
+        if buf == self.ffi.NULL:
             raise RuntimeError("Failed to allocate Memory!")
         self.bufmap[buf] = length
-        return ffi.cast(data_type + "*", buf)
+        return self.ffi.cast(data_type + "*", buf)
         
     def cma_get_buffer(self, buf, length):
         """Get a buffer object.
@@ -215,7 +219,7 @@ class Xlnk:
 
         """
         self.__check_buftype(buf)
-        return ffi.buffer(buf, length)
+        return self.ffi.buffer(buf, length)
     
     def cma_array(self, shape, dtype=np.uint32):
         if isinstance(shape, numbers.Integral):
@@ -251,7 +255,7 @@ class Xlnk:
 
         """
         self.__check_buftype(buf_ptr)
-        return libxlnk.cma_get_phy_addr(buf_ptr)
+        return self.libxlnk.cma_get_phy_addr(buf_ptr)
 
     @staticmethod
     def cma_memcopy(dest, src, nbytes):
@@ -274,7 +278,7 @@ class Xlnk:
         None
 
         """
-        ffi.memmove(dest, src, nbytes)
+        self.ffi.memmove(dest, src, nbytes)
     
     @staticmethod
     def cma_cast(data, data_type = "void"):
@@ -297,7 +301,7 @@ class Xlnk:
             Pointer to buffer with specified data type.
             
         """
-        return ffi.cast(data_type+"*", data)
+        return self.ffi.cast(data_type+"*", data)
       
     def cma_free(self, buf):
         """Free a previously allocated buffer.
@@ -318,7 +322,7 @@ class Xlnk:
         if buf in self.bufmap:
             self.bufmap.pop(buf, None)
         self.__check_buftype(buf)
-        libxlnk.cma_free(buf)
+        self.libxlnk.cma_free(buf)
     
     def cma_stats(self):
         """Get current CMA memory Stats.
@@ -336,7 +340,7 @@ class Xlnk:
 
         """
         stats = {}
-        free_pages = libxlnk.cma_pages_available()
+        free_pages = self.libxlnk.cma_pages_available()
         stats['CMA Memory Available'] = resource.getpagesize() * free_pages
         memused = 0
         for key in self.bufmap:
@@ -358,4 +362,4 @@ class Xlnk:
 
         """
         self.bufmap = {}
-        libxlnk._xlnk_reset()
+        self.libxlnk._xlnk_reset()
