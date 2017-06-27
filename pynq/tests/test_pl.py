@@ -82,7 +82,7 @@ def test_overlay():
         for ip in ol.ip_dict:
             for key in ['addr_range', 'phys_addr', 'state', 'type']:
                 assert key in ol.ip_dict[ip], \
-                    f'Key {key} missing in IP {ip}.'
+                    'Key {} missing in IP {}.format(key, ip)'
             assert ol.ip_dict[ip]['state'] is None,\
                 'Overlay gets wrong IP state.'
             # Set "TEST" for IP states
@@ -90,7 +90,7 @@ def test_overlay():
         for gpio in ol.gpio_dict:
             for key in ['index', 'state']:
                 assert key in ol.gpio_dict[gpio], \
-                    f'Key {key} missing in GPIO {gpio}.'
+                    'Key {} missing in GPIO {}.format(key, gpio)'
             assert ol.gpio_dict[gpio]['state'] is None, \
                 'Overlay gets wrong GPIO state.'
             # Set "TEST" for GPIO states
@@ -110,19 +110,19 @@ def test_overlay():
         bitfile1_fclk2_mhz = Clocks.fclk2_mhz
         bitfile1_fclk3_mhz = Clocks.fclk3_mhz
         assert not ol.bitstream.timestamp == '', \
-            f'Overlay ({ol.bitfile_name}) has an empty timestamp.'
+            'Overlay ({}) has an empty timestamp.'.format(ol.bitfile_name)
         assert ol.is_loaded(), \
-            f'Overlay ({ol.bitfile_name}) should be loaded.'
+            'Overlay ({}) should be loaded.'.format(ol.bitfile_name)
         assert Clocks.cpu_mhz == cpu_mhz, \
             'CPU frequency should not be changed.'
         assert Clocks.fclk0_mhz == bitfile1_fclk0_mhz, \
-            f'FCLK0 frequency not correct after downloading {ol.bitfile_name}.'
+            'FCLK0 frequency not correct after downloading {}.'.format(ol.bitfile_name)
         assert Clocks.fclk1_mhz == bitfile1_fclk1_mhz, \
-            f'FCLK1 frequency not correct after downloading {ol.bitfile_name}.'
+            'FCLK1 frequency not correct after downloading {}.'.format(ol.bitfile_name)
         assert Clocks.fclk2_mhz == bitfile1_fclk2_mhz, \
-            f'FCLK2 frequency not correct after downloading {ol.bitfile_name}.'
+            'FCLK2 frequency not correct after downloading {}.'.format(ol.bitfile_name)
         assert Clocks.fclk3_mhz == bitfile1_fclk3_mhz, \
-            f'FCLK3 frequency not correct after downloading {ol.bitfile_name}.'
+            'FCLK3 frequency not correct after downloading {}.'.format(ol.bitfile_name)
 
 
 @pytest.mark.run(order=-1)

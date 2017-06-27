@@ -25,7 +25,7 @@ class AxiGPIO(DefaultIP):
         def write(self, val):
             if val > self._mask:
                 raise ValueError(
-                    f"{val} to large for {self._stop - self._start} bits")
+                    "{} to large for {} bits".format(val, self._stop - self._start))
             self._parent.write(val << self._start, self._mask << self._start)
 
         def on(self):

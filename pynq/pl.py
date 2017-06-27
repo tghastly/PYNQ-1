@@ -350,7 +350,7 @@ class _TCL:
                 gpio_names.append(m.group(1))
         for n, i in gpio_dict.items():
             if n in gpio_names:
-                output_net = self.pins[f'{n}/Dout']
+                output_net = self.pins['{}/Dout'.format(n)]
                 output_pins = self.nets[output_net]
                 self.gpio_dict[n] = {'index': i, 'state': None,
                                      'pins': output_pins}

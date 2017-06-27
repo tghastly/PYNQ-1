@@ -81,8 +81,8 @@ class VideoMode:
             self.shape = (self.height, self.width, self.bytes_per_pixel)
 
     def __repr__(self):
-        return (f"VideoMode: width={self.width} "
-                f"height={self.height} bpp={self.bits_per_pixel}")
+        return ("VideoMode: width={} ".format(self.width),
+                "height={} bpp={}".format(self.height, self.bits_per_pixel))
 
 
 class HDMIInFrontend(DefaultHierarchy):
@@ -107,13 +107,13 @@ class HDMIInFrontend(DefaultHierarchy):
 
         """
         ip_dict = self.description
-        gpio_description = ip_dict[f'axi_gpio_hdmiin']
+        gpio_description = ip_dict['axi_gpio_hdmiin']
         gpio_dict = {
             'BASEADDR': gpio_description['phys_addr'],
             'INTERRUPT_PRESENT': 1,
             'IS_DUAL': 1,
         }
-        vtc_description = ip_dict[f'vtc_in']
+        vtc_description = ip_dict['vtc_in']
         vtc_capture_addr = vtc_description['phys_addr']
         self._capture = pynq.lib._video._capture(gpio_dict,
                                                  vtc_capture_addr,
@@ -182,8 +182,8 @@ class HDMIOutFrontend(DefaultHierarchy):
         """
         super().__init__(path, description)
         ip_dict = self.description
-        vtc_description = ip_dict[f'vtc_out']
-        clock_description = ip_dict[f'axi_dynclk']
+        vtc_description = ip_dict['vtc_out']
+        clock_description = ip_dict['axi_dynclk']
         vtc_capture_addr = vtc_description['phys_addr']
         clock_addr = clock_description['phys_addr']
         self._display = pynq.lib._video._display(vtc_capture_addr,
@@ -219,8 +219,8 @@ class HDMIOutFrontend(DefaultHierarchy):
         if resolution in _outputmodes:
             self._display.mode(_outputmodes[resolution])
         else:
-            raise ValueError(f"Invalid Output resolution "
-                             f"{value.width}x{value.height}")
+            raise ValueError("Invalid Output resolution "
+                             "{}x{}".format(value.width, value.height))
 
 
 class _FrameCache:
@@ -757,8 +757,8 @@ class AxiVDMA(DefaultIP):
         super().__init__(description)
         self.framecount = framecount
         path = description['fullpath']
-        self.readchannel = AxiVDMA.S2MMChannel(self, f"{path}/s2mm_introut")
-        self.writechannel = AxiVDMA.MM2SChannel(self, f"{path}/mm2s_introut")
+        self.readchannel = AxiVDMA.S2MMChannel(self, "{}/s2mm_introut".format(path))
+        self.writechannel = AxiVDMA.MM2SChannel(self, "{}/mm2s_introut".format(path))
 
     bindto = ['xilinx.com:ip:axi_vdma:6.2']
 
@@ -967,9 +967,9 @@ PIXEL_GRAY = PixelFormat(8, COLOR_IN_YCBCR, COLOR_OUT_GRAY)
 
 
 def _subhierarchy(key, description):
-    filtered_dict = {k.replace(f'{key}/','',1): v
+    filtered_dict = {k.replace('{}/'.format(key),'',1): v
                      for k, v in description.items()
-                     if k.startswith(f'{key}/')}
+                     if k.startswith('{}/'.format(key))}
     return filtered_dict
 
 
@@ -988,7 +988,7 @@ class HDMIIn(DefaultHierarchy):
         frontend_dict = _subhierarchy('frontend', description)
         return ('pixel_pack' in description and
                 'color_convert' in description and
-                HDMIInFrontend.checkhierarchy(f"{path}/frontend", frontend_dict))
+                HDMIInFrontend.checkhierarchy("{}/frontend".format(path), frontend_dict))
 
     def __init__(self, path, description, vdma=None):
         """Initialise the drivers for the pipeline
@@ -1127,7 +1127,7 @@ class HDMIOut(DefaultHierarchy):
         frontend_dict = _subhierarchy('frontend', description)
         return ('pixel_unpack' in description and
                 'color_convert' in description and
-                HDMIOutFrontend.checkhierarchy(f"{path}/frontend", frontend_dict))
+                HDMIOutFrontend.checkhierarchy("{}/frontend".format(path), frontend_dict))
 
     def __init__(self, path, description, vdma=None):
         """Initialise the drivers for the pipeline
@@ -1265,8 +1265,8 @@ class HDMIWrapper(DefaultHierarchy):
         in_dict = _subhierarchy('hdmi_in', description)
         out_dict = _subhierarchy('hdmi_out', description)
         return ('axi_vdma' in description and
-                HDMIIn.checkhierarchy(f"{path}/hdmi_in", in_dict) and
-                HDMIOut.checkhierarchy(f"{path}/hdmi_out", out_dict))
+                HDMIIn.checkhierarchy("{}/hdmi_in".format(path), in_dict) and
+                HDMIOut.checkhierarchy("{}/hdmi_out".format(path), out_dict))
 
     def __init__(self, path, description):
         super().__init__(path, description)

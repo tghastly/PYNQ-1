@@ -46,7 +46,7 @@ def get_interface_id(text, options):
     options_str = [str(x) for x in options]
     options_text = '/'.join(options_str)
     ret_str = input(
-        f"Type in the interface ID of the {text} ({options_text}): ")
+        "Type in the interface ID of the {} ({}): ".format(text, options_text))
     ret_str = ret_str.strip().upper()
     if ret_str not in options_str:
         raise ValueError('Please use a valid interface ID.')

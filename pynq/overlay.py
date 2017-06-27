@@ -371,7 +371,7 @@ def _create_ip(desc):
 def _partitiondict(dictionary, key):
     return {k.partition('/')[2]: v
             for k, v in dictionary.items()
-            if k.startswith(f'{key}/')}
+            if k.startswith('{}/'.format(key))}
 
 
 def _gethierarchydriver(fullpath, desc):
@@ -404,7 +404,7 @@ class _IPMap:
         self._hierarchies = {}
         for h in hierarchies:
             if self._path:
-                fullpath = f"{self._path}/{h}"
+                fullpath = "{}/{h}".format(self._path)
             else:
                 fullpath = h
             driver = _gethierarchydriver(fullpath,
@@ -422,9 +422,9 @@ class _IPMap:
         return subdesc
 
     def __getattr__(self, key):
-        print(f'__getattr__({key})')
+        print('__getattr__({})'.format(key))
         if self._path:
-            fullpath = f"{self._path}/{key}"
+            fullpath = "{self._path}/{}".format(key)
         else:
             fullpath = key
         if key in self._hierarchies:
@@ -450,7 +450,7 @@ class _IPMap:
             return gpio
         else:
             raise AttributeError(
-                f"Could not find IP or hierarchy {key} in overlay")
+                "Could not find IP or hierarchy {} in overlay".format(key))
 
     def __dir__(self):
         return sorted(set(super().__dir__() +
@@ -462,20 +462,20 @@ class _IPMap:
 
 
 def _classname(class_):
-    return f"{class_.__module__}.{class_.__name__}"
+    return "{}.{}".format(class_.__module__,class_.__name__)
 
 
 def _builddocstring(ipmap, name, type_):
     lines = []
-    lines.append(f"Default documentation for {type_} {name}. The following")
-    lines.append(f"attributes are available on this {type_}:")
+    lines.append("Default documentation for {} {}. The following".format(type_, name))
+    lines.append("attributes are available on this {type_}:".format(type_))
     lines.append("")
 
     lines.append("IP Blocks")
     lines.append("----------")
     if ipmap._ipdrivers:
         for ip, driver in ipmap._ipdrivers.items():
-            lines.append(f"{ip : <20} : {_classname(driver)}")
+            lines.append("{:<20} : {}".format(ip, _classname(driver)))
     else:
         lines.append("None")
     lines.append("")
@@ -484,7 +484,7 @@ def _builddocstring(ipmap, name, type_):
     lines.append("-----------")
     if ipmap._hierarchies:
         for hierarchy, driver in ipmap._hierarchies.items():
-            lines.append(f"{hierarchy : <20} : {_classname(driver)}")
+            lines.append("{:<20} : {}".format(hierarchy , _classname(driver)))
     else:
         lines.append("None")
     lines.append("")
@@ -493,7 +493,7 @@ def _builddocstring(ipmap, name, type_):
     lines.append("----------")
     if ipmap._interrupts:
         for interrupt in ipmap._interrupts:
-            lines.append(f"{interrupt : <20} : pynq.interrupt.Interrupt")
+            lines.append("{:<20} : pynq.interrupt.Interrupt".format(interrupt ))
     else:
         lines.append("None")
     lines.append("")
@@ -502,7 +502,7 @@ def _builddocstring(ipmap, name, type_):
     lines.append("------------")
     if ipmap._gpio:
         for gpio in ipmap._gpio:
-            lines.append(f"{gpio : <20} : pynq.gpio.GPIO")
+            lines.append("{:<20} : pynq.gpio.GPIO".format(gpio))
     else:
         lines.append("None")
     lines.append("")
@@ -560,9 +560,9 @@ class DefaultHierarchy(_IPMap, metaclass=RegisterHierarchy):
     def __init__(self, path, description=None):
         if description is None:
             ip_dict = PL.ip_dict
-            filtered_dict = {k.replace(f'{path}/', '', 1): v
+            filtered_dict = {k.replace('{}/'.format(path), '', 1): v
                              for k, v in ip_dict.items()
-                             if k.startswith(f'{path}/')}
+                             if k.startswith('{}/'.format(path))}
             description = filtered_dict
         self.description = description
         super().__init__(path, description)

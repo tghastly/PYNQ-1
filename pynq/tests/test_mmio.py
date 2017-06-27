@@ -76,10 +76,10 @@ def test_mmio():
             sleep(0.1)
             data2 = mmio.read(offset)
             assert data1 == data2, \
-                f'MMIO read back a wrong random value at offset {offset}.'
+                'MMIO read back a wrong random value at offset {}.'.format(offset)
             mmio.write(offset, 0)
             sleep(0.1)
             assert mmio.read(offset) == 0, \
-                f'MMIO read back a wrong fixed value at offset {offset}.'
+                'MMIO read back a wrong fixed value at offset {}.'.format(offset)
     else:
         raise RuntimeError("No testable IP for MMIO class.")
