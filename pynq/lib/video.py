@@ -70,10 +70,7 @@ class VideoMode:
         Numpy-style tuple describing the video frame
 
     """
-    if CPU_ARCH_IS_SUPPORTED:
-        pass
-    else:
-        
+
     def __init__(self, width, height, bits_per_pixel, stride=None):
         self.width = width
         self.height = height
