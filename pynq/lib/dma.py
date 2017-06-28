@@ -35,40 +35,12 @@ import signal
 import numpy as np
 from pynq import DefaultIP
 
-
-__author__ = "Anurag Dubey"
-__copyright__ = "Copyright 2016, Xilinx"
-__email__ = "pynq_support@xilinx.com"
-
-
-
-
-DefaultConfig = {
-    'DeviceId': 0,
-    'BaseAddr': ffi.cast("uint32_t *", 0x00000000),
-    'HasStsCntrlStrm': 0,
-    'HasMm2S': 0,
-    'HasMm2SDRE': 0,
-    'Mm2SDataWidth': 32,
-    'HasS2Mm': 1,
-    'HasS2MmDRE': 0,
-    'S2MmDataWidth': 64,
-    'HasSg': 0,
-    'Mm2sNumChannels': 1,
-    'S2MmNumChannels': 1,
-    'Mm2SBurstSize': 16,
-    'S2MmBurstSize': 64,
-    'MicroDmaMode': 0,
-    'AddrWidth': 32
-}
-
 DMA_TO_DEV = 0
 DMA_FROM_DEV = 1
 DMA_BIDIRECTIONAL = 3
 
 DeviceId = 0
 DMA_TRANSFER_LIMIT_BYTES = 8388607
-
 
 class timeout:
     """Internal timeout functions.
@@ -215,6 +187,25 @@ class DMA:
     void cma_free(void *buf);
     uint32_t cma_pages_available();
     """)
+    
+    DefaultConfig = {
+        'DeviceId': 0,
+        'BaseAddr': ffi.cast("uint32_t *", 0x00000000),
+        'HasStsCntrlStrm': 0,
+        'HasMm2S': 0,
+        'HasMm2SDRE': 0,
+        'Mm2SDataWidth': 32,
+        'HasS2Mm': 1,
+        'HasS2MmDRE': 0,
+        'S2MmDataWidth': 64,
+        'HasSg': 0,
+        'Mm2sNumChannels': 1,
+        'S2MmNumChannels': 1,
+        'Mm2SBurstSize': 16,
+        'S2MmBurstSize': 64,
+        'MicroDmaMode': 0,
+        'AddrWidth': 32
+    }
 
     LIB_SEARCH_PATH = os.path.dirname(os.path.realpath(__file__))
     if CPU_ARCH_IS_SUPPORTED:
