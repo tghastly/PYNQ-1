@@ -44,7 +44,7 @@ import numpy as np
 import IPython.core.display
 from pynq import PL
 from pynq import MMIO
-from pynq.drivers import DMA
+from pynq.lib import DMA
 from pynq.iop import PMODA
 from pynq.iop import PMODB
 from pynq.iop import ARDUINO

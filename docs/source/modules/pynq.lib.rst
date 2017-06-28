@@ -62,13 +62,6 @@ pynq.lib.switch module
     :undoc-members:
     :show-inheritance:
 
-pynq.lib.trace_buffer module
----------------------------------
-
-.. automodule:: pynq.lib.trace_buffer
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 pynq.lib.usb_wifi module
 ------------------------------

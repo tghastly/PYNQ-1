@@ -22,6 +22,17 @@ import os
 sys.path.insert(0, os.path.abspath('../../'))
 sys.path.insert(0, os.path.abspath('../../pynq'))
 
+from unittest.mock import MagicMock
+
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+        return MagicMock()
+
+MOCK_MODULES = ['_video']
+
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+
 import pynq
 
 # -- General configuration ------------------------------------------------
