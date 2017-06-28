@@ -40,7 +40,7 @@ AXI4 Slave
 
 An AXI4 slave can be connected to an AXI GP Master port. 
  
-.. image:: ./images/axi_lite_slave.png
+.. image:: ../../images/axi_lite_slave.png
    :align: center
 
 The AXI GP port on Zynq is usually used for lower performance IP, or for control interfaces. 
@@ -50,7 +50,7 @@ AXI4 Master
 
 An AXI4 Master can be connected to the AXI GP Slave ports, HP ports, or ACP. 
 
-.. image:: ./images/axi4_master.png
+.. image:: ../../images/axi4_master.png
    :align: center
 
 HP ports are usually used for high performance peripherals that need access to DRAM. For example, a video controller can write video data to DRAM through a HP port without any interaction from the main CPU. 
@@ -60,7 +60,7 @@ AXI4 Stream
 
 AXI4 streams are data channels and have no address signals. This means they need an IP block to convert memory mapped transactions in the PS to stream transactions and vice versa. A DMA is one way to do this. A DMA can have an AXI lite control interface connected to an AXI GP Master port, and AXI4 Master port connected to a HP port to access DDR, and an AXI4 stream port to connect to the AXI stream. The AXI lite control port can be used to initiate a transaction, data can be read from the DRAM and sent to the AXI4 stream, or received from the AXI stream and sent to DRAM. 
 
-.. image:: ./images/axi4_stream_dma.png
+.. image:: ../../images/axi4_stream_dma.png
    :align: center
 
 
@@ -69,7 +69,7 @@ GPIO
 
 There are also GPIO, which are simple wires between PS and PL.  
 
-.. image:: ./images/gpio_interface.png
+.. image:: ../../images/gpio_interface.png
    :align: center
 
 GPIO wires from the PS can be used as a very simple way to communicate between PS and PL. For example, GPIO can be used as control signals for resets, or interrupts. 

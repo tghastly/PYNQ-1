@@ -29,36 +29,43 @@ HDMI-Out
 The HDMI-out is similar to HDMI-in. It has a Pixel Pack block (instead of the *Unpack* block for HDMI-in) and a Color Convert block. 
 
 Color space conversion
--------------------
+---------------------------
 
 The video subsystem supports conversion between different color spaces. The default color space is BGR. Supported color spaces include: RGB (24-bit), RGBA (32-bit), BGR (24-bit), YCbCr (24-bit), and grayscale (8-bit).
 
 The colorspace converter operates on each pixel independently using a 3x4 matrix to transform the pixels. The converter is programmed with a list of twelve coefficients in the folling order:
 
-|     |in1 |in2 |in3 | 1  |
-|-----|----|----|----|----|
-|out1 |c1  |c2  |c3  |c10 |
-|out2 |c4  |c5  |c6  |c11 |
-|out3 |c7  |c8  |c9  |c12 |
+==== === === === ===
+     in1 in2 in3  1 
+==== === === === ===
+out1 c1  c2  c3  c10
+out2 c4  c5  c6  c11
+out3 c7  c8  c9  c12
+==== === === === ===
 
 Each coefficient should be a floating point number between -2 and +2.
 
 The pixels to and from the HDMI frontends are in BGR order so a list of coefficients to convert from the input format to RGB would be:
 
+
+.. code-block:: Python
+
     [0, 0, 1,
      0, 1, 0,
      1, 0, 0,
      0, 0, 0]
+
  
- reversing the order of the pixels and not adding any bias.
+reversing the order of the pixels and not adding any bias.
  
 The resulting output order woudl be:
 
-|     |    |    |    |  |
-|-----|----|----|----|--|
-|out1 |c3  |c2  |c1  |0 |
-|out2 |c6  |c5  |c4  |0 |
-|out3 |c9  |c8  |c7  |0 |
+
+==== === === === ==
+out1 c3  c2  c1  0 
+out2 c6  c5  c4  0 
+out3 c9  c8  c7  0 
+==== === === === ==
 
 The driver for the colorspace converters has a single property that contains the list of coefficients.
 
