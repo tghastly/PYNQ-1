@@ -39,7 +39,7 @@ from pynq import DefaultHierarchy
 from pynq import PL
 from pynq import Xlnk
 import warnings
-from .ps import CPU_ARCH_IS_SUPPORTED
+from pynq.ps import CPU_ARCH_IS_SUPPORTED
 
 if CPU_ARCH_IS_SUPPORTED:
     import pynq.lib._video
