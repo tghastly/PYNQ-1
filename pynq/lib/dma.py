@@ -35,6 +35,8 @@ import signal
 import numpy as np
 from pynq import DefaultIP
 
+from .ps import CPU_ARCH_IS_SUPPORTED
+
 DMA_TO_DEV = 0
 DMA_FROM_DEV = 1
 DMA_BIDIRECTIONAL = 3
