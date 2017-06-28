@@ -1,5 +1,5 @@
     pynq.lib
-    pynq.tests
+    \pynq.tests
 
 
 pynq.gpio module
