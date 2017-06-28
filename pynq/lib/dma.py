@@ -123,8 +123,8 @@ class DMA:
         Current DMAinstance configuration values.
 
     """
-ffi = cffi.FFI()
-memapi = cffi.FFI()
+    ffi = cffi.FFI()
+    memapi = cffi.FFI()
 
     ffi.cdef("""
     typedef unsigned int* XAxiDma_Bd[20];
