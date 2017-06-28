@@ -34,6 +34,7 @@ import functools
 import signal
 import numpy as np
 from pynq import DefaultIP
+import warnings
 
 from pynq.ps import CPU_ARCH_IS_SUPPORTED
 

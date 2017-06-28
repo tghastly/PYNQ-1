@@ -156,6 +156,7 @@ Set up an instance of the HDMI-in, and HDMI-out.
 The HDMI-in color space can be specified using the ``configure`` function. This step is optional, as HDMI will detect the color space from the input stream. The HDMI-in *mode* can be used to configure the HDMI-out block. This specifies the output color space. 
 
 .. code-block:: Python
+
     hdmi_in.configure()
     hdmi_out.configure(hdmi_in.mode)
     
