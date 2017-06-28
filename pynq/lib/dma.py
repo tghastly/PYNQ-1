@@ -41,102 +41,7 @@ __copyright__ = "Copyright 2016, Xilinx"
 __email__ = "pynq_support@xilinx.com"
 
 
-ffi = cffi.FFI()
-memapi = cffi.FFI()
 
-ffi.cdef("""
-typedef unsigned int* XAxiDma_Bd[20];
-typedef struct {
-        uint32_t ChanBase;           /**< physical base address*/
-        int IsRxChannel;        /**< Is this a receive channel */
-        volatile int RunState;  /**< Whether channel is running */
-        int HasStsCntrlStrm;    /**< Whether has stscntrl stream */
-        int HasDRE;
-        int DataWidth;
-        int Addr_ext;
-        uint32_t MaxTransferLen;
-
-        uint32_t * FirstBdPhysAddr; /**< Physical address of 1st BD in list */
-        uint32_t * FirstBdAddr;  /**< Virtual address of 1st BD in list */
-        uint32_t * LastBdAddr;  /**< Virtual address of last BD in the list */
-        uint32_t Length;         /**< Total size of ring in bytes */
-        uint32_t * Separation;  /**< Number of bytes between the starting
-                                     address of adjacent BDs */
-        XAxiDma_Bd *FreeHead;   /**< First BD in the free group */
-        XAxiDma_Bd *PreHead;    /**< First BD in the pre-work group */
-        XAxiDma_Bd *HwHead;     /**< First BD in the work group */
-        XAxiDma_Bd *HwTail;     /**< Last BD in the work group */
-        XAxiDma_Bd *PostHead;   /**< First BD in the post-work group */
-        XAxiDma_Bd *BdaRestart; /**< BD to load when channel is started */
-        int FreeCnt;            /**< Number of allocatable BDs in free group */
-        int PreCnt;             /**< Number of BDs in pre-work group */
-        int HwCnt;              /**< Number of BDs in work group */
-        int PostCnt;            /**< Number of BDs in post-work group */
-        int AllCnt;             /**< Total Number of BDs for channel */
-        int RingIndex;          /**< Ring Index */
-} XAxiDma_BdRing;
-typedef struct {
-        uint32_t DeviceId;
-        uint32_t * BaseAddr;
-
-        int HasStsCntrlStrm;
-        int HasMm2S;
-        int HasMm2SDRE;
-        int Mm2SDataWidth;
-        int HasS2Mm;
-        int HasS2MmDRE;
-        int S2MmDataWidth;
-        int HasSg;
-        int Mm2sNumChannels;
-        int S2MmNumChannels;
-        int Mm2SBurstSize;
-        int S2MmBurstSize;
-        int MicroDmaMode;
-        int AddrWidth;            /**< Address Width */
-} XAxiDma_Config;
-typedef struct XAxiDma {
-        uint32_t RegBase;            /* Virtual base address of DMA engine */
-        int HasMm2S;            /* Has transmit channel */
-        int HasS2Mm;            /* Has receive channel */
-        int Initialized;        /* Driver has been initialized */
-        int HasSg;
-        XAxiDma_BdRing TxBdRing;     /* BD container management */
-        XAxiDma_BdRing RxBdRing[16]; /* BD container management */
-        int TxNumChannels;
-        int RxNumChannels;
-        int MicroDmaMode;
-        int AddrWidth;            /**< Address Width */
-} XAxiDma;
-unsigned int getMemoryMap(unsigned int phyAddr, unsigned int len);
-unsigned int getPhyAddr(void *buf);
-void frame_free(void *buf);
-int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config);
-void XAxiDma_Reset(XAxiDma * InstancePtr);
-int XAxiDma_ResetIsDone(XAxiDma * InstancePtr);
-int XAxiDma_Pause(XAxiDma * InstancePtr);
-int XAxiDma_Resume(XAxiDma * InstancePtr);
-uint32_t XAxiDma_Busy(XAxiDma *InstancePtr,int Direction);
-uint32_t XAxiDma_SimpleTransfer(XAxiDma *InstancePtr,\
-uint32_t * BuffAddr, uint32_t Length,int Direction);
-int XAxiDma_SelectKeyHole(XAxiDma *InstancePtr, int Direction, int Select);
-int XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr, int Direction, int Select);
-int XAxiDma_Selftest(XAxiDma * InstancePtr);
-void DisableInterruptsAll(XAxiDma * InstancePtr);
-""")
-
-memapi.cdef("""
-static uint32_t xlnkBufCnt = 0;
-uint32_t cma_mmap(uint32_t phyAddr, uint32_t len);
-uint32_t cma_munmap(void *buf, uint32_t len);
-void *cma_alloc(uint32_t len, uint32_t cacheable);
-uint32_t cma_get_phy_addr(void *buf);
-void cma_free(void *buf);
-uint32_t cma_pages_available();
-""")
-
-LIB_SEARCH_PATH = os.path.dirname(os.path.realpath(__file__))
-libdma = ffi.dlopen(LIB_SEARCH_PATH + "/libdma.so")
-libxlnk = memapi.dlopen("/usr/lib/libsds_lib.so")
 
 DefaultConfig = {
     'DeviceId': 0,
@@ -218,7 +123,106 @@ class DMA:
         Current DMAinstance configuration values.
 
     """
+ffi = cffi.FFI()
+memapi = cffi.FFI()
 
+    ffi.cdef("""
+    typedef unsigned int* XAxiDma_Bd[20];
+    typedef struct {
+            uint32_t ChanBase;           /**< physical base address*/
+            int IsRxChannel;        /**< Is this a receive channel */
+            volatile int RunState;  /**< Whether channel is running */
+            int HasStsCntrlStrm;    /**< Whether has stscntrl stream */
+            int HasDRE;
+            int DataWidth;
+            int Addr_ext;
+            uint32_t MaxTransferLen;
+
+            uint32_t * FirstBdPhysAddr; /**< Physical address of 1st BD in list */
+            uint32_t * FirstBdAddr;  /**< Virtual address of 1st BD in list */
+            uint32_t * LastBdAddr;  /**< Virtual address of last BD in the list */
+            uint32_t Length;         /**< Total size of ring in bytes */
+            uint32_t * Separation;  /**< Number of bytes between the starting
+                                         address of adjacent BDs */
+            XAxiDma_Bd *FreeHead;   /**< First BD in the free group */
+            XAxiDma_Bd *PreHead;    /**< First BD in the pre-work group */
+            XAxiDma_Bd *HwHead;     /**< First BD in the work group */
+            XAxiDma_Bd *HwTail;     /**< Last BD in the work group */
+            XAxiDma_Bd *PostHead;   /**< First BD in the post-work group */
+            XAxiDma_Bd *BdaRestart; /**< BD to load when channel is started */
+            int FreeCnt;            /**< Number of allocatable BDs in free group */
+            int PreCnt;             /**< Number of BDs in pre-work group */
+            int HwCnt;              /**< Number of BDs in work group */
+            int PostCnt;            /**< Number of BDs in post-work group */
+            int AllCnt;             /**< Total Number of BDs for channel */
+            int RingIndex;          /**< Ring Index */
+    } XAxiDma_BdRing;
+    typedef struct {
+            uint32_t DeviceId;
+            uint32_t * BaseAddr;
+
+            int HasStsCntrlStrm;
+            int HasMm2S;
+            int HasMm2SDRE;
+            int Mm2SDataWidth;
+            int HasS2Mm;
+            int HasS2MmDRE;
+            int S2MmDataWidth;
+            int HasSg;
+            int Mm2sNumChannels;
+            int S2MmNumChannels;
+            int Mm2SBurstSize;
+            int S2MmBurstSize;
+            int MicroDmaMode;
+            int AddrWidth;            /**< Address Width */
+    } XAxiDma_Config;
+    typedef struct XAxiDma {
+            uint32_t RegBase;            /* Virtual base address of DMA engine */
+            int HasMm2S;            /* Has transmit channel */
+            int HasS2Mm;            /* Has receive channel */
+            int Initialized;        /* Driver has been initialized */
+            int HasSg;
+            XAxiDma_BdRing TxBdRing;     /* BD container management */
+            XAxiDma_BdRing RxBdRing[16]; /* BD container management */
+            int TxNumChannels;
+            int RxNumChannels;
+            int MicroDmaMode;
+            int AddrWidth;            /**< Address Width */
+    } XAxiDma;
+    unsigned int getMemoryMap(unsigned int phyAddr, unsigned int len);
+    unsigned int getPhyAddr(void *buf);
+    void frame_free(void *buf);
+    int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config);
+    void XAxiDma_Reset(XAxiDma * InstancePtr);
+    int XAxiDma_ResetIsDone(XAxiDma * InstancePtr);
+    int XAxiDma_Pause(XAxiDma * InstancePtr);
+    int XAxiDma_Resume(XAxiDma * InstancePtr);
+    uint32_t XAxiDma_Busy(XAxiDma *InstancePtr,int Direction);
+    uint32_t XAxiDma_SimpleTransfer(XAxiDma *InstancePtr,\
+    uint32_t * BuffAddr, uint32_t Length,int Direction);
+    int XAxiDma_SelectKeyHole(XAxiDma *InstancePtr, int Direction, int Select);
+    int XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr, int Direction, int Select);
+    int XAxiDma_Selftest(XAxiDma * InstancePtr);
+    void DisableInterruptsAll(XAxiDma * InstancePtr);
+    """)
+
+    memapi.cdef("""
+    static uint32_t xlnkBufCnt = 0;
+    uint32_t cma_mmap(uint32_t phyAddr, uint32_t len);
+    uint32_t cma_munmap(void *buf, uint32_t len);
+    void *cma_alloc(uint32_t len, uint32_t cacheable);
+    uint32_t cma_get_phy_addr(void *buf);
+    void cma_free(void *buf);
+    uint32_t cma_pages_available();
+    """)
+
+    LIB_SEARCH_PATH = os.path.dirname(os.path.realpath(__file__))
+    if CPU_ARCH_IS_SUPPORTED:
+        libdma = ffi.dlopen(LIB_SEARCH_PATH + "/libdma.so")
+        libxlnk = memapi.dlopen("/usr/lib/libsds_lib.so")
+    else:
+        warnings.warn("Unsupported CPU Architecture, skipping opening of libdma.so and libsds_lib.so", ResourceWarning)
+        
     def __init__(self, address, direction=DMA_FROM_DEV, attr_dict=None):
         """Initializes a new DMA object.
 
