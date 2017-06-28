@@ -1,6 +1,3 @@
-
-.. toctree::
-
     pynq.lib
     pynq.tests
 
