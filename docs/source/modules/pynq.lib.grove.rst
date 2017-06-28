@@ -2,7 +2,7 @@ pynq.lib.grove package
 ========================
 
 pynq.lib.pmod.pmod_grove_adc module
-----------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_adc
     :members:
@@ -10,7 +10,7 @@ pynq.lib.pmod.pmod_grove_adc module
     :show-inheritance:
 
 pynq.lib.pmod.pmod_grove_buzzer module
------------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_buzzer
     :members:
@@ -18,7 +18,7 @@ pynq.lib.pmod.pmod_grove_buzzer module
     :show-inheritance:
     
 pynq.lib.pmod.pmod_grove_color module
----------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_color
     :members:
@@ -26,7 +26,7 @@ pynq.lib.pmod.pmod_grove_color module
     :show-inheritance:
     
 pynq.lib.pmod.pmod_grove_dlight module
------------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_dlight
     :members:
@@ -34,7 +34,7 @@ pynq.lib.pmod.pmod_grove_dlight module
     :show-inheritance:
     
 pynq.lib.pmod.pmod_grove_ear_hr module
------------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_ear_hr
     :members:
@@ -42,7 +42,7 @@ pynq.lib.pmod.pmod_grove_ear_hr module
     :show-inheritance:
 
 pynq.lib.pmod.pmod_grove_finger_hr module
---------------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_finger_hr
     :members:
@@ -50,7 +50,7 @@ pynq.lib.pmod.pmod_grove_finger_hr module
     :show-inheritance:
 
 pynq.lib.pmod.pmod_grove_haptic_motor module
-----------------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_haptic_motor
     :members:
@@ -58,7 +58,7 @@ pynq.lib.pmod.pmod_grove_haptic_motor module
     :show-inheritance:
     
 pynq.lib.pmod.pmod_grove_imu module
----------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_imu
     :members:
@@ -66,7 +66,7 @@ pynq.lib.pmod.pmod_grove_imu module
     :show-inheritance:
 
 pynq.lib.pmod.pmod_grove_ledbar module
------------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_ledbar
     :members:
@@ -74,7 +74,7 @@ pynq.lib.pmod.pmod_grove_ledbar module
     :show-inheritance:
     
 pynq.lib.pmod.pmod_grove_light module
----------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_light
     :members:
@@ -82,7 +82,7 @@ pynq.lib.pmod.pmod_grove_light module
     :show-inheritance:
     
 pynq.lib.pmod.pmod_grove_oled module
----------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_oled
     :members:
@@ -90,7 +90,7 @@ pynq.lib.pmod.pmod_grove_oled module
     :show-inheritance:
 
 pynq.lib.pmod.pmod_grove_pir module
----------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_pir
     :members:
@@ -98,7 +98,7 @@ pynq.lib.pmod.pmod_grove_pir module
     :show-inheritance:
     
 pynq.lib.pmod.pmod_grove_th02 module
----------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_th02
     :members:
@@ -106,7 +106,7 @@ pynq.lib.pmod.pmod_grove_th02 module
     :show-inheritance:
 
 pynq.lib.pmod.pmod_grove_tmp module
----------------------------------
+-------------------------------------------------
 
 .. automodule:: pynq.lib.pmod.pmod_grove_tmp
     :members:
