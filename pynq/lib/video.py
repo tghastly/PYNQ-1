@@ -38,8 +38,13 @@ from pynq import DefaultIP
 from pynq import DefaultHierarchy
 from pynq import PL
 from pynq import Xlnk
-import pynq.lib._video
+import warnings
+from .ps import CPU_ARCH_IS_SUPPORTED
 
+if CPU_ARCH_IS_SUPPORTED:
+    import pynq.lib._video
+else:
+    warnings.warn("Unsupported CPU Architecture, not importing _video", ResourceWarning)
 
 __author__ = "Giuseppe Natale, Yun Rock Qu, Peter Ogden"
 __copyright__ = "Copyright 2016, Xilinx"
@@ -65,7 +70,10 @@ class VideoMode:
         Numpy-style tuple describing the video frame
 
     """
-
+    if CPU_ARCH_IS_SUPPORTED:
+        pass
+    else:
+        
     def __init__(self, width, height, bits_per_pixel, stride=None):
         self.width = width
         self.height = height
@@ -97,7 +105,7 @@ class HDMIInFrontend(DefaultHierarchy):
         The detected mode of the incoming video stream
 
     """
-
+        
     def __init__(self, path, description=None):
         super().__init__(path, description)
 
