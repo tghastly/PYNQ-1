@@ -1,6 +1,4 @@
     pynq.lib
-    \pynq.tests
-
 
 pynq.gpio module
 ----------------

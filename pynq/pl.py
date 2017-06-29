@@ -419,6 +419,7 @@ class PLMeta(type):
             The absolute path of the bitstream currently on PL.
 
         """
+            
         cls.client_request()
         cls.server_update()
         return cls._bitfile_name
@@ -669,7 +670,7 @@ class PL(metaclass=PLMeta):
         All the addressable IPs from PS7. Key is the name of the IP; value is
         a dictionary mapping the physical address, address range, IP type, 
         configuration dictionary, and the state associated with that IP:
-        {str: {'phys_addr' : int, 'addr_range' : int, 
+        {str: {'phys_addr' : int, 'addr_range' : int, \ 
                'type' : str, 'config' : dict, 'state' : str}}.
     gpio_dict : dict
         All the GPIO pins controlled by PS7. Key is the name of the GPIO pin;
