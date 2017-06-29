@@ -775,19 +775,6 @@ class ColorConverter(DefaultIP):
     linear color conversions. Each coefficient is represented as a 10 bit
     signed fixed point number with 2 integer bits. The result of the
     computation can visualised as a table
-
-         in1 in2 in3 1
-    out1  c1  c2  c3 c10
-    out2  c4  c5  c6 c11
-    out3  c7  c8  c9 c12
-
-    The color can be changed mid-stream.
-
-    Attributes
-    ----------
-    colorspace : list of float
-        The coefficients of the colorspace conversion
-
     """
 
     def __init__(self, description):
