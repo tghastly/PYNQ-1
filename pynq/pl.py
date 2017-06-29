@@ -419,6 +419,8 @@ class PLMeta(type):
             The absolute path of the bitstream currently on PL.
 
         """
+        if NOT CPU_ARCH_IS_SUPPORTED:
+            return None
             
         cls.client_request()
         cls.server_update()
