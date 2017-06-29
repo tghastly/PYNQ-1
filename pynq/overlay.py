@@ -132,7 +132,11 @@ class DefaultOverlay(PL):
         {str: {'controller' : str, 'index' : int}}.
 
     """
-
+    if CPU_ARCH_IS_SUPPORTED:
+        pass
+    else:
+        warnings.warn("Unsupported CPU Architecture", ResourceWarning)
+        
     def __init__(self, bitfile_name):
         """Return a new Overlay object.
 

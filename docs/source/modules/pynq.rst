@@ -1,4 +1,6 @@
-    pynq.lib
+.. toctree::
+
+    pynq.lib    pynq.lib
 
 pynq.gpio module
 ----------------
