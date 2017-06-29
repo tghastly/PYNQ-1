@@ -16,7 +16,6 @@ Python productivity for Zynq (Pynq) Documentation
    4_programming_python
    6_overlays_index
    13a_interrupts
-   #13b_base_overlay_interrupts
    17_python_package
    modules
    18_verification

@@ -19,17 +19,22 @@ PYNQ provides a Python interface to allow overlays in the *PL* to be controller 
 Using Overlays
 --------------------
 
-New overlays can be loaded as the system is running. The PYNQ *Overlay* class is used to load an overlay. Once the Overlay class is imported, the overlay can be instantiated by specifying the name of the bitstrem. The bitstream can then be loaded to the Zynq PL:
+New overlays can be loaded as the system is running. The PYNQ *Overlay* class is used to load an overlay. Once the Overlay class is imported, the overlay can be instantiated by specifying the name of the bitstrem. Creating the overlay instance, will also download the bitstream to the Zynq PL:
 
 .. code-block:: python
 
    from pynq import Overlay
    ol = Overlay("base.bit")
-   ol.download()
    
-Once an overlay has been loaded, an Python API should be available for use with the overlay. The API will usually correspond to IP available in the overlay. 
+Once an overlay has been loaded, a Python API for the overlay can be used to interact with the overlay. 
 
-Once a PYNQ class for the IP has been instantiated, the API can be used to interact with the overlay/IP.
+To discover what is in an overlay, ``help`` can be run on the overlay instance. 
+
+.. code-block:: python
+
+   help(ol)
+   
+This will give a listing of the IP and drivers available. 
 
 For example, where the overlay includes an LED IP:
 
@@ -38,6 +43,11 @@ For example, where the overlay includes an LED IP:
    my_led = LED()
    my_led.write(1)
    my_led.toggle()
+   
+Base overlay
+---------------
+
+The default PYNQ overlay, is the *base* overlay. It is downloaded to the Zynq PL at boot time, so is available for use immediately after boot. The base overlay is intended to provide basic functionality and connect all peripherals available on the board. The base overlay will be covered in the next section. 
 
 Custom hardware
 ---------------------
@@ -46,5 +56,5 @@ Overlays can be used to build a custom platform, accelerate software application
 
 Design of custom hardware or accelerators is a specialised task for an FPGA designer. Creating and packaging overlays, and integration of custom hardware into a PYNQ overlay will be covered in later sections, but the design of hardware IP will not be discussed in detail. An FPGA designer can choose their preferred way of developing IP for a PYNQ overlay - HDL, High Level Synthesis, other methods of designing hardware. 
 
-The next section will consider how PYNQ can be used with external peripherals and interfaces. 
+
 

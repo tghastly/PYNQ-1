@@ -39,6 +39,8 @@ Assume the repository has the following structure:
    
 Add a setup.py to the root of your repository. This file will imports the necessary packages, and specifies some setup instructions for your package including the package name, version, url, and files to include. 
 
+The setuptools package can be used to install your package. 
+
 Example setup.py : 
 
 .. code-block :: python

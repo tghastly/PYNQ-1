@@ -34,29 +34,31 @@ from pynq import PL
 from pynq import Overlay
 from pynq import Clocks
 from pynq.pl import BS_BOOT
-from pynq.ps import DEFAULT_CLK_MHZ
+import warnings
+from pynq.ps import DEFAULT_CLK_MHZ, CPU_ARCH_IS_SUPPORTED
 
 
 __author__ = "Yun Rock Qu"
 __copyright__ = "Copyright 2016, Xilinx"
 __email__ = "pynq_support@xilinx.com"
 
+if CPU_ARCH_IS_SUPPORTED:
+    bitfile1 = BS_BOOT
+    bitfile2 = PL.bitfile_name
+    ol1 = Overlay(bitfile1)
+    ol2 = Overlay(bitfile2)
 
-bitfile1 = BS_BOOT
-bitfile2 = PL.bitfile_name
-ol1 = Overlay(bitfile1)
-ol2 = Overlay(bitfile2)
-
-cpu_mhz = 0
-bitfile1_fclk0_mhz = DEFAULT_CLK_MHZ
-bitfile1_fclk1_mhz = DEFAULT_CLK_MHZ
-bitfile1_fclk2_mhz = DEFAULT_CLK_MHZ
-bitfile1_fclk3_mhz = DEFAULT_CLK_MHZ
-bitfile2_fclk0_mhz = DEFAULT_CLK_MHZ
-bitfile2_fclk1_mhz = DEFAULT_CLK_MHZ
-bitfile2_fclk2_mhz = DEFAULT_CLK_MHZ
-bitfile2_fclk3_mhz = DEFAULT_CLK_MHZ
-
+    cpu_mhz = 0
+    bitfile1_fclk0_mhz = DEFAULT_CLK_MHZ
+    bitfile1_fclk1_mhz = DEFAULT_CLK_MHZ
+    bitfile1_fclk2_mhz = DEFAULT_CLK_MHZ
+    bitfile1_fclk3_mhz = DEFAULT_CLK_MHZ
+    bitfile2_fclk0_mhz = DEFAULT_CLK_MHZ
+    bitfile2_fclk1_mhz = DEFAULT_CLK_MHZ
+    bitfile2_fclk2_mhz = DEFAULT_CLK_MHZ
+    bitfile2_fclk3_mhz = DEFAULT_CLK_MHZ
+else:
+    warnings.warn("Unsupported CPU Architecture, not importing _video", ResourceWarning)
 
 @pytest.mark.run(order=2)
 def test_overlay():

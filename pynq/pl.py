@@ -39,6 +39,7 @@ from datetime import datetime
 from multiprocessing.connection import Listener
 from multiprocessing.connection import Client
 from .mmio import MMIO
+import warnings
 from .ps import Clocks, CPU_ARCH_IS_SUPPORTED
 
 __author__ = "Yun Rock Qu"
@@ -675,7 +676,7 @@ class PL(metaclass=PLMeta):
         a dictionary mapping the physical address, address range, IP type, 
         configuration dictionary, and the state associated with that IP:
         {str: {'phys_addr' : int, 'addr_range' : int, \ 
-               'type' : str, 'config' : dict, 'state' : str}}.
+        'type' : str, 'config' : dict, 'state' : str}}.
     gpio_dict : dict
         All the GPIO pins controlled by PS7. Key is the name of the GPIO pin;
         value is a dictionary mapping user index (starting from 0),
@@ -695,6 +696,11 @@ class PL(metaclass=PLMeta):
         {str: {'controller' : str, 'index' : int}}.
 
     """
+    if CPU_ARCH_IS_SUPPORTED:
+        pass
+    else:
+        warnings.warn("Unsupported CPU Architecture", ResourceWarning)
+            
     def __init__(self):
         """Return a new PL object.
 

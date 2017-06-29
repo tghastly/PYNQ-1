@@ -46,6 +46,8 @@ from .pl import _get_tcl_name
 from .pl import PYNQ_PATH
 from .interrupt import Interrupt
 from .gpio import GPIO
+import warnings
+from .ps import CPU_ARCH_IS_SUPPORTED
 
 
 __author__ = "Yun Rock Qu"
@@ -585,6 +587,7 @@ class DefaultHierarchy(_IPMap, metaclass=RegisterHierarchy):
 
 
 def Overlay(bitfile, class_=None):
+    
     bitfile_path = os.path.join(
         PYNQ_PATH, bitfile.replace('.bit', ''), bitfile)
     python_path = os.path.splitext(bitfile_path)[0] + '.py'

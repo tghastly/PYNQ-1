@@ -78,5 +78,4 @@ pynq.lib.video module
     :members:
     :undoc-members:
     :show-inheritance:
-
     

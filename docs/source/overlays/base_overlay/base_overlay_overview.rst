@@ -18,7 +18,7 @@ All project source files for the base overlay can be found here:
 
     ``<GitHub Repository>/boards/<board>/base``
 
-The makefile and .tcl file in the directory can be used to rebuild the overlay. 
+The makefile and/or .tcl file in the directory can be used to rebuild the overlay. 
 
 The base overlay can include IP from the Vivado library, and custom IP. Any custom IP for overlays can be found in here:
 

@@ -775,6 +775,7 @@ class ColorConverter(DefaultIP):
     linear color conversions. Each coefficient is represented as a 10 bit
     signed fixed point number with 2 integer bits. The result of the
     computation can visualised as a table
+    
     """
 
     def __init__(self, description):
@@ -842,11 +843,11 @@ class PixelPacker(DefaultIP):
         Valid values are 8, 24 and 32. The following table describes the
         operation for packing and unpacking for each width
 
-        Mode   |Pack                        |Unpack
-        8  bpp |Keep only the first channel |Pad other channels with 0
-        16 bpp |Dependent on resample       |Dependent on resample
-        24 bpp |No change                   |No change
-        32 bpp |Pad channel 4 with 0        |Discard channel 4
+        Mode    Pack                         Unpack
+        8  bpp  Keep only the first channel  Pad other channels with 0
+        16 bpp  Dependent on resample        Dependent on resample
+        24 bpp  No change                    No change
+        32 bpp  Pad channel 4 with 0         Discard channel 4
 
         """
         mode = self.read(0x10)
