@@ -1,5 +1,5 @@
 ***************
-Getting Started
+Board setup
 ***************
 
 .. toctree::
