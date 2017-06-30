@@ -113,7 +113,7 @@ Using PYNQ
 ==========================
 
    
-Getting started notebooks
+Example notebooks
 ----------------------------
 
 A Jupyter notebook can be saved as html webpages. Some of this documentation has been generated directly from Jupyter notebooks. 
@@ -133,6 +133,12 @@ There are also a number of example notebooks available showing how to use variou
    :scale: 75%
    :align: center
 
+The example notebooks have been divided into categories
+
+* base: related to the base overlay for the current board
+* common: examples that are not board specific
+* interface: related to the Digital Interfacing Overlay
+   
 When you open a notebook and make any changes, or execute cells, the notebook document will be modified. It is recommended that you "Save a copy" when you open a new notebook. If you want to restore the original versions, you can download all the example notebooks from the `PYNQ GitHub page <https://www.github.com/xilinx/pynq>`_ .    
    
 Accessing files on the board
@@ -166,15 +172,15 @@ The Samba username:password is ``xilinx:xilinx``
 
 Update PYNQ 
 ===============================
-You can update the pynq package by executing the script:
+You can update the pynq package by running pip install:
 
    .. code-block:: console
    
-      /home/xilinx/scripts/update_pynq.sh
+      pip3.6 install –upgrade git+https://github.com/Xilinx/PYNQ.git
 
-This will check the pynq GitHub, download and install the latest release. Your board will need to have internet access to do this. Check the *Connect to a network* section above if necessary. 
+This will check the pynq GitHub, download and install the latest release. Your board will need to have internet access to do this. 
 
-Updating PYNQ will overwrite the introductory and example notebooks. You should make sure you take a backup of this, and any code you added to the pynq python directory. 
+PYNQ example notebooks in the jupyter_notebooks directory will be overwritten and updated. If you have modified any of the example notebooks and want to save your work, you should take a backup before updating. Any user notebooks in the same locations should not be affected. As a precaution, the jupyter_notebooks directory will be backed up to jupyter_notebooks_{timestamp} in case you need to restore anything.
 
 
 Troubleshooting

@@ -44,12 +44,33 @@ For example, where the overlay includes an LED IP:
    my_led.write(1)
    my_led.toggle()
    
-Base overlay
+Available overlays 
 ---------------
+
+There are two overlays that ship with PYNQ, the base overlay, and the DIO - DIgital Interfacing Overlay. 
+
+Base overlay
+^^^^^^^^^^^^^^
 
 The default PYNQ overlay, is the *base* overlay. It is downloaded to the Zynq PL at boot time, so is available for use immediately after boot. The base overlay is intended to provide basic functionality and connect all peripherals available on the board. The base overlay will be covered in the next section. 
 
-Custom hardware
+Digital Interfacing Overlay
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Digital Interfacing overlay provides digital logic functions controllable from Python. 
+
+
+The base overlay and DIO will be covered in the next sections. 
+
+
+Other overlays
+^^^^^^^^^^^^^^^^^
+
+Any other overlays can be installed on the board using pip. A selection of third party overlays can be viewed on the www.pynq.io/examples webpage.  
+
+A list of third party overlays can be found in the PYNQ readme. 
+
+Creating an overlay
 ---------------------
 
 Overlays can be used to build a custom platform, accelerate software applications, or to offload software from the main CPU to for example, lower the total system power. 
