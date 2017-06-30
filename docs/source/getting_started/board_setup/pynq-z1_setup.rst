@@ -49,7 +49,7 @@ Setup the PYNQ-Z1
 ===================
 
 
-   .. image:: ../images/pynqz1_setup.jpg
+   .. image:: ../../images/pynqz1_setup.jpg
       :align: center
 
 
