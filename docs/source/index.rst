@@ -10,16 +10,16 @@ Python productivity for Zynq (Pynq) Documentation
    :maxdepth: 2
    
    0_whats_new
-   1_getting_started_index
+   getting_started_index
    2_pynq
    3_jupyter_notebook
    4_programming_python
-   6_overlays_index
-   13a_interrupts
-   17_python_package
+   5_overlays_index
+   6_interrupts
+   7_python_package
    modules
-   18_verification
-   19_image_build
+   verification
+   image_build
    faqs
    glossary
    references
