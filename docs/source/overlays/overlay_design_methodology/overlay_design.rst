@@ -9,41 +9,45 @@ Overlay Design
 Overlay design
 =======================
 
-An overlay consists of two main parts; the PL design (bitstream) and the project block diagram TCL file. 
+An overlay consists of two main parts; the PL design (bitstream) and the project block diagram TCL file. This section assumes the reader has some experience with Zynq, and the Vivado design tools. 
+
+
+Block Diagram TCL
+--------------------
+
+The block diagram TCL can be used by PYNQ to automatically identify the Zynq system configuration, IP in an overlay and their versions, interrupts, resets, and other control signals. Based on this information, the system configuration can be modified, drivers can be automatically assigned, features can be enabled or disabled, and signals can be connected to corresponding Python functions. 
+
+The TCL file can be generated in Vivado by *exporting* the IP Integrator block diagram at the end of the overlay design process. The .tcl should be provided with a bitstream when downloading an overlay. The PYNQ PL class will automatically parse the TCL. 
+
+A custom, or manually created TCL file can be used to build a Vivado project, but Vivado should be used to generate and export the TCL file for the block diagram. This automatically generated TCL should ensure that it can be parsed correctly. 
 
 PL Design
 ------------------
 
 The Xilinx® Vivado software is used to create a Zynq design. A *bitstream* or *binary* file (.bit file) will be generated that can be used to program the Zynq PL.
 
-The free WebPack version of Vivado can be used with mid-range Zynq devices (XC7Z007S – XC7Z7030), which includes the PYNQ-Z1 board (XC7Z020).
+A free WebPack version of Vivado is available to build overlays.
 https://www.xilinx.com/products/design-tools/vivado/vivado-webpack.html
 
 Programmability
 ^^^^^^^^^^^^^^^^^
 
-An overlay should have post-bitstream programmability to allow customization of the system. A number of reusable PYNQ IP blocks are available to support programmability. For example, an IOP can be used on Pmod, and Arduino interfaces. DIO IP can be reused to provide run-time configurability. 
+An overlay should have post-bitstream programmability to allow customization of the system. A number of reusable PYNQ IP blocks are available to support programmability. For example, an IOP can be used on Pmod, and Arduino interfaces. IP from the PYNQ DIO overlay can be reused to provide run-time configurability. 
 
-PYNQ reusable IP is covered in \***
+See the previous section on `PYNQ IP <../pynq_ip_index.html>'_
 
 Zynq PS settings
 ^^^^^^^^^^^^^^^^^^^^^
 
-There are some differences between the standard Zynq design process, and designing overlays for PYNQ. A Vivado project for a Zynq design consists of two parts; the PL design, and the PS configuration settings. The PS configuration includes settings for system clocks, including the clocks used in the PL. 
+A Vivado project for a Zynq design consists of two parts; the PL design, and the PS configuration settings. 
 
-The PYNQ image which is used to boot the board configures the Zynq PS at boot time. Overlays are downloaded as required by the programmer, and will not reconfigure the Zynq PS. This means that overlay designers should ensure the PS settings in their Vivado project match the PYNQ image settings. 
+The PYNQ image which is used to boot the board configures the Zynq PS at boot time. This will fix most of the PS configuration, including setup of DRAM, and enabling of the ZYnq PS peripherals, including SD card, Ethernet, USB and UART which are used by PYNQ. 
 
-If any changes are required from the base project settings, for example, if a new overlay needs a different clock setting, the clock must be configured from Python before the new overlay is downloaded. The original setting should be restored before a new overlay is loaded. 
+The PS configuration also includes settings for system clocks, including the clocks used in the PL. The PL clocks can be programmed at runtime to match the requirements of the overlay. This is managed automatically by the PYNQ Overlay class. 
+
+During the process of downloading a new overlay, the clock configuration will be parsed from the overlay's .tcl file. The new clock settings for the overlay will be applied automatically before the overlay is downloaded. 
 
 
-Block Diagram TCL
-==================
-
-The block diagram TCL can be used by PYNQ to automatically identify IP, functionality, control and other signals in the overlay. Based on this information, drivers can be automatically assigned, features enabled or disabled, and signals can be connected to corresponding API functions. 
-
-The block diagram TCL file is automatically generated in Vivado by exporting it at the end of the overlay design process. It should be provided in the same location as the bitstream when downloading an overlay. The PYNQ PL class will automatically parse the TCL. 
-
-A custom, or manually created TCL file can be used to build a Vivado project, but this TCL files should not be exported and used when loading an overlay bitstream. Vivado should be used to generate and export the TCL file for the block diagram. This automatically generated TCL should ensure that it can be parsed correctly by the PYNQ PL class. 
 
 Generate overlay TCL file
 ------------------------------
@@ -60,7 +64,7 @@ Or, run the following in the tcl console:
       
 The tcl filename should match the .bit filename. E.g. my_overlay.bit and my_overlay.tcl
 
-The tcl is parsed when the overlay is instantiated (not when it is downloaded). 
+The tcl is parsed when the overlay is instantiated and downloaded. 
 
 .. code-block:: python
 
@@ -70,43 +74,6 @@ The tcl is parsed when the overlay is instantiated (not when it is downloaded).
    
 An error will be displayed if a tcl is not available when attempting to download an overlay, or if the tcl filename does not match the .bit file name.
 
-ip_dict 
------------------------------------
-
-The PYNQ PL class parses the TCL and generates a dictionary called ip_dict containing the names of IP in a specific overlay, and their address in the system memory map.
- 
-The dictionary can be used to refer to an IP by name in your Python code, rather than by a hard coded address. It can also check the IP available in an overlay. 
-
-To show the IP dictionary of the overlay, run the following:
-
-.. code-block:: python
-
-   from pynq import Overlay
-   OL = Overlay("base.bit")
-   OL.ip_dict
-
-Each entry in this IP dictionary that is returned is a key-value pair.
- 
-E.g.: 
-
-``'SEG_axi_dma_0_Reg': [2151677952, 65536, None],``
-
-Note, this parses the TCL file that was exported with the bitstream. It does not check the overlay currently running in the PL. 
-
-The key of the entry is the IP instance name; all the IP instance names are parsed from the `*.tcl` file (e.g. `base.tcl`) in the address segment section. The value of the entry is a list of 3 items:
-
-   - The first item shows the base address of the addressable IP (as an int).
-   - The second item shows the address range in bytes (as an int).
-   - The third item records the state associated with the IP. It is `None` by default, but can be user defined.
-
-   
-Similarly, the PL package can be used to find the addressable IPs currently in the programmable logic:
-
-.. code-block:: python
-
-   from pynq import PL
-   PL.ip_dict
-
 
 Existing Overlays
 =========================
@@ -115,7 +82,7 @@ Existing overlays can be used as a starting point to create a new overlay. The *
 
    ``<GitHub repository>/boards/<board name>/vivado/base``
   
-A makefile exists in each folder that can be used to rebuild the Vivado project and generate the bitstream and TCL for the overlay. 
+A makefile exists in each folder that can be used to rebuild the Vivado project and generate the bitstream and TCL for the overlay. (On windows, instead of using *make*, the .tcl can be sourced from Vivado.)
 
 The bitstream and tcl for the overlay are available on the board, and also in the GitHub project repository: 
 

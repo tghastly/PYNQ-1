@@ -31,7 +31,7 @@ A Pmod port is an open 12-pin interface that is supported by a range of Pmod per
 Typical Pmod peripherals include sensors (voltage, light, temperature), communication interfaces (Ethernet, serial, wifi, bluetooth), and input and output interfaces (buttons, switches, LEDs).
 
 
-.. image:: ../../images/pynqz1_pmod_interface.jpg
+.. image:: ../../images/pmod.png
    :align: center
 
 
@@ -45,7 +45,7 @@ Pmods come in different configurations depending on the number of data pins requ
 .. image:: ../../images/pmod_pins.png
    :align: center
 
-Pmods that use both rows (e.g. 2x4 pins, 2x6 pins), should usually be aligned to the left of the connector (to align with VCC and GND). VCC and GND are labelled on the PYNQ-Z1 board. 
+Pmods that use both rows (e.g. 2x4 pins, 2x6 pins), should usually be aligned to the left of the connector (to align with VCC and GND). 
 
 .. image:: ../../images/pmod_tmp2_8pin.JPG
 
@@ -91,7 +91,7 @@ On the grove adapter G1 and G2 map to Pmod pins [0,4] and [1,5], which are conne
 Arduino connector
 -----------------------
 
-An Arduino connector can be used to connect to Arduino compatible shields. 
+An Arduino connector can be used to connect to Arduino compatible shields to FPGA pins. Remember that appropriate controllers must be impemented in an overlay and connected to the correspondinng pins before a shield can be used. Arduino pins can also be used as general purpose pins to connect to custom hardware using wires. 
 
 .. image:: ../../images/pynqz1_arduino_interface.jpg
    :align: center
@@ -99,7 +99,7 @@ An Arduino connector can be used to connect to Arduino compatible shields.
 Arduino pins
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Arduino standard specifies 6 analog pins (A0 - A5), 14 multi-purpose Digital pins (D0 - D13), 2 dedicated I2C pins (SCL, SDA), and 4 dedicated SPI pins on the interface. If using a standard Arduino shield, appropriate controllers must be impemented in an overlay and connected to the correspondinng pins before the shield can be used. The Arduino pins can also be used as GPIO to connect to custom hardware.   
+The Arduino standard specifies 6 analog pins (A0 - A5), 14 multi-purpose Digital pins (D0 - D13), 2 dedicated I2C pins (SCL, SDA), and 4 dedicated SPI pins on the interface.   
 
 Supported Arduino shields
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

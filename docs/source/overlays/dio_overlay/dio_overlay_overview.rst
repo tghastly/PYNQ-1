@@ -29,15 +29,55 @@ The makefile and .tcl file can be used to rebuild the overlay. The base overlay 
 Block Diagram
 -----------------------
 
+.. image:: ../../images/dio_bd.png
+   :align: center
 
 
-Pins
-------------------------
+Operation
+===============
 
+There are three builders, Boolean Function Builder (BFB), State Machine Builder (SMB), and Digital Pattern Builder (DPB). 
+
+.. code-block:: Python
+
+   builders = {BFB, SMB, DPB}
+
+Each builder has the following functions:
+
+* setup() - configure the builder
+* run() and step() - run or single step
+* stop() - disconnect the builder from the IO
+* reset() - clear the builder configuration
+
+Any one of these builders, or any combination of these builders can be configured and run synchronously. 
+
+Initially, the IO are configured as inputs. The FSB, and SMB BRAMs are set to zeros. The BFB is set to <>
+
+Running or stepping a builder connects the builder outputs to the corresponding IO. 
+
+Once a builder has been setup, it can be run continuously, or stepped. If a builder is running, it must be stopped before running or stepping it again. 
+
+For example:
+
+.. code-block:: Python
+
+   .setup()
+   .run() # Run continuously
+   .stop()
+   .step()
+   .step(50)
+   .stop()
+   .run()
+
+Once a builder is stopped, its outputs are disconnected from the IO. 
+
+The digital pattern builder can also be run in single-shot mode. In this mode, it will generate its pattern once. In continuous mode, the DPB generates its pattern continuously, looping back to the start when it reaches the end of the pattern. When stepping the DPB, it will step until the end of the pattern. It will not loop back to the beginning. This is the equivalent to stepping the single-shot mode. 
+ 
+ 
 Pattern Builder
 -------------------------------------------
 
-The pattern Builder allows arbitrary patterns to be streamed to external pins. This can be used to test external peripherals, or as a way to drive simple external device. Patterns of up to 8K can be described in a JSON (text format), stored in FPGA BRAM, and streamed out to the interface pins on demand.  
+The pattern Builder allows arbitrary patterns to be streamed to IO. This can be used to test external peripherals, or as a way to drive external device. Patterns of up to 8K can be described in a JSON (text format), stored in FPGA BRAM, and streamed out to the interface pins on demand.  
 
 
 Waveform notation
@@ -71,9 +111,7 @@ Example
         'foot': {'tock': 1, 'text': 'Loopback Test'},
         'head': {'tick': 1, 'text': 'Loopback Test'}}
 
-config()
-arm()
-run()
+
 
 Finite State Machine Builder
 -------------------------------------------
@@ -130,18 +168,12 @@ Example
                         ['01', 'S5', 'S4', '101'],
                         ['1-', '*',  'S0', '']]}
 
-config()
-arm()
-run()                       
-
 display_graph()
 
-                        
-
-Combinatorial Function Builder
+Boolean Function Builder
 -------------------------------------------
 
-The CFB supports combinatorial functions of one up to five inputs on each output pin. 
+The BFB supports combinatorial functions of one up to five inputs on each output pin. 
 
 Example 
 ^^^^^^^^^^^^^^^^^^^^^
@@ -183,4 +215,5 @@ The tracebuffer is connected to the external interface and can capture input or 
 
 Example 
 ^^^^^^^^^^^^^^^^^^^^
+
 

@@ -19,35 +19,50 @@ PYNQ provides a Python interface to allow overlays in the *PL* to be controller 
 Using Overlays
 --------------------
 
-New overlays can be loaded as the system is running. The PYNQ *Overlay* class is used to load an overlay. Once the Overlay class is imported, the overlay can be instantiated by specifying the name of the bitstrem. Creating the overlay instance, will also download the bitstream to the Zynq PL:
+New overlays can be loaded as the system is running. The PYNQ *Overlay* class is used to load an overlay. Once the Overlay class is imported, the overlay can be instantiated by specifying the name of the bitstream:
 
 .. code-block:: python
 
    from pynq import Overlay
-   ol = Overlay("base.bit")
-   
+   overlay = Overlay("base.bit")
+
+Creating the overlay instance, will also download the bitstream to the Zynq PL
+    
 Once an overlay has been loaded, a Python API for the overlay can be used to interact with the overlay. 
 
 To discover what is in an overlay, ``help`` can be run on the overlay instance. 
 
 .. code-block:: python
 
-   help(ol)
+   help(overlay)
    
 This will give a listing of the IP and drivers available. 
 
-For example, where the overlay includes an LED IP:
+As an example, where the overlay includes an LED IP, ``help()`` will report the *leds* object exists, and that it is an *AxiGPIO* class:
 
+.. console::
+
+   leds : AxiGPIO
+   4-bit output GPIO for interacting with the green LEDs LD0-3
+
+Running help on the *leds* object will report that it has a ``write()`` function that takes a value and a mask:
+
+.. console::
+
+   write(self, val, mask)
+       Set the state of the output pins
+
+The LEDs can be turned on and off by writing an appropriate value:
 .. code-block:: python
 
-   my_led = LED()
-   my_led.write(1)
-   my_led.toggle()
+   overlay.leds.write(1, 0xf)
+   overlay.leds.write(2, 0xf)
+   overlay.leds.write(4, 0xf)
    
 Available overlays 
----------------
+--------------------
 
-There are two overlays that ship with PYNQ, the base overlay, and the DIO - DIgital Interfacing Overlay. 
+There are two overlays that ship with PYNQ, the base overlay, and the DIO - Digital Interfacing Overlay. 
 
 Base overlay
 ^^^^^^^^^^^^^^

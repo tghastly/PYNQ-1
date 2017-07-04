@@ -1,34 +1,41 @@
 ******************************
-PYNQ-Z1 Base overlay settings
+PYNQ-Z1 board settings
 ******************************
+
+For information on the board, see the Digilent PYNQ-Z1 resource site:
+https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/start
 
 Base overlay project
 =======================
 
-It is recommended to start with an existing overlay design to ensure the PS settings are correct. The source files for the *base* overlay can be found in the PYNQ GitHub. The project can be rebuilt using the makefile/TCL available here:
-   
+The source files for the *base* overlay can be found in the PYNQ GitHub. The project can be rebuilt using the makefile/TCL available here:
+
+.. console:
+
    ``<GitHub repository>/boards/<board name>/vivado/base``
 
 
-Vivado Project settings
+Vivado board files
 =========================
 
-The following settings should be used for a new Vivado overlay project for the PYNQ-Z1: 
+Vivado board files can be used to create a new project for the PYNQ-Z1:
 
-* Target device: xc7z020clg400-1
+Download the `PYNQ-Z1 board files <https://github.com/cathalmccabe/pynq-z1_board_files/raw/master/pynq-z1.zip>`_
 
-PL clock configuration:
+To install the board files, extract, and copy the board files folder to:
 
-* FCLK_CLK0: 100.00 MHz
-* FCLK_CLK1: 142.86 MHz
-* FCLK_CLK2: 200.00 MHz
-* FCLK_CLK3: 100 MHz
+.. console:
 
-If any other clock settings are required, they must be configured from Python before the new overlay is downloaded. All clocks should be restored to the base settings before another overlay is loaded. 
+   <Xilinx installation directory>\Vivado\<version>\data\boards
 
-Pynq-Z1 Constraints file
-============================
+If Vivado is open, restart it to use the board files. 
 
-The PYNQ-Z1 Master XDC (I/O constraints) are available at the Digilent PYNQ-Z1 resource site:
-https://reference.digilentinc.com/reference/programmable-logic/boards/<board name>/start
+
+Pynq-Z1 XDC constraints file
+=============================
+
+The PYNQ-Z1 Master XDC (I/O constraints):
+https://reference.digilentinc.com/_media/reference/programmable-logic/pynq-z1/pynq-z1_c.zip
+
+
 

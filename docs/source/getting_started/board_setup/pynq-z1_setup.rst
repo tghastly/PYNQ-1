@@ -93,22 +93,6 @@ If you connect to a network with a DHCP server, your board will automatically ge
 | 4. Optional: Configure proxy                                        |
 +---------------------------------------------------------------------+
 
-Hostname
-^^^^^^^^^
-
-The default hostname is ``pynq``. If there is another device on the network with this hostname, you will need to change the hostname of your board **before** you connect it to the network. If you are not sure if there are other boards on the network, you should check if the *pynq* hostname is already in use before connecting a new board. One way to check this is by pinging *pynq* from a command prompt: 
-
-   .. code-block:: console
-   
-      ping pynq
-
-If you get a response from ping, this means there is already another device on the network with this hostname. 
-
-You can use a USB terminal connection to change the hostname **before** you connect your board to the network. If you are using a shared network, you should change the default hostname of the board in case other boards are connected to the network later. 
-
-You can also use the terminal to configure proxy settings, or to configure any other board settings. See below for detail on how to connect a terminal. 
-
-
 Connect directly to your computer
 ---------------------------------------
 

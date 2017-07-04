@@ -17,10 +17,9 @@ The first time you connect, it may take a few seconds for your computer to resol
 Change hostname
 ----------------------
 
-If you are on a network where other pynq boards may be connected, you should change your hostname immediately. This is a common requirement in a work or university environment. 
+If you are on a network where other pynq boards may be connected, you should change your hostname immediately. This is a common requirement in a work or university environment. You can change the hostname from a terminal. You can use the USB cable to connect a terminal A terminal is also available in the Jupyter environment and can be used from an internet browser. 
 
-A terminal is available inside Jupyter. 
-In the Jupyter portal home area, select **New >> terminal**.
+To access the Jupyter terminal, in the Jupyter portal home area, select **New >> terminal**.
 
    .. image:: ../images/dashboard_files_tab_new.JPG
       :height: 300px
@@ -28,23 +27,20 @@ In the Jupyter portal home area, select **New >> terminal**.
        
 This will open a terminal inside the browser as root. 
        
-Next enter and execute the following command.  (Note that you should replace NEW_HOST_NAME with the hostname you want for your board.) 
+Edit the existing entry in the Linux hosname file to change the hostname of the board. The ``vi``editor can be used to edit this file:
 
    .. code-block:: console
    
-      sudo /home/xilinx/scripts/hostname.sh NEW_HOST_NAME
+      vi /etc/hostname
 
-
-   .. image:: ../images/change_hostname.jpg
-      :height: 300px
-      :align: center
-	  
-Follow the instructions to reboot the board. Note that as you are logged in as root, sudo is not required, but if you are logged in as Xilinx, sudo must be added to these commands. 
+Type *i* to enter edit (insert) mode, change the hostname, and type *:wq* to save and exit. The board must be restarted for the changes to be applied. 
 
    .. code-block:: console
    
-      sudo shutdown -r now
-	  
+      shutdown -r now
+
+Note that as you are logged in as root, sudo is not required. If you connect a terminal from the USB connection, you will be logged in as the *Xilinx* user and sudo must be added to these commands. 
+
 When the board reboots, reconnect using the new hostname. 
 
 If you can't connect to your board, see the step below to open a terminal using the micro USB cable. 
@@ -90,7 +86,7 @@ You can also check the hostname of the board by running the *hostname* command:
    .. code-block:: console
    
       hostname
-	  
+
 You can also check the IP address of the board using *ifconfig*:
 
    .. code-block:: console
