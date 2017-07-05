@@ -2,60 +2,109 @@
 Digital Interfacing Overlay overview
 ======================================
 
+Introduction
+--------------------
 
-The DIO allows hardware fuctions which includes Finite State Machines, boolean logic functions, digitial pattern generation, and trace capability, to be specified in Python (or from a textual description). From Python, the overlay can be programmed at runtime to implement the hardware functionality. 
+The Digital Interfacing Overlay (DIO) consists programmable hardware blocks for interfacing to external digital logic circuits. A programmable switch connects the IO from the hardware blocks to Zynq IO pins. The DIO can also capture signals on the external IO interface. The raw signals, or waveforms of the data can be analysed in the Jupyter environment. 
 
-There are four components to the digital interfacing overlay:
+The four blocks including in the DIO are:
 
-* Pattern Builder
-* Finite State Machine Builder
-* Combinatorial Function Builder
-* Tracebuffer
+* Digital Pattern Builder
+* State Machine Builder
+* Boolean Function Builder
+* Trace Analyzer
 
-The trace buffer block can capture and stream signals to DRAM allowing the data to be analysed in Python. The trace buffer can be used standalone to capture external signals, or used in combination with the other three DIO components to monitor data on the external interface. E.g. the tracebuffer can be used with the pattern generator to verify the data sent to the output pins. 
+The Digital Pattern Builder can be programmed to generate arbitary patterns and stream the pattern to IO pins. 
 
+The State Machine Builder can create a finite state machine from a Python description. IO pins can be used as inputs and outputs to the FSM, or to show the current state.
 
-The project files for the base overlay can be found here:
+The Boolean Function Builder can be create combinatorial boolean functions. The IO pins are used as inputs and ouputs. 
 
-    ``<GitHub Repository>/boards/<board>/dio``
+The Trace Analyzer can capture and stream signals to the PS DRAM allowing the captured data to be analysed in Python. The Trace Analyzer can be used standalone to capture external signals, or used in combination with the other three DIO components to monitor data on the external IO pins. E.g. the tracebuffer can be used with the pattern generator to verify the data sent to the output pins. or on the FSM to check the input signals. 
 
+Each block can also be used standalone in a custom overlay. 
 
-The makefile and .tcl file can be used to rebuild the overlay. The base overlay will include IP from the Vivado library, and custom IP. Any custom IP can be found in directory:
-
-    ``<GitHub Repository>/boards/ip`` 
-
-
-
-Block Diagram
------------------------
+DIO Block Diagram
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. image:: ../../images/dio_bd.png
    :align: center
 
+DIO Project files
+^^^^^^^^^^^^^^^^^^^^^^^
+
+
+The project files for the base overlay can be found here:
+
+.. console::
+
+   ``<GitHub Repository>/boards/<board>/dio``
+
+
+The makefile and .tcl file can be used to rebuild the overlay. The base overlay will include IP from the Vivado library, and custom IP. Any custom IP can be found in directory:
+
+.. console::
+
+   ``<GitHub Repository>/boards/ip`` 
 
 Operation
-===============
+--------------------
 
-There are three builders, Boolean Function Builder (BFB), State Machine Builder (SMB), and Digital Pattern Builder (DPB). 
+There are three builders, the Boolean Function Builder (BFB), State Machine Builder (SMB) and the Digital Pattern Builder (DPB). The Trace Analyzer is consider seperately to the builders. 
 
 .. code-block:: Python
 
    builders = {BFB, SMB, DPB}
 
-Each builder has the following functions:
+Each builder has the following methods:
 
-* setup() - configure the builder
-* run() and step() - run or single step
-* stop() - disconnect the builder from the IO
-* reset() - clear the builder configuration
+* ``setup()`` - configure the builder
+* ``run()`` and ``step()`` - run or single step
+* ``stop()`` - disconnect the builder from the IO
+* ``reset()`` - clear the builder configuration
+
+The trace for each block can be enabled/disabled and configured with the ``trace()`` method.
 
 Any one of these builders, or any combination of these builders can be configured and run synchronously. 
 
-Initially, the IO are configured as inputs. The FSB, and SMB BRAMs are set to zeros. The BFB is set to <>
+The DIO will be connected to a set of IO pins. Initially, all IO accessible to the DIO are configured as inputs. This prevents the inadvertent driving of any external circuitry before the DIO has been configured. 
 
-Running or stepping a builder connects the builder outputs to the corresponding IO. 
+The DPB contains BRAM to store the pattern to be generated. The BRAM will be configured with zeros initially. 
 
-Once a builder has been setup, it can be run continuously, or stepped. If a builder is running, it must be stopped before running or stepping it again. 
+The SMB configuration is stored in a BRAM which is also configured with zeros initially. 
+
+The BFB is initially set to <>
+
+Setup 
+^^^^^^^^^^^^^^^^^^
+
+Each builder must be configured using the ``setup()```method before it can be used. This defines a configuration for the block, including the IO it will connect to. 
+
+
+Running
+^^^^^^^^^^^^^^^^^^
+
+Once a builder has been setup, it can be run. Running connects the IO to the building and the hardware block will start operating. 
+
+Running will start the builder runnning in continuous mode. This is the only mode for the BFB. 
+
+In continuous mode, the DPB generates its pattern continuously, looping back to the start when it reaches the end of the pattern. The SMB will continue to run until it is stopped. 
+
+The digital pattern builder can also be run in single-shot mode. In this mode, it will generate its pattern once. 
+
+Stepping
+^^^^^^^^^^^^^^^^^^
+
+Instead of running, the DPB and SMB can also be single stepped. 
+
+When stepping the DPB, it will step until the end of the configured pattern. It will not loop back to the beginning. 
+
+
+Stopping
+^^^^^^^^^^^^^^^^^^
+
+If a builder is running, it must be stopped before running or stepping it again. Once a builder is stopped, its outputs are disconnected from the IO.
+
 
 For example:
 
@@ -63,25 +112,21 @@ For example:
 
    .setup()
    .run() # Run continuously
-   .stop()
+   .stop() # Stop before switching to step mode
    .step()
    .step(50)
-   .stop()
+   .stop() # Stop again before switching to run mode
    .run()
-
-Once a builder is stopped, its outputs are disconnected from the IO. 
-
-The digital pattern builder can also be run in single-shot mode. In this mode, it will generate its pattern once. In continuous mode, the DPB generates its pattern continuously, looping back to the start when it reaches the end of the pattern. When stepping the DPB, it will step until the end of the pattern. It will not loop back to the beginning. This is the equivalent to stepping the single-shot mode. 
+   
  
- 
-Pattern Builder
--------------------------------------------
+Digital Pattern Builder
+-------------------------------
 
-The pattern Builder allows arbitrary patterns to be streamed to IO. This can be used to test external peripherals, or as a way to drive external device. Patterns of up to 8K can be described in a JSON (text format), stored in FPGA BRAM, and streamed out to the interface pins on demand.  
+The DPB allows arbitrary patterns to be streamed to IO. This can be used to test external peripherals, or as a way to drive external device. Patterns of up to 8K can be described in a JSON (text format), stored in FPGA BRAM, and streamed out to the interface pins on demand.  
 
 
 Waveform notation
-^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 Waveforms can be defined with the following notation:
 
@@ -94,11 +139,11 @@ The pattern can be repeated a number of times by "multiplying". E.g. *'lh' /* 64
 The length of patterns will be automatically padded to match the length of the longest specified pattern. 
 
 Example 
-^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: Python
 
-    loopback_test = {'signal': [
+   loopback_test = {'signal': [
         ['stimulus',
             {'name': 'clk0',  'pin': 'D0', 'wave': 'lh' * 64},
             {'name': 'clk1',  'pin': 'D1', 'wave': 'l.h.' * 32},
@@ -113,13 +158,12 @@ Example
 
 
 
-Finite State Machine Builder
--------------------------------------------
+State Machine Builder
+--------------------------------------
 
-The Finite State Machine builder allows Finite state machines to be specified in a JSON format. The description can be passed to the xxx Python function which will program the overlay to implement the FSM. The FSM can be graphed and displayed inside a Jupyter Notebook. 
+The State Machine builder allows finite state machines to be specified from Python in a JSON format. The JSON description can be passed to the ``setup()`` method which will program the overlay to implement the FSM. The FSM states can be graphed and displayed inside a Jupyter Notebook. 
 
-The FSM supports 20 pins that can be used in any combination of inputs or outputs. Up to xxx states are supported. 
-
+The FSM supports up to 20 pins that can be used in any combination of inputs or outputs. Up to xxx states are supported. 
 
 The specification for the finite state machine is a list of inputs, outputs, states, and transitions. 
 
@@ -178,40 +222,63 @@ The BFB supports combinatorial functions of one up to five inputs on each output
 Example 
 ^^^^^^^^^^^^^^^^^^^^^
 
-Combinatorial expressions can be defined in a Python list using the expressions & (AND), | (OR), ! (NOT), ^ (XOR). The expression list also defines the input and output pins. 
+Combinatorial boolean expressions can be defined in a Python list using the expressions & (AND), | (OR), ! (NOT), ^ (XOR). The expression list also defines the input and output pins. 
  
 The following list defines four combinatorial functions on pins D8-11, which are built using combinatorial functions made up of inputs from pins D0-D3. Any pin assigned a value is an output, and any pin used as a parameter in the expression is an input. If a pin is defined as an output, it cannot be used as an input.
 
 
 .. code-block:: Python
 
-    expressions = ["D8 = D0 & D1",
-                   "D9 = D0 & D1",
-                   "D10 = D0 & D1 & D2",
-                   "D11 = D0 & D1 & D2 & D3"]
+   from dio improt BoolFuncBuilder
+
+   bf_builder = BoolFuncBuilder
+   function_specs = ['D3 = D0 ^ D1 ^ D2',
+                   'D7 = D3 & D4 & D5']
+                   
+   function_specs.append('D11 = D12 + D14')
+
+Where D<0-20> are the available IO pins. 
+
+The fuction configurations can also be labelled:
+
+.. code-block:: Python
+
+   function_specs = {'f1': 'D3 = D0 ^ D1 ^ D2',
+                     'f2': 'D7 = D3 & D4 & D5'}
+                   
+   function_specs['f3'] = 'D11 = D12 + D14'
 
 Once the expressions have been defined, they can be passed to the BooleanBuilder function.
 
 .. code-block:: Python
 
-    boolean_functions = [BooleanBuilder(INTERFACE) for _ in range(len(expressions))]
+   bf_builder.setup(function_specs)
 
-Then ...
 
 .. code-block:: Python
 
-    for i in range(len(expressions)): 
-        bgs[i].config(expressions[i]) 
-        bgs[i].arm() 
-        bgs[i].run() 
-        bgs[i].display()
+   bf_builder.run() # run continuously
+
+To reconfigure the BFB, or to disconnect the IO pins, stop it. 
+
+.. code-block:: Python
+
+   bf_builder.stop()
 
 
-
-Tracebuffer
+Trace Analyzer
 -------------------------------------------
 
-The tracebuffer is connected to the external interface and can capture input or output signals on each pin and stream the data to DRAM. The trace buffer supports blocks of 8MB. Once the data is in memory it can be analyzed in Python. There are a number of Python packages that could be used to analyze or process the data. WaveDrom and SigRok are two packages that can be used to processing and displaying waveforms in a Jupyter Notebook, and are included as part of the PYNQ image. 
+The tracebuffer is connected to the external interface and can capture input or output signals on each pin and stream the data to DRAM. The trace buffer supports stremaing of up to 8MB of data to DRAM in one burst. Once the data is in memory it can be analyzed in Python. 
+
+There are a number of Python packages that could be used to analyze or process the data. WaveDrom and SigRok are two packages that can be used to processing and displaying waveforms in a Jupyter Notebook. Both these packages are included as part of the PYNQ image. 
+
+
+By default the Trace Analyzer is on for all IO. Trace can be enabled/disabled for each block using the corresponding functions. 
+
+* ``trace_on()``
+* ``trace_off()``
+
 
 Example 
 ^^^^^^^^^^^^^^^^^^^^
