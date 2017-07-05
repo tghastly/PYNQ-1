@@ -11,7 +11,7 @@ The interface switch is connected to the Arduino interface, and the 4 pushbutton
 DIO Pynq-Z1 Block Diagram 
 -------------------------------
 
-.. image:: ../../images/dio_pynqz1.png
+.. image:: ../../../images/dio_pynqz1.png
    :align: center
    
    

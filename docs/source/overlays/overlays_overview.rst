@@ -40,7 +40,7 @@ This will give a listing of the IP and drivers available.
 
 As an example, where the overlay includes an LED IP, ``help()`` will report the *leds* object exists, and that it is an *AxiGPIO* class:
 
-.. console::
+.. code-block:: console
 
    leds : AxiGPIO
    4-bit output GPIO for interacting with the green LEDs LD0-3
@@ -53,6 +53,7 @@ Running help on the *leds* object will report that it has a ``write()`` function
        Set the state of the output pins
 
 The LEDs can be turned on and off by writing an appropriate value:
+
 .. code-block:: python
 
    overlay.leds.write(1, 0xf)

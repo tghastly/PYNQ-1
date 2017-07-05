@@ -26,17 +26,17 @@ To access the Jupyter terminal, in the Jupyter portal home area, select **New >>
       :align: center
        
 This will open a terminal inside the browser as root. 
-       
-Edit the existing entry in the Linux hosname file to change the hostname of the board. The ``vi``editor can be used to edit this file:
 
-   .. code-block:: console
-   
-      vi /etc/hostname
+Edit the existing entry in the Linux hosname file to change the hostname of the board. The ``vi`` editor can be used to edit this file:
+
+.. code-block:: console
+
+   vi /etc/hostname
 
 Type *i* to enter edit (insert) mode, change the hostname, and type *:wq* to save and exit. The board must be restarted for the changes to be applied. 
 
-   .. code-block:: console
-   
+.. code-block:: console
+
       shutdown -r now
 
 Note that as you are logged in as root, sudo is not required. If you connect a terminal from the USB connection, you will be logged in as the *Xilinx* user and sudo must be added to these commands. 

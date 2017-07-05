@@ -36,14 +36,14 @@ DIO Project files
 
 The project files for the base overlay can be found here:
 
-.. console::
+.. code-block:: console
 
    ``<GitHub Repository>/boards/<board>/dio``
 
 
 The makefile and .tcl file can be used to rebuild the overlay. The base overlay will include IP from the Vivado library, and custom IP. Any custom IP can be found in directory:
 
-.. console::
+.. code-block:: console
 
    ``<GitHub Repository>/boards/ip`` 
 
@@ -78,7 +78,7 @@ The BFB is initially set to <>
 Setup 
 ^^^^^^^^^^^^^^^^^^
 
-Each builder must be configured using the ``setup()```method before it can be used. This defines a configuration for the block, including the IO it will connect to. 
+Each builder must be configured using the ``setup()`` method before it can be used. This defines a configuration for the block, including the IO it will connect to. 
 
 
 Running

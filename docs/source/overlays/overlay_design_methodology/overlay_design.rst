@@ -34,7 +34,7 @@ Programmability
 
 An overlay should have post-bitstream programmability to allow customization of the system. A number of reusable PYNQ IP blocks are available to support programmability. For example, an IOP can be used on Pmod, and Arduino interfaces. IP from the PYNQ DIO overlay can be reused to provide run-time configurability. 
 
-See the previous section on `PYNQ IP <../pynq_ip_index.html>'_
+See the previous section on `PYNQ IP <../pynq_ip_index.html>`_
 
 Zynq PS settings
 ^^^^^^^^^^^^^^^^^^^^^

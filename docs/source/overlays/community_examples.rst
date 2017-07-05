@@ -23,6 +23,17 @@ https://github.com/Xilinx/BNN-PYNQ/blob/master/notebooks/Road-Signs-Batch.ipynb
 https://github.com/Xilinx/BNN-PYNQ/blob/master/notebooks/SVHN-cffi.ipynb
 https://github.com/Xilinx/BNN-PYNQ/blob/master/notebooks/SVHN.ipynb
 
+Documentation and Guides
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Documentation (in Japanese)
+
+https://tkat0.github.io/study-BNN-PYNQ/soft-overview.html 
+
+Training and inference of the CNV network to recognize cucumbers (in Japanese)
+
+http://qiita.com/ykshr/items/08147098516a45203761
+
 SPynq: Apache Spark on Pynq
 -------------------------------------
 SPynq is a framework for the efficient deployment of the `Apache Spark <http://spark.apache.org/>`_ data analytics applications on PYNQ. 
@@ -84,5 +95,7 @@ Notebook
 ^^^^^^^^^^^^
 
 https://github.com/hackwa/pynqfire/blob/master/notebooks/fir.ipynb
+
+
 
 
