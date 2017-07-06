@@ -1,7 +1,7 @@
 Creating a Python API
 =========================
 
-The Python API is the user interface for the overlay. It exposes the programmable functionality, and allows the overlay to be used. 
+The Python API is the user interface for the overlay, exposeing the programmable functionalityin the design. 
 
 An API for a PYNQ overlay can consist of
 

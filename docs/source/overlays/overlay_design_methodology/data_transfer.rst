@@ -9,7 +9,7 @@ Introduction
 ==================
 
 
-There are four PYNQ classes that are used for data transfer between PS and PL. 
+There are four PYNQ classes that are used to manage data movement between the Zynq PS (including the PS DRAM) and PL. 
 
 * MMIO - Memory Mapped IO
 * Xlnk - Memory allocation
@@ -21,7 +21,9 @@ The class used depends on the Zynq PS interface the IP is connected to, and the 
 Zynq interfaces
 ---------------------
 
-AXI interfaces are the main connections for transferring data between the PS and the PL. The Zynq has 2 AXI GP (General Purpose) masters (master from PS to PL) and 2 AXI GP slaves (slave from PS to PL), 4 AXI HP (High Performance) slaves, and one ACP AXI slave. An AXI master can be connected to either a HP port or the ACP port. 
+AXI interfaces are the main connections for transferring data between the PS and the PL. 
+
+The Zynq has 2 AXI GP (General Purpose) masters (master from PS to PL) and 2 AXI GP slaves (slave from PS to PL), 4 AXI HP (High Performance) slaves, and one ACP AXI slave. An AXI master can be connected to either a HP port or the ACP port. 
 
 
 IP Interfaces

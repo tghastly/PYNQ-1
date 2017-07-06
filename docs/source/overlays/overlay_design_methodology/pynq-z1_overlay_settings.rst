@@ -10,7 +10,7 @@ Base overlay project
 
 The source files for the *base* overlay can be found in the PYNQ GitHub. The project can be rebuilt using the makefile/TCL available here:
 
-.. console:
+.. code-block:: console:
 
    ``<GitHub repository>/boards/<board name>/vivado/base``
 
@@ -24,11 +24,11 @@ Download the `PYNQ-Z1 board files <https://github.com/cathalmccabe/pynq-z1_board
 
 To install the board files, extract, and copy the board files folder to:
 
-.. console:
+.. code-block:: console:
 
    <Xilinx installation directory>\Vivado\<version>\data\boards
 
-If Vivado is open, restart it to use the board files. 
+If Vivado is open, it must be restart to load in the new project files. 
 
 
 Pynq-Z1 XDC constraints file

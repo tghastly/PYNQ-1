@@ -9,17 +9,7 @@ Overlay Design
 Overlay design
 =======================
 
-An overlay consists of two main parts; the PL design (bitstream) and the project block diagram TCL file. This section assumes the reader has some experience with Zynq, and the Vivado design tools. 
-
-
-Block Diagram TCL
---------------------
-
-The block diagram TCL can be used by PYNQ to automatically identify the Zynq system configuration, IP in an overlay and their versions, interrupts, resets, and other control signals. Based on this information, the system configuration can be modified, drivers can be automatically assigned, features can be enabled or disabled, and signals can be connected to corresponding Python functions. 
-
-The TCL file can be generated in Vivado by *exporting* the IP Integrator block diagram at the end of the overlay design process. The .tcl should be provided with a bitstream when downloading an overlay. The PYNQ PL class will automatically parse the TCL. 
-
-A custom, or manually created TCL file can be used to build a Vivado project, but Vivado should be used to generate and export the TCL file for the block diagram. This automatically generated TCL should ensure that it can be parsed correctly. 
+An overlay consists of two main parts; the PL design (bitstream) and the project block diagram TCL file. Overlay design is a specialized task for hardware engineers. This section assumes the reader has some experience with digital design, building Zynq systems, and with the Vivado design tools. 
 
 PL Design
 ------------------
@@ -28,6 +18,17 @@ The Xilinx® Vivado software is used to create a Zynq design. A *bitstream* or *
 
 A free WebPack version of Vivado is available to build overlays.
 https://www.xilinx.com/products/design-tools/vivado/vivado-webpack.html
+
+
+Block Diagram TCL
+--------------------
+
+The TCL from the Vivado IP Integrator block design for the PL design can be used by PYNQ to automatically identify the Zynq system configuration, IP including versions, interrupts, resets, and other control signals. Based on this information, some parts of the system configuration can be automatically modified from PYNQ, drivers can be automatically assigned, features can be enabled or disabled, and signals can be connected to corresponding Python methods. 
+
+The TCL file can be generated in Vivado by *exporting* the IP Integrator block diagram at the end of the overlay design process. The .tcl should be provided with a bitstream when downloading an overlay. The PYNQ PL class will automatically parse the TCL. 
+
+A custom, or manually created TCL file can be used to build a Vivado project, but Vivado should be used to generate and export the TCL file for the block diagram. This automatically generated TCL should ensure that it can be parsed correctly. 
+
 
 Programmability
 ^^^^^^^^^^^^^^^^^
@@ -46,7 +47,6 @@ The PYNQ image which is used to boot the board configures the Zynq PS at boot ti
 The PS configuration also includes settings for system clocks, including the clocks used in the PL. The PL clocks can be programmed at runtime to match the requirements of the overlay. This is managed automatically by the PYNQ Overlay class. 
 
 During the process of downloading a new overlay, the clock configuration will be parsed from the overlay's .tcl file. The new clock settings for the overlay will be applied automatically before the overlay is downloaded. 
-
 
 
 Generate overlay TCL file

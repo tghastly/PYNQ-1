@@ -14,10 +14,10 @@ An *overlay* is a class of Programmable Logic design. Programmable Logic designs
 
 A software programmer can use an overlay, but will not usually create overlay, as this usually requires a high degree of hardware design expertise. 
 
-There are a number of components to creating an overlay:
+There are a number of components required in the process of creating an overlay:
 
 * Overlay design (Programmable Logic) 
-* Transfer of data between PS/PL
+* Movement of data between PS/PL
 * C library/driver
 * Python API
 * Packaging the overlay

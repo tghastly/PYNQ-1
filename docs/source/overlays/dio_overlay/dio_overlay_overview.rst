@@ -130,11 +130,17 @@ Waveform notation
 
 Waveforms can be defined with the following notation:
 
-l: low
-h: high
-.: no change
+.. code-block:: console
 
-The pattern can be repeated a number of times by "multiplying". E.g. *'lh' /* 64* will toggle the signal low-high 64 times.  
+   l: low
+   h: high
+   .: no change
+
+The pattern can be repeated a number of times by "multiplying". E.g. the following will toggle the signal low-high 64 times.  
+
+.. code-block:: console
+
+   *'lh' /* 64* 
 
 The length of patterns will be automatically padded to match the length of the longest specified pattern. 
 
