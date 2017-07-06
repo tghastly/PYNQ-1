@@ -33,7 +33,7 @@ Color space conversion
 
 The video subsystem supports conversion between different color spaces. The default color space is BGR. Supported color spaces include: RGB (24-bit), RGBA (32-bit), BGR (24-bit), YCbCr (24-bit), and grayscale (8-bit).
 
-The colorspace converter operates on each pixel independently using a 3x4 matrix to transform the pixels. The converter is programmed with a list of twelve coefficients in the folling order:
+The colorspace converter operates on each pixel independently using a 3x4 matrix to transform the pixels. The converter is programmed with a list of twelve coefficients in the following order:
 
 ==== === === === ===
      in1 in2 in3  1 
@@ -58,7 +58,7 @@ The pixels to and from the HDMI frontends are in BGR order so a list of coeffici
  
 reversing the order of the pixels and not adding any bias.
  
-The resulting output order woudl be:
+The resulting output order would be:
 
 
 ==== === === === ==
@@ -185,6 +185,11 @@ This takes the unmodified input stream and passes it directly to the output, but
     
 This would allow some processing could be carried out on the HDMI-in *frame* before writing it to the HDMI-out.
 
+Notebook examples
+--------------------
 
+For more examples, see the Video notebooks on the board in the directory:
 
-For more examples, see the Video notebooks. 
+.. code-block:: console
+
+   base\video

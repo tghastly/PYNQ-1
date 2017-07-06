@@ -5,8 +5,7 @@ In some instances, the performance of Python classes to manage data transfer to 
 
 A higher performance library can be developed in a lower level language (e.g. C/C++) and optimized for an overlay. The driver functions in the library can be called from Python using CFFI (C Foreign Function Interface).
 
-
-CFFI provides a simple way to interface with C code from Python. The CFFI package is preinstalled in the PYNQ image. It supports an inline ABI (Application Binary Interface) compatibility mode, which allows you to dynamically load and run functions from executable modules, and an API mode, which allows you to build C extension modules. 
+CFFI provides a simple way to interface with C code from Python. The CFFI package is preinstalled in the PYNQ image. It supports four modes, API and ABI, each with "in-line" or "out-of-line compilation". *Inline* ABI (Application Binary Interface) compatibility mode allows dynamic loading and running of functions from executable modules, and API mode allows building of C extension modules. 
 
 
 The following example taken from http://docs.python-guide.org/en/latest/scenarios/clibs/ shows the ABI inline mode, calling the C function ``strlen()`` in from Python 
@@ -35,8 +34,3 @@ For more information on CFFI and shared libraries refer to:
 http://cffi.readthedocs.io/en/latest/overview.html
 
 http://www.tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html
-  
-   
-To see examples in PYNQ on how to use CFFI, refer to the CMA class or the Audio class, both located:
-
-   ``<GitHub Repository>/pynq/drivers``

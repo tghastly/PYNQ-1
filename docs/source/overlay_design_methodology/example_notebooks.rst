@@ -14,6 +14,6 @@ Notebooks can be created and packaged with an overlay, and copied to the board d
 It is recommended that at least one notebook covering basic features is included with an overlay.
 
 
-Markdown cheatsheet:
+Markdown cheat sheet:
 
 https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet

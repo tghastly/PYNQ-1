@@ -315,42 +315,36 @@ Examining the Python Code
 
 With the IOP Driver written, the Python class can be built that will communicate with that IOP. 
  
-``<GitHub Repository>/python/pynq/iop/pmod_als.py``
+``<GitHub Repository>/pynq/lib/pmod/pmod_als.py``
   
-First the MMIO, request_iop, iop_const, PMODA and PMODB are imported. 
+First the Pmod package is imported: 
 
 .. code-block:: python
 
-   import time
-   from pynq import MMIO
-   from pynq.iop import request_iop
-   from pynq.iop import iop_const
-   from pynq.iop import PMODA
-   from pynq.iop import PMODB
+   from . import Pmod
 
-   ALS_PROGRAM = "pmod_als.bin"
+   PMOD_ALS_PROGRAM = "pmod_als.bin"
 
-The MicroBlaze binary for the IOP is also declared. This is the application executable, and will be loaded into the IOP instruction memory. 
+The MicroBlaze binary file for the IOP is defined. This is the application executable, and will be loaded into the IOP instruction memory. 
 
 The ALS class and an initialization method are defined:
 
 .. code-block:: python
 
    class Pmod_ALS(object):
-      def __init__(self, if_id):
+   
+      def __init__(self, mb_info):
 
 The initialization function for the module requires an IOP index. For Grove peripherals and the StickIt connector, the StickIt port number can also be used for initialization.  The ``__init__`` is called when a module is instantiated. e.g. from Python:
 
 .. code-block:: python
 
-    from pynq.pmods import Pmod_ALS
-    als = Pmod_ALS(PMODB)
+    from pynq.lib.pmod import Pmod_ALS
+    als = Pmod_ALS(0)
 
-Looking further into the initialization method, the ``_iop.request_iop()`` call instantiates an instance of an IOP on the specified pmod_id and loads the MicroBlaze executable (ALS_PROGRAM) into the instruction memory of the appropriate MicroBlaze.
+This will create a *Pmod_ALS* instance, and and load the MicroBlaze executable (PMOD_ALS_PROGRAM) into the instruction memory of the specified IOP.
 
-.. code-block:: python
-
-   self.iop = request_iop(if_id, PMOD_ALS_PROGRAM)
+In the initialization method, an instance of the ``microblaze`` class is created. This class contains 
 
 An MMIO class is also instantiated to enable read and write to the shared memory.  
 

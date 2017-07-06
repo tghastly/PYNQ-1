@@ -20,11 +20,11 @@ This PYNQ-Z1 overlay includes the following hardware:
 HDMI 
 ----------- 
 
-The HDMI controllers are connected directly to the HDMI interfaces. There is no external HDMI circuitry. 
+The HDMI controllers are connected directly to the HDMI interfaces. There is no external HDMI circuitry on the board. 
 
 `Digilent HDMI reference for the PYNQ-Z1 board <https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/reference-manual#hdmi>`_
 
-Both HDMI interfaces are connected to DDR memory. Video can be streamed from the HDMI *in* to memory, and from memory to HDMI *out*. This allows processing of video data from python, or writing an image or Video stream from Python to the HDMI out. 
+Both HDMI interfaces are connected to PS DRAM. Video can be streamed from the HDMI *in* to memory, and from memory to HDMI *out*. This allows processing of video data from python, or writing an image or Video stream from Python to the HDMI out. 
 
 Note that Jupyter notebooks supports embedded video. However, video captured from the HDMI will be in raw format and would not be suitable for playback in a notebook without appropriate encoding. 
 
@@ -46,7 +46,7 @@ The HDMI out IP supports the following resolutions:
 
 Data can be stream from DDR memory to the HDMI output. The Pynq HDMI Out python instance contains framebuffers to allow for smooth display of video data. 
 
-See the `pynq-z1_base_overlay_video.ipynb <https://github.com/xilinx/PYNQ/blob/master/docs/source/pynq-z1_base_overlay_video.ipynb>`_ notebook in the getting started directory for examples of using the HDMI In and Out. 
+See the `PYNQ Z1 base overlay video notebook <./pynq-z1_base_overlay_video.ipynb>`_ which shows examples of using the HDMI in and out. The notebook can also be found on the board in the getting started directory.  
 
 
 Mic in 
@@ -82,7 +82,7 @@ Pmods are covered in more detail in the next section.
 Trace buffer
 --------------
 
-A trace buffer is available and can be used to capture trace data on the Pmod, and Arduino interfaces for debug. The trace buffer is connected directly to DDR. This allows trace data on the interfaces to be streamed back to DDR memory for analysis in Python. 
+A trace buffer is available and can be used to capture trace data on the Pmod, and Arduino interfaces for debug. The trace buffer is connected to the PS DRAM. This allows trace data on the interfaces to be streamed back to DRAM for analysis in Python. 
 
 Trace data can be displayed as decoded waveforms inside a Jupyter notebook. 
 

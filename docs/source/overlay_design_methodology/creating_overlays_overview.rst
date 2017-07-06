@@ -19,6 +19,7 @@ There are a number of components required in the process of creating an overlay:
 * Overlay design (Programmable Logic) 
 * Movement of data between PS/PL
 * C library/driver
+* IOP application
 * Python API
 * Packaging the overlay
 

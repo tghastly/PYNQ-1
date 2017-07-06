@@ -47,7 +47,7 @@ As an example, where the overlay includes an LED IP, ``help()`` will report the 
 
 Running help on the *leds* object will report that it has a ``write()`` function that takes a value and a mask:
 
-.. ode-block:: console
+.. code-block:: console
 
    write(self, val, mask)
        Set the state of the output pins

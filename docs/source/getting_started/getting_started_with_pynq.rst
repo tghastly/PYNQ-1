@@ -13,98 +13,7 @@ Connect to Jupyter
 The default hostname is **pynq** and the default static IP address is ``192.168.2.99``. If you changed the hostname or static IP of the board, you will need to change the address you browse to. 
    
 The first time you connect, it may take a few seconds for your computer to resolve the hostname/IP address. 
-   
-Change hostname
-----------------------
 
-If you are on a network where other pynq boards may be connected, you should change your hostname immediately. This is a common requirement in a work or university environment. You can change the hostname from a terminal. You can use the USB cable to connect a terminal A terminal is also available in the Jupyter environment and can be used from an internet browser. 
-
-To access the Jupyter terminal, in the Jupyter portal home area, select **New >> terminal**.
-
-   .. image:: ../images/dashboard_files_tab_new.JPG
-      :height: 300px
-      :align: center
-       
-This will open a terminal inside the browser as root. 
-
-Edit the existing entry in the Linux hosname file to change the hostname of the board. The ``vi`` editor can be used to edit this file:
-
-.. code-block:: console
-
-   vi /etc/hostname
-
-Type *i* to enter edit (insert) mode, change the hostname, and type *:wq* to save and exit. The board must be restarted for the changes to be applied. 
-
-.. code-block:: console
-
-      shutdown -r now
-
-Note that as you are logged in as root, sudo is not required. If you connect a terminal from the USB connection, you will be logged in as the *Xilinx* user and sudo must be added to these commands. 
-
-When the board reboots, reconnect using the new hostname. 
-
-If you can't connect to your board, see the step below to open a terminal using the micro USB cable. 
-
-
-Connect to the PYNQ-Z1 board with a terminal connection over USB
-----------------------------------------------------------------
-
-If you need to change settings on the board but you can't access the terminal from Jupyter, you can connect a terminal over the micro USB cable that is already connected to the board. You can also use this terminal to check the network connection of the board. You will need to have terminal emulator software installed on your computer. `PuTTY <http://www.putty.org/>`_ is available for free on Windows. To open a terminal, you will need to know the COM port for the board. 
-
-On Windows, you can find this in the Windows *Device Manager* in the control panel. 
-
-* Open the Device Manager, expand *Ports*
-
-* Find the COM port for the *USB Serial Port*.  e.g. COM5
-
-Once you have the COM port, open PuTTY and use the following settings:
-
-   * Select serial
-   * Enter the COM port number
-   * Enter the baud rate 
-   * Click *Open*
-
-Hit *Enter* in the terminal window to make sure you can see the command prompt:
-
-   .. code-block:: console
-   
-      xilinnx@pynq:/home/xilinx#
-   
-
-   Full terminal Settings:
-
-   * 115200 baud
-   * 8 data bits
-   * 1 stop bit
-   * No Parity
-   * No Flow Control
-
-You can then run the same commands listed above to change the hostname, or configure a proxy. 
-
-You can also check the hostname of the board by running the *hostname* command:
-
-   .. code-block:: console
-   
-      hostname
-
-You can also check the IP address of the board using *ifconfig*:
-
-   .. code-block:: console
-   
-      ifconfig
-
-Configure proxy
---------------------
-
-If your board is connected to a network that uses a proxy, you need to set the proxy variables on the board. Open a terminal as above and enter the following where you should replace "my_http_proxy:8080" and "my_https_proxy:8080" with your settings.  
-
-   .. code-block:: console
-   
-      set http_proxy=my_http_proxy:8080
-      set https_proxy=my_https_proxy:8080
-
-
-      
 Using PYNQ
 ==========================
 
@@ -165,18 +74,99 @@ The Samba username:password is ``xilinx:xilinx``
    :height: 600px
    :scale: 75%
    :align: center
+   
+   
+Change hostname
+----------------------
 
-Update PYNQ 
-===============================
-You can update the pynq package by running pip install:
+If you are on a network where other pynq boards may be connected, you should change your hostname immediately. This is a common requirement in a work or university environment. You can change the hostname from a terminal. You can use the USB cable to connect a terminal A terminal is also available in the Jupyter environment and can be used from an internet browser. 
+
+To access the Jupyter terminal, in the Jupyter portal home area, select **New >> terminal**.
+
+   .. image:: ../images/dashboard_files_tab_new.JPG
+      :height: 300px
+      :align: center
+       
+This will open a terminal inside the browser as root. 
+
+Edit the existing entry in the Linux hostname file to change the hostname of the board. The ``vi`` editor can be used to edit this file:
+
+.. code-block:: console
+
+   vi /etc/hostname
+
+Type *i* to enter edit (insert) mode, change the hostname, and type *:wq* to save and exit. The board must be restarted for the changes to be applied. 
+
+.. code-block:: console
+
+      shutdown -r now
+
+Note that as you are logged in as root, sudo is not required. If you connect a terminal from the USB connection, you will be logged in as the *Xilinx* user and sudo must be added to these commands. 
+
+When the board reboots, reconnect using the new hostname. 
+
+If you can't connect to your board, see the step below to open a terminal using the micro USB cable. 
+
+
+Connect to the PYNQ-Z1 board with a terminal connection over USB
+----------------------------------------------------------------
+
+If you need to change settings on the board but you can't access the terminal from Jupyter, you can connect a terminal over the micro USB cable that is already connected to the board. You can also use this terminal to check the network connection of the board. You will need to have terminal emulator software installed on your computer. `PuTTY <http://www.putty.org/>`_ is available for free on Windows. To open a terminal, you will need to know the COM port for the board. 
+
+On Windows, you can find this in the Windows *Device Manager* in the control panel. 
+
+   * Open the Device Manager, expand *Ports*
+   * Find the COM port for the *USB Serial Port*.  e.g. COM5
+
+Once you have the COM port, open PuTTY and use the following settings:
+
+   * Select serial
+   * Enter the COM port number
+   * Enter the baud rate 
+   * Click *Open*
+
+Hit *Enter* in the terminal window to make sure you can see the command prompt:
+
+.. code-block:: console
+
+   xilinnx@pynq:/home/xilinx#
+
+
+Full terminal Settings:
+
+   * 115200 baud
+   * 8 data bits
+   * 1 stop bit
+   * No Parity
+   * No Flow Control
+
+You can then run the same commands listed above to change the hostname, or configure a proxy. 
+
+You can also check the hostname of the board by running the *hostname* command:
 
    .. code-block:: console
    
-      pip3.6 install –upgrade git+https://github.com/Xilinx/PYNQ.git
+      hostname
 
-This will check the pynq GitHub, download and install the latest release. Your board will need to have internet access to do this. 
+You can also check the IP address of the board using *ifconfig*:
 
-PYNQ example notebooks in the jupyter_notebooks directory will be overwritten and updated. If you have modified any of the example notebooks and want to save your work, you should take a backup before updating. Any user notebooks in the same locations should not be affected. As a precaution, the jupyter_notebooks directory will be backed up to jupyter_notebooks_{timestamp} in case you need to restore anything.
+.. code-block:: console
+
+   ifconfig
+
+Configure proxy
+--------------------
+
+If your board is connected to a network that uses a proxy, you need to set the proxy variables on the board. Open a terminal as above and enter the following where you should replace "my_http_proxy:8080" and "my_https_proxy:8080" with your settings.  
+
+   .. code-block:: console
+   
+      set http_proxy=my_http_proxy:8080
+      set https_proxy=my_https_proxy:8080
+
+
+      
+
 
 
 Troubleshooting

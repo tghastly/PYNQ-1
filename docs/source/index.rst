@@ -15,6 +15,7 @@ Python productivity for Zynq (Pynq) Documentation
    3_jupyter_notebook
    4_programming_python
    5_overlays_index
+   overlay_design_methodology_index
    6_interrupts
    7_python_package
    modules

@@ -9,4 +9,10 @@ The Pynq-Z1 audio subsystem consists of an IP block to drive the PWM mono output
    
 Examples
 ------------
-   
+
+See the example notebooks on the board in the directory:
+
+.. code-block:: console
+
+   base\audio
+
